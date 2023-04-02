@@ -88,3 +88,21 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+div.required label.control-label:after {
+    content: " *";
+    color: #dc3545;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.help-block {
+    font-size: small;
+    color: #dc3545;
+}
+
+.select2-search--inline {
+    display: none;
+}

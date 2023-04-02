@@ -1,0 +1,33 @@
+<?php
+
+use yii\db\Migration;
+
+/**
+ * Class m230401_102351_categories
+ */
+class m230401_102351_categories extends Migration
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function safeUp()
+    {
+        $this->createTable('categories', [
+            'id' => $this->primaryKey(),
+            'title' => $this->string()->notNull(),
+            'image' => $this->string(),
+            'parent_id' => $this->integer(),
+            'in_trash' => $this->boolean()->defaultValue(false),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
+        ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function safeDown()
+    {
+        $this->dropTable('categories');
+    }
+}
