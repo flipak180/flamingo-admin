@@ -21,6 +21,7 @@ use yii\behaviors\TimestampBehavior;
  * @property Category $category
  * @property PlaceTag[] $placeTags
  * @property Tag[] $tags
+ * @property Visit[] $visits
  */
 class Place extends \yii\db\ActiveRecord
 {
@@ -128,6 +129,14 @@ class Place extends \yii\db\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVisits()
+    {
+        return $this->hasMany(Visit::className(), ['place_id' => 'id']);
     }
 
     /**

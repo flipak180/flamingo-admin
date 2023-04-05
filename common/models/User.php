@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "users".
  *
@@ -16,6 +18,8 @@ namespace common\models;
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property Visit[] $visits
  */
 class User extends \yii\db\ActiveRecord
 {
@@ -25,6 +29,16 @@ class User extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'users';
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className()
+        ];
     }
 
     /**
@@ -49,16 +63,24 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'phone' => 'Phone',
-            'name' => 'Name',
+            'phone' => 'Телефон',
+            'name' => 'Имя',
             'email' => 'Email',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'email_confirm_token' => 'Email Confirm Token',
             'password_reset_token' => 'Password Reset Token',
-            'in_trash' => 'In Trash',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'in_trash' => 'В корзине',
+            'created_at' => 'Дата добавления',
+            'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getVisits()
+    {
+        return $this->hasMany(Visit::className(), ['user_id' => 'id']);
     }
 }

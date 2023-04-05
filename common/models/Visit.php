@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "visits".
  *
@@ -10,6 +12,9 @@ namespace common\models;
  * @property int $user_id
  * @property int $created_at
  * @property int $updated_at
+ *
+ * @property Place $place
+ * @property User $user
  */
 class Visit extends \yii\db\ActiveRecord
 {
@@ -19,6 +24,16 @@ class Visit extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'visits';
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className()
+        ];
     }
 
     /**
@@ -39,10 +54,26 @@ class Visit extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'place_id' => 'Place ID',
-            'user_id' => 'User ID',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'place_id' => 'Место',
+            'user_id' => 'Пользователь',
+            'created_at' => 'Дата добавления',
+            'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlace()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'place_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Category::className(), ['id' => 'user_id']);
     }
 }

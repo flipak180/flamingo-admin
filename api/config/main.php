@@ -44,6 +44,7 @@ return [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'place'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
 //                [
 //                    'class' => 'yii\rest\UrlRule',
 //                    'controller' => 'v1/place',
