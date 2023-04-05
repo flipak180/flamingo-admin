@@ -106,3 +106,8 @@ div.required label.control-label:after {
 .select2-search--inline {
     display: none;
 }
+
+#coords-map {
+    height: 400px;
+    margin-bottom: 15px;
+}

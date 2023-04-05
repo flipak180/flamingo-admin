@@ -2,9 +2,9 @@
 
 namespace frontend\models;
 
+use common\models\Admin;
 use Yii;
 use yii\base\Model;
-use common\models\User;
 
 /**
  * Signup form
@@ -24,14 +24,14 @@ class SignupForm extends Model
         return [
             ['username', 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\Admin', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\Admin', 'message' => 'This email address has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
@@ -49,7 +49,7 @@ class SignupForm extends Model
             return null;
         }
         
-        $user = new User();
+        $user = new Admin();
         $user->username = $this->username;
         $user->email = $this->email;
         $user->setPassword($this->password);
@@ -61,7 +61,7 @@ class SignupForm extends Model
 
     /**
      * Sends confirmation email to user
-     * @param User $user user model to with email should be send
+     * @param Admin $user user model to with email should be send
      * @return bool whether the email was sent
      */
     protected function sendEmail($user)

@@ -24,7 +24,7 @@ return [
             ],
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'identityClass' => 'common\models\Admin',
             'enableAutoLogin' => false,
         ],
         'log' => [

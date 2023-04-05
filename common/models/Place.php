@@ -69,8 +69,8 @@ class Place extends \yii\db\ActiveRecord
         if ($this->coords_field) {
             $coords = explode(',', $this->coords_field);
             if (count($coords) == 2) {
-                $this->longitude = trim($coords[0]);
-                $this->latitude = trim($coords[1]);
+                $this->latitude = trim($coords[0]);
+                $this->longitude = trim($coords[1]);
             }
         }
 
@@ -83,7 +83,7 @@ class Place extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
-        $this->coords_field = implode(', ', [$this->longitude, $this->latitude]);
+        $this->coords_field = implode(', ', [$this->latitude, $this->longitude]);
 
         foreach ($this->placeTags as $placeTag) {
             $this->tags_field[] = $placeTag->tag_id;
@@ -111,8 +111,8 @@ class Place extends \yii\db\ActiveRecord
             'title' => 'Название',
             'description' => 'Описание',
             'category_id' => 'Категория',
-            'latitude' => 'Долгота',
-            'longitude' => 'Широта',
+            'latitude' => 'Широта',
+            'longitude' => 'Долгота',
             'coords_field' => 'Координаты',
             'radius' => 'Радиус',
             'tags_field' => 'Теги',
