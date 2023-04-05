@@ -48,7 +48,7 @@ $this->registerJsFile(
             <?= $form->field($model, 'radius')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
-    <div id="coords-map"></div>
+    <div id="place-map"></div>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

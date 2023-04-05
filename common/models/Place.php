@@ -53,7 +53,7 @@ class Place extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'latitude', 'longitude'], 'required'],
-            [['coords_field'], 'required', 'on' => 'form'],
+            [['coords_field', 'radius'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['category_id', 'in_trash'], 'integer'],
             [['latitude', 'longitude', 'radius'], 'number'],

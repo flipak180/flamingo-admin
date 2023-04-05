@@ -107,7 +107,7 @@ div.required label.control-label:after {
     display: none;
 }
 
-#coords-map {
+#place-map {
     height: 400px;
     margin-bottom: 15px;
 }

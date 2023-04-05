@@ -51,6 +51,7 @@ class PlacesController extends Controller
     {
         $model = new Place();
         $model->scenario = 'form';
+        $model->radius = 100;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
