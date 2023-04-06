@@ -1,7 +1,7 @@
 <?php
 
-use common\models\Category;
 use common\models\Place;
+use common\models\Tag;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -33,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             //'description:ntext',
             [
-                'attribute' => 'category_id',
+                'attribute' => 'tags_field',
                 'format' => 'raw',
                 'value' => function(Place $model) {
-                    return $model->category ? Html::a($model->category->title, ['categories/view', 'id' => $model->category_id]) : '-';
+                    return $model->getTagsLabels();
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'category_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+                'filter' => Html::activeDropDownList($searchModel, 'tags_field', ArrayHelper::map(Tag::find()->orderBy('title ASC')->all(), 'id', 'title'), ['class' => 'form-control', 'prompt' => '']),
             ],
             'latitude',
             'longitude',

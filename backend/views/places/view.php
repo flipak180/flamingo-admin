@@ -27,11 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'title',
             'description:ntext',
-            [
-                'attribute' => 'category_id',
-                'format' => 'raw',
-                'value' => $model->category ? Html::a($model->category->title, ['users/view', 'id' => $model->category_id]) : '-',
-            ],
             'latitude',
             'longitude',
             'radius',

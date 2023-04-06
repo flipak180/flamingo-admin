@@ -21,8 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'category_id') ?>
-
     <?= $form->field($model, 'latitude') ?>
 
     <?php // echo $form->field($model, 'longitude') ?>

@@ -10,7 +10,6 @@ use yii\behaviors\TimestampBehavior;
  * @property int $id
  * @property string $title
  * @property string|null $description
- * @property int|null $category_id
  * @property float $latitude
  * @property float $longitude
  * @property float|null $radius
@@ -18,7 +17,6 @@ use yii\behaviors\TimestampBehavior;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property Category $category
  * @property PlaceTag[] $placeTags
  * @property Tag[] $tags
  * @property Visit[] $visits
@@ -55,7 +53,7 @@ class Place extends \yii\db\ActiveRecord
             [['title', 'latitude', 'longitude'], 'required'],
             [['coords_field', 'radius'], 'required', 'on' => 'form'],
             [['description'], 'string'],
-            [['category_id', 'in_trash'], 'integer'],
+            [['in_trash'], 'integer'],
             [['latitude', 'longitude', 'radius'], 'number'],
             [['title'], 'string', 'max' => 255],
             [['coords_field', 'tags_field'], 'safe'],
@@ -111,7 +109,6 @@ class Place extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Название',
             'description' => 'Описание',
-            'category_id' => 'Категория',
             'latitude' => 'Широта',
             'longitude' => 'Долгота',
             'coords_field' => 'Координаты',
@@ -121,14 +118,6 @@ class Place extends \yii\db\ActiveRecord
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -179,5 +168,17 @@ class Place extends \yii\db\ActiveRecord
             $tag = Tag::findOne($tagId);
             $this->link('tags', $tag);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getTagsLabels()
+    {
+        $labels = [];
+        foreach ($this->tags as $tag) {
+            $labels[] = '<span class="badge bg-dark">'.$tag->title.'</span>';
+        }
+        return implode(' ', $labels);
     }
 }
