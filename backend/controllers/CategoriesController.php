@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\CategoriesSearch;
 use common\models\Category;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -12,6 +13,23 @@ use yii\web\NotFoundHttpException;
  */
 class CategoriesController extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
 
     /**
      * Lists all Category models.
