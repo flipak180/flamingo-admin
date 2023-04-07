@@ -11,8 +11,11 @@ return [
         ],
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=flamingo',
-            'username' => 'root',
+//            'dsn' => 'mysql:host=localhost;dbname=flamingo',
+//            'username' => 'root',
+//            'password' => 'szltcOUsXNQaxMOTRRzuiCbieHFuDGoj',
+            'dsn' => 'pgsql:host=localhost;dbname=flamingo',
+            'username' => 'postgres',
             'password' => 'szltcOUsXNQaxMOTRRzuiCbieHFuDGoj',
             'charset' => 'utf8',
         ],
