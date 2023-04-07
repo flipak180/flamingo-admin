@@ -41,7 +41,13 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'place'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'place',
+                    'extraPatterns' => [
+                        'GET visit' => 'visit',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
