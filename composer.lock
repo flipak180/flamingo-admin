@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c9e4aa06a01e1795592222379947d45",
+    "content-hash": "f646047448559eada300431a659230a0",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -26,7 +26,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -1720,6 +1720,58 @@
                 "source": "https://github.com/kartik-v/yii2-widgets/tree/master"
             },
             "time": "2018-10-09T17:40:19+00:00"
+        },
+        {
+            "name": "nanson/yii2-postgis",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nanson/yii2-postgis.git",
+                "reference": "12037b45f845958447a535559efcb426a83fdeea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nanson/yii2-postgis/zipball/12037b45f845958447a535559efcb426a83fdeea",
+                "reference": "12037b45f845958447a535559efcb426a83fdeea",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "nanson\\postgis\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Chernyavsky",
+                    "email": "panopticum87@gmail.com"
+                }
+            ],
+            "description": "Yii2-extension to work with postgis data",
+            "homepage": "https://github.com/nanson/yii2-postgis",
+            "keywords": [
+                "Behavior",
+                "extension",
+                "postgis",
+                "postgre",
+                "postgres",
+                "postgresql",
+                "spatial",
+                "yii",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/nanson/yii2-postgis/issues",
+                "source": "https://github.com/nanson/yii2-postgis/tree/master"
+            },
+            "time": "2017-02-15T17:09:25+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -4794,25 +4846,25 @@
         },
         {
             "name": "psr/http-message",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/http-message.git",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363"
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
-                "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
+                "reference": "cb6ce4845ce34a8ad9e68117c10ee90a29919eba",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": "^7.2 || ^8.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -4841,9 +4893,9 @@
                 "response"
             ],
             "support": {
-                "source": "https://github.com/php-fig/http-message/tree/master"
+                "source": "https://github.com/php-fig/http-message/tree/1.1"
             },
-            "time": "2016-08-06T14:39:51+00:00"
+            "time": "2023-04-04T09:50:52+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -6939,7 +6991,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4.0"
+        "php": ">=7.4.0",
+        "ext-curl": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

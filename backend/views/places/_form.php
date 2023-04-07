@@ -32,14 +32,7 @@ $this->registerJsFile(
         ],
     ]); ?>
 
-    <div class="row">
-        <div class="col-md-8">
-            <?= $form->field($model, 'coords_field')->textInput(['maxlength' => true]) ?>
-        </div>
-        <div class="col-md-4">
-            <?= $form->field($model, 'radius')->textInput(['maxlength' => true]) ?>
-        </div>
-    </div>
+    <?= $form->field($model, 'location_field')->hiddenInput() ?>
     <div id="place-map"></div>
 
     <div class="form-group">

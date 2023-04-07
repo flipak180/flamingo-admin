@@ -17,9 +17,8 @@ class PlacesSearch extends Place
     public function rules()
     {
         return [
-            [['id', 'in_trash', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'description', 'tags_field'], 'safe'],
-            [['latitude', 'longitude', 'radius'], 'number'],
+            [['id', 'in_trash'], 'integer'],
+            [['title', 'location', 'description', 'tags_field', 'location_field'], 'safe'],
         ];
     }
 
@@ -60,9 +59,6 @@ class PlacesSearch extends Place
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
-            'radius' => $this->radius,
             'in_trash' => $this->in_trash,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -74,6 +70,7 @@ class PlacesSearch extends Place
         }
 
         $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'location', $this->location])
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;

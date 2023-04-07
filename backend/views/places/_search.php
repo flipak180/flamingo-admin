@@ -19,13 +19,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+    <?= $form->field($model, 'location') ?>
+
     <?= $form->field($model, 'description') ?>
-
-    <?= $form->field($model, 'latitude') ?>
-
-    <?php // echo $form->field($model, 'longitude') ?>
-
-    <?php // echo $form->field($model, 'radius') ?>
 
     <?php // echo $form->field($model, 'in_trash') ?>
 

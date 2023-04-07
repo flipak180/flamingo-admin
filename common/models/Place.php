@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -10,9 +11,7 @@ use yii\behaviors\TimestampBehavior;
  * @property int $id
  * @property string $title
  * @property string|null $description
- * @property float $latitude
- * @property float $longitude
- * @property float|null $radius
+ * @property string $location
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -23,7 +22,7 @@ use yii\behaviors\TimestampBehavior;
  */
 class Place extends \yii\db\ActiveRecord
 {
-    public $coords_field;
+    public $location_field;
     public $tags_field;
 
     /**
@@ -40,7 +39,12 @@ class Place extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className()
+            TimestampBehavior::className(),
+            [
+                'class' => GeometryBehavior::className(),
+                'type' => GeometryBehavior::GEOMETRY_POLYGON,
+                'attribute' => 'location',
+            ],
         ];
     }
 
@@ -50,13 +54,12 @@ class Place extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'latitude', 'longitude'], 'required'],
-            [['coords_field', 'radius'], 'required', 'on' => 'form'],
+            [['title'], 'required'],
+            [['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
-            [['in_trash'], 'integer'],
-            [['latitude', 'longitude', 'radius'], 'number'],
+            [['in_trash'], 'boolean'],
             [['title'], 'string', 'max' => 255],
-            [['coords_field', 'tags_field'], 'safe'],
+            [['tags_field', 'location_field'], 'safe'],
         ];
     }
 
@@ -65,14 +68,9 @@ class Place extends \yii\db\ActiveRecord
      */
     public function beforeValidate()
     {
-        if ($this->coords_field) {
-            $coords = explode(',', $this->coords_field);
-            if (count($coords) == 2) {
-                $this->latitude = trim($coords[0]);
-                $this->longitude = trim($coords[1]);
-            }
+        if ($this->location_field) {
+            $this->location = json_decode($this->location_field, true);
         }
-
         return parent::beforeValidate();
     }
 
@@ -82,11 +80,11 @@ class Place extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
-        $this->coords_field = implode(', ', [$this->latitude, $this->longitude]);
-
         foreach ($this->placeTags as $placeTag) {
             $this->tags_field[] = $placeTag->tag_id;
         }
+
+        $this->location_field = json_encode($this->location);
     }
 
     /**
@@ -109,10 +107,8 @@ class Place extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Название',
             'description' => 'Описание',
-            'latitude' => 'Широта',
-            'longitude' => 'Долгота',
-            'coords_field' => 'Координаты',
-            'radius' => 'Радиус',
+            'location' => 'Местоположение',
+            'location_field' => 'Местоположение',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',

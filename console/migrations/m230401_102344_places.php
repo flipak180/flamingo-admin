@@ -1,5 +1,6 @@
 <?php
 
+use nanson\postgis\helpers\GeoJsonHelper;
 use yii\db\Migration;
 
 /**
@@ -16,29 +17,26 @@ class m230401_102344_places extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'description' => $this->text(),
-            'latitude' => $this->decimal(10, 8)->notNull(),
-            'longitude' => $this->decimal(11, 8)->notNull(),
-            'radius' => $this->decimal(10, 2),
+            'location' => 'geometry NOT NULL',
             'in_trash' => $this->boolean()->defaultValue(false),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ]);
 
         $places = [
-            ['title' => 'Областная 1', 'coords' => [59.91663480805622, 30.507474479558404]],
-            ['title' => 'Компуктер', 'coords' => [59.9185773, 30.504013]],
-            ['title' => 'Прибрежная 1', 'coords' => [59.837910, 30.509150]],
-            ['title' => 'Хатка', 'coords' => [59.834103, 30.515492]],
-            ['title' => 'Цех', 'coords' => [59.912761, 30.506377]],
-            ['title' => 'Каток', 'coords' => [59.884099, 30.438722]],
+            ['title' => 'Областная 1', 'coordinates' => [[[59.91756418543512,30.50456345616748],[59.914461193067574,30.503833895315434],[59.914784435019996,30.508168345083508],[59.917693470467256,30.507910853018064],[59.91756418543512,30.50456345616748]]]],
+            // ['title' => 'Областная 1', 'coords' => [59.91663480805622, 30.507474479558404]],
+            // ['title' => 'Компуктер', 'coords' => [59.9185773, 30.504013]],
+            // ['title' => 'Прибрежная 1', 'coords' => [59.837910, 30.509150]],
+            // ['title' => 'Хатка', 'coords' => [59.834103, 30.515492]],
+            // ['title' => 'Цех', 'coords' => [59.912761, 30.506377]],
+            // ['title' => 'Каток', 'coords' => [59.884099, 30.438722]],
         ];
 
         foreach ($places as $place) {
             $this->insert('places', [
                 'title' => $place['title'],
-                'latitude' => $place['coords'][0],
-                'longitude' => $place['coords'][1],
-                'radius' => 100,
+                'location' => GeoJsonHelper::toGeoJson('Polygon', $place['coordinates']),
                 'created_at' => time(),
                 'updated_at' => time(),
             ]);

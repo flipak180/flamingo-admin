@@ -40,9 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'tags_field', ArrayHelper::map(Tag::find()->orderBy('title ASC')->all(), 'id', 'title'), ['class' => 'form-control', 'prompt' => '']),
             ],
-            'latitude',
-            'longitude',
-            'radius',
             //'in_trash',
             [
                 'attribute' => 'created_at',
