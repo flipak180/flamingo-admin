@@ -1,6 +1,5 @@
 <?php
 
-use common\models\Category;
 use common\models\Tag;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
@@ -22,13 +21,6 @@ $this->registerJsFile(
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-    <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'id', 'title'),
-        'options' => ['placeholder' => 'Выберите категорию'],
-        'pluginOptions' => [
-            'allowClear' => true
-        ],
-    ]); ?>
     <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'title'),
         'options' => ['placeholder' => 'Выберите теги', 'multiple' => true],

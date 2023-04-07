@@ -16,7 +16,6 @@ class m230401_102344_places extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'description' => $this->text(),
-            'category_id' => $this->integer(),
             'latitude' => $this->decimal(10, 8)->notNull(),
             'longitude' => $this->decimal(11, 8)->notNull(),
             'radius' => $this->decimal(10, 2),

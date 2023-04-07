@@ -17,8 +17,8 @@ class PlacesSearch extends Place
     public function rules()
     {
         return [
-            [['id', 'category_id', 'in_trash', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'description'], 'safe'],
+            [['id', 'in_trash', 'created_at', 'updated_at'], 'integer'],
+            [['title', 'description', 'tags_field'], 'safe'],
             [['latitude', 'longitude', 'radius'], 'number'],
         ];
     }
@@ -41,7 +41,7 @@ class PlacesSearch extends Place
      */
     public function search($params)
     {
-        $query = Place::find();
+        $query = Place::find()->with(['tags']);
 
         // add conditions that should always apply here
 
@@ -60,7 +60,6 @@ class PlacesSearch extends Place
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'category_id' => $this->category_id,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'radius' => $this->radius,
@@ -68,6 +67,11 @@ class PlacesSearch extends Place
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        if ($this->tags_field) {
+            $query->joinWith(['placeTags'])->andWhere(['place_tags.tag_id' => $this->tags_field]);
+            \Yii::info($this->tags_field);
+        }
 
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description]);
