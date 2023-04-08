@@ -66,7 +66,7 @@ class Visit extends \yii\db\ActiveRecord
                 'place_id' => $this->place_id,
                 'user_id' => $this->user_id,
             ])
-            ->andWhere(['>=', 'created_at', strtotime('-1 minute')])
+            ->andWhere(['>=', 'created_at', date("Y-m-d H:i:s", strtotime('-1 minute'))])
             ->one();
 
         if ($lastVisit) {
