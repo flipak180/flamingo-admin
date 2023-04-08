@@ -15,6 +15,10 @@ $this->registerJsFile(
     'https://api-maps.yandex.ru/2.1/?apikey=048d2b9a-9e4a-481c-9799-c8f42c0ce65a&lang=ru_RU',
     ['position' => View::POS_HEAD]
 );
+$this->registerJsFile(
+    '/admin/js/map.js',
+    ['position' => View::POS_HEAD]
+);
 ?>
 
 <div class="place-form">

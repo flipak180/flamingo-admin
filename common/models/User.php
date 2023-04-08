@@ -11,10 +11,7 @@ use yii\behaviors\TimestampBehavior;
  * @property string $phone
  * @property string|null $name
  * @property string|null $email
- * @property string $auth_key
- * @property string $password_hash
  * @property string|null $email_confirm_token
- * @property string|null $password_reset_token
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -47,12 +44,10 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['phone', 'auth_key', 'password_hash'], 'required'],
+            [['phone'], 'required'],
             [['in_trash'], 'integer'],
-            [['phone', 'name', 'email', 'password_hash', 'email_confirm_token', 'password_reset_token'], 'string', 'max' => 255],
-            [['auth_key'], 'string', 'max' => 32],
+            [['phone', 'name', 'email', 'email_confirm_token'], 'string', 'max' => 255],
             [['email_confirm_token'], 'unique'],
-            [['password_reset_token'], 'unique'],
         ];
     }
 
@@ -66,10 +61,7 @@ class User extends \yii\db\ActiveRecord
             'phone' => 'Телефон',
             'name' => 'Имя',
             'email' => 'Email',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
             'email_confirm_token' => 'Email Confirm Token',
-            'password_reset_token' => 'Password Reset Token',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',

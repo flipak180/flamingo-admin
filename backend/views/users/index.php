@@ -31,10 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
             'name',
             'email:email',
-            //'auth_key',
-            //'password_hash',
             //'email_confirm_token:email',
-            //'password_reset_token',
             //'in_trash',
             [
                 'attribute' => 'created_at',

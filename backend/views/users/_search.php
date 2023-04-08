@@ -23,13 +23,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email') ?>
 
-    <?= $form->field($model, 'auth_key') ?>
-
-    <?php // echo $form->field($model, 'password_hash') ?>
-
     <?php // echo $form->field($model, 'email_confirm_token') ?>
-
-    <?php // echo $form->field($model, 'password_reset_token') ?>
 
     <?php // echo $form->field($model, 'in_trash') ?>
 

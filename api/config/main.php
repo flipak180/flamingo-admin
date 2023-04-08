@@ -50,7 +50,13 @@ return [
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'user'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'user',
+                    'extraPatterns' => [
+                        'POST,OPTIONS login' => 'login',
+                    ],
+                ],
 //                [
 //                    'class' => 'yii\rest\UrlRule',
 //                    'controller' => 'v1/place',
