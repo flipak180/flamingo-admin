@@ -9,6 +9,8 @@ $params = array_merge(
 
 return [
     'id' => 'app-api',
+    'language' => 'ru',
+    'name' => 'FlaminGO',
     'basePath' => dirname(__DIR__),    
     'bootstrap' => ['log'],
     'modules' => [
@@ -45,7 +47,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'place',
                     'extraPatterns' => [
-                        'GET visit' => 'visit',
+                        'POST,OPTIONS visit' => 'visit',
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
@@ -55,6 +57,7 @@ return [
                     'controller' => 'user',
                     'extraPatterns' => [
                         'POST,OPTIONS login' => 'login',
+                        'POST,OPTIONS visits' => 'visits',
                     ],
                 ],
 //                [

@@ -30,4 +30,33 @@ class UserController extends BaseApiController
 
         return $user;
     }
+
+    /**
+     * @return \common\models\Visit[]
+     * @throws BadRequestHttpException
+     * @throws NotFoundHttpException
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionVisits()
+    {
+        $params = Yii::$app->request->getBodyParams();
+        if (!isset($params['phone'])) {
+            throw new BadRequestHttpException();
+        }
+
+        $user = User::findOne(['phone' => $params['phone']]);
+        if (!$user) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = [];
+        foreach ($user->visits as $visit) {
+            $result[] = [
+                'id' => $visit->id,
+                'place' => $visit->place->title,
+                'date' => Yii::$app->formatter->asDatetime($visit->created_at),
+            ];
+        }
+        return $result;
+    }
 }
