@@ -1,5 +1,6 @@
 <?php
 
+use yii\db\Expression;
 use yii\db\Migration;
 
 /**
@@ -19,9 +20,24 @@ class m230404_232254_users extends Migration
             'email' => $this->string(),
             'email_confirm_token' => $this->string()->unique(),
             'in_trash' => $this->boolean()->defaultValue(false),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->timestamp()->notNull(),
+            'updated_at' => $this->timestamp()->notNull(),
         ]);
+
+        $users = [
+            ['phone' => '+7 (911) 216-56-19', 'name' => 'Никита Беляев', 'email' => 'flipak180@mail.ru']
+        ];
+
+        $now = new Expression('NOW()');
+        foreach ($users as $user) {
+            $this->insert('users', [
+                'phone' => $user['phone'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'created_at' => $now,
+                'updated_at' => $now,
+            ]);
+        }
     }
 
     /**

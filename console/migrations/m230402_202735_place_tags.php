@@ -16,8 +16,8 @@ class m230402_202735_place_tags extends Migration
             'id' => $this->primaryKey(),
             'place_id' => $this->integer()->notNull(),
             'tag_id' => $this->integer()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->timestamp()->notNull(),
+            'updated_at' => $this->timestamp()->notNull(),
         ]);
     }
 

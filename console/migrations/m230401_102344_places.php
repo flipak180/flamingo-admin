@@ -1,6 +1,7 @@
 <?php
 
 use nanson\postgis\helpers\GeoJsonHelper;
+use yii\db\Expression;
 use yii\db\Migration;
 
 /**
@@ -19,8 +20,8 @@ class m230401_102344_places extends Migration
             'description' => $this->text(),
             'location' => 'geometry NOT NULL',
             'in_trash' => $this->boolean()->defaultValue(false),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->timestamp()->notNull(),
+            'updated_at' => $this->timestamp()->notNull(),
         ]);
 
         $places = [
@@ -33,12 +34,13 @@ class m230401_102344_places extends Migration
             // ['title' => 'Каток', 'coords' => [59.884099, 30.438722]],
         ];
 
+        $now = new Expression('NOW()');
         foreach ($places as $place) {
             $this->insert('places', [
                 'title' => $place['title'],
                 'location' => GeoJsonHelper::toGeoJson('Polygon', $place['coordinates']),
-                'created_at' => time(),
-                'updated_at' => time(),
+                'created_at' => $now,
+                'updated_at' => $now,
             ]);
         }
     }

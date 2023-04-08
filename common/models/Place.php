@@ -4,6 +4,7 @@ namespace common\models;
 
 use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "places".
@@ -39,7 +40,10 @@ class Place extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            TimestampBehavior::className(),
+            [
+                'class' => TimestampBehavior::class,
+                'value' => new Expression('NOW()'),
+            ],
             [
                 'class' => GeometryBehavior::className(),
                 'type' => GeometryBehavior::GEOMETRY_POLYGON,

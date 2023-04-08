@@ -16,8 +16,8 @@ class m230404_232239_visits extends Migration
             'id' => $this->primaryKey(),
             'place_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->timestamp()->notNull(),
+            'updated_at' => $this->timestamp()->notNull(),
         ]);
     }
 
