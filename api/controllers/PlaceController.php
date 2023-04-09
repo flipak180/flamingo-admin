@@ -32,7 +32,7 @@ class PlaceController extends BaseApiController
 
         $visit = new Visit();
         $visit->place_id = $params['place_id'];
-        $visit->user_id = $user->id;
+        $visit->user_id = $user->user_id;
         if (!$visit->save()) {
             throw new BadRequestHttpException('Вы уже отметились');
         }

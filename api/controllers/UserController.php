@@ -52,7 +52,7 @@ class UserController extends BaseApiController
         $result = [];
         foreach ($user->visits as $visit) {
             $result[] = [
-                'id' => $visit->id,
+                'id' => $visit->visit_id,
                 'place' => $visit->place->title,
                 'date' => Yii::$app->formatter->asDatetime($visit->created_at),
             ];

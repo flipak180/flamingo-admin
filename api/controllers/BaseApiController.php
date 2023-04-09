@@ -7,7 +7,7 @@ use yii\filters\Cors;
 use yii\rest\ActiveController;
 use yii\web\Response;
 
-class BaseApiController extends ActiveController
+abstract class BaseApiController extends ActiveController
 {
 
     /**

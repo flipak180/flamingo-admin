@@ -77,6 +77,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getVisits()
     {
-        return $this->hasMany(Visit::className(), ['user_id' => 'user_id'])->orderBy('id DESC');
+        return $this->hasMany(Visit::className(), ['user_id' => 'user_id'])->orderBy('visit_id DESC');
     }
 }
