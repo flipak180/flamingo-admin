@@ -14,7 +14,7 @@ class m230402_202047_tags extends Migration
     public function safeUp()
     {
         $this->createTable('tags', [
-            'id' => $this->primaryKey(),
+            'tag_id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),

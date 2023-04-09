@@ -8,7 +8,7 @@ use yii\db\Expression;
 /**
  * This is the model class for table "place_tags".
  *
- * @property int $id
+ * @property int $place_tag_id
  * @property int $place_id
  * @property int $tag_id
  * @property int $created_at
@@ -57,7 +57,7 @@ class PlaceTag extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'place_tag_id' => 'ID',
             'place_id' => 'Место',
             'tag_id' => 'Тег',
             'created_at' => 'Дата добавления',
@@ -70,7 +70,7 @@ class PlaceTag extends \yii\db\ActiveRecord
      */
     public function getPlace()
     {
-        return $this->hasOne(Place::className(), ['id' => 'place_id']);
+        return $this->hasOne(Place::className(), ['place_tag_id' => 'place_id']);
     }
 
     /**
@@ -78,6 +78,6 @@ class PlaceTag extends \yii\db\ActiveRecord
      */
     public function getTag()
     {
-        return $this->hasOne(Tag::className(), ['id' => 'tag_id']);
+        return $this->hasOne(Tag::className(), ['place_tag_id' => 'tag_id']);
     }
 }

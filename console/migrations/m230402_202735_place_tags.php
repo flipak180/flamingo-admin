@@ -13,7 +13,7 @@ class m230402_202735_place_tags extends Migration
     public function safeUp()
     {
         $this->createTable('place_tags', [
-            'id' => $this->primaryKey(),
+            'place_tag_id' => $this->primaryKey(),
             'place_id' => $this->integer()->notNull(),
             'tag_id' => $this->integer()->notNull(),
             'created_at' => $this->timestamp()->notNull(),

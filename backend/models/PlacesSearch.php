@@ -17,7 +17,7 @@ class PlacesSearch extends Place
     public function rules()
     {
         return [
-            [['id', 'in_trash'], 'integer'],
+            [['place_id', 'in_trash'], 'integer'],
             [['title', 'location', 'description', 'tags_field', 'location_field'], 'safe'],
         ];
     }
@@ -46,6 +46,7 @@ class PlacesSearch extends Place
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['place_id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -58,7 +59,7 @@ class PlacesSearch extends Place
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+            'place_id' => $this->place_id,
             'in_trash' => $this->in_trash,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -66,7 +67,6 @@ class PlacesSearch extends Place
 
         if ($this->tags_field) {
             $query->joinWith(['placeTags'])->andWhere(['place_tags.tag_id' => $this->tags_field]);
-            \Yii::info($this->tags_field);
         }
 
         $query->andFilterWhere(['like', 'title', $this->title])

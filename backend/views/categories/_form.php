@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'id', 'title'),
+        'data' => ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'),
         'options' => ['placeholder' => 'Выберите категорию'],
         'pluginOptions' => [
             'allowClear' => true

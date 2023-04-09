@@ -9,7 +9,7 @@ use yii\db\Expression;
 /**
  * This is the model class for table "places".
  *
- * @property int $id
+ * @property int $place_id
  * @property string $title
  * @property string|null $description
  * @property string $location
@@ -109,7 +109,7 @@ class Place extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'place_id' => 'ID',
             'title' => 'Название',
             'description' => 'Описание',
             'location' => 'Местоположение',
@@ -126,7 +126,7 @@ class Place extends \yii\db\ActiveRecord
      */
     public function getVisits()
     {
-        return $this->hasMany(Visit::className(), ['place_id' => 'id']);
+        return $this->hasMany(Visit::className(), ['place_id' => 'place_id']);
     }
 
     /**
@@ -134,7 +134,7 @@ class Place extends \yii\db\ActiveRecord
      */
     public function getPlaceTags()
     {
-        return $this->hasMany(PlaceTag::className(), ['place_id' => 'id']);
+        return $this->hasMany(PlaceTag::className(), ['place_id' => 'place_id']);
     }
 
     /**
@@ -142,7 +142,7 @@ class Place extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+        return $this->hasMany(Tag::className(), ['place_id' => 'tag_id'])
             ->via('placeTags');
     }
 

@@ -52,5 +52,8 @@ return [
         'sms' => [
             'class' => 'common\components\SmsComponent',
         ],
+        'clock' => [
+            'class' => 'common\components\ClockComponent',
+        ],
     ],
 ];

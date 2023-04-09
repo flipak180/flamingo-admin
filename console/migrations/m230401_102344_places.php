@@ -15,7 +15,7 @@ class m230401_102344_places extends Migration
     public function safeUp()
     {
         $this->createTable('places', [
-            'id' => $this->primaryKey(),
+            'place_id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'description' => $this->text(),
             'location' => 'geometry NOT NULL',

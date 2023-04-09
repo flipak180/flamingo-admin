@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="tag-view">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->tag_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->tag_id], [
             'class' => 'btn btn-danger',
             'data' => ['confirm' => 'Вы уверены?'],
         ]) ?>
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            'tag_id',
             'title',
             'created_at:datetime',
             'updated_at:datetime',

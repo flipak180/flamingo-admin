@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             [
-                'attribute' => 'id',
+                'attribute' => 'place_id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
             'title',
@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function(Place $model) {
                     return $model->getTagsLabels();
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'tags_field', ArrayHelper::map(Tag::find()->orderBy('title ASC')->all(), 'id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+                'filter' => Html::activeDropDownList($searchModel, 'tags_field', ArrayHelper::map(Tag::find()->orderBy('title ASC')->all(), 'tag_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
             ],
             //'in_trash',
             [
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Place $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                    return Url::toRoute([$action, 'id' => $model->place_id]);
                  }
             ],
         ],

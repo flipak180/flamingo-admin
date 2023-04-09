@@ -8,7 +8,7 @@ use yii\db\Expression;
 /**
  * This is the model class for table "categories".
  *
- * @property int $id
+ * @property int $category_id
  * @property string $title
  * @property string|null $image
  * @property int|null $parent_id
@@ -60,7 +60,7 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'category_id' => 'ID',
             'title' => 'Название',
             'image' => 'Изображение',
             'parent_id' => 'Родитель',
@@ -75,7 +75,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getPlaces()
     {
-        return $this->hasMany(Place::className(), ['category_id' => 'id']);
+        return $this->hasMany(Place::className(), ['category_id' => 'category_id']);
     }
 
     /**
@@ -83,6 +83,6 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['category_id' => 'category_id']);
     }
 }

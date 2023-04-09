@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="place-view">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?= Html::a('Редактировать', ['update', 'id' => $model->place_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->place_id], [
             'class' => 'btn btn-danger',
             'data' => ['confirm' => 'Вы уверены?'],
         ]) ?>
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            'place_id',
             'title',
             'description:ntext',
             // 'location',

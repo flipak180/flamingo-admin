@@ -71,7 +71,7 @@ class UsersController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->user_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -94,7 +94,7 @@ class UsersController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->user_id]);
         }
 
         return $this->render('update', [
@@ -129,7 +129,7 @@ class UsersController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(['user_id' => $id])) !== null) {
             return $model;
         }
 

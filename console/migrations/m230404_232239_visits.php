@@ -13,7 +13,7 @@ class m230404_232239_visits extends Migration
     public function safeUp()
     {
         $this->createTable('visits', [
-            'id' => $this->primaryKey(),
+            'visit_id' => $this->primaryKey(),
             'place_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
             'created_at' => $this->timestamp()->notNull(),

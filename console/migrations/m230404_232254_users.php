@@ -14,7 +14,7 @@ class m230404_232254_users extends Migration
     public function safeUp()
     {
         $this->createTable('users', [
-            'id' => $this->primaryKey(),
+            'user_id' => $this->primaryKey(),
             'phone' => $this->string()->notNull(),
             'name' => $this->string(),
             'email' => $this->string(),

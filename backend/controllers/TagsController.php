@@ -125,7 +125,7 @@ class TagsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Tag::findOne(['id' => $id])) !== null) {
+        if (($model = Tag::findOne(['tag_id' => $id])) !== null) {
             return $model;
         }
 

@@ -38,6 +38,8 @@ class CategoriesController extends Controller
      */
     public function actionIndex()
     {
+        echo date('Y-m-d H:i:s');
+
         $searchModel = new CategoriesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -71,7 +73,7 @@ class CategoriesController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'id' => $model->category_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -94,7 +96,7 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->category_id]);
         }
 
         return $this->render('update', [
@@ -129,7 +131,7 @@ class CategoriesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Category::findOne(['id' => $id])) !== null) {
+        if (($model = Category::findOne(['category_id' => $id])) !== null) {
             return $model;
         }
 

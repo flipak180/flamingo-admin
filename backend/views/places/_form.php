@@ -21,12 +21,6 @@ $this->registerJsFile(
 );
 ?>
 
-<?php if (!$model->isNewRecord): ?>
-    <p>
-        <?= Html::a('Добавить место', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-<?php endif ?>
-
 <div class="place-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -49,6 +43,11 @@ $this->registerJsFile(
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+        <?php if (!$model->isNewRecord): ?>
+            <?php foreach ($model->tags as $tag): ?>
+                <?= Html::a('Добавить ' . $tag->title, ['create', 'tag_id' => $tag->tag_id], ['class' => 'btn btn-secondary']) ?>
+            <?php endforeach; ?>
+        <?php endif ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>

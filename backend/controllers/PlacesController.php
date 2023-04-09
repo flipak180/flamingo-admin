@@ -61,18 +61,21 @@ class PlacesController extends Controller
     }
 
     /**
-     * Creates a new Place model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @param $tag_id
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($tag_id = null)
     {
         $model = new Place();
         $model->scenario = 'form';
 
+        if ($tag_id) {
+            $model->tags_field[] = $tag_id;
+        }
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['update', 'id' => $model->id]);
+                return $this->redirect(['update', 'id' => $model->place_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -96,10 +99,8 @@ class PlacesController extends Controller
         $model->scenario = 'form';
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['update', 'id' => $model->id]);
+            return $this->redirect(['update', 'id' => $model->place_id]);
         }
-
-        \Yii::info($model->errors);
 
         return $this->render('update', [
             'model' => $model,
@@ -133,7 +134,7 @@ class PlacesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Place::findOne(['id' => $id])) !== null) {
+        if (($model = Place::findOne(['place_id' => $id])) !== null) {
             return $model;
         }
 

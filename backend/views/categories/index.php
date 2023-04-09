@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             [
-                'attribute' => 'id',
+                'attribute' => 'category_id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
             'title',
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function(Category $model) {
                     return $model->parent ? Html::a($model->parent->title, ['categories/view', 'id' => $model->parent_id]) : '-';
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'parent_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+                'filter' => Html::activeDropDownList($searchModel, 'parent_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
             ],
             //'in_trash',
             [
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Category $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
+                    return Url::toRoute([$action, 'id' => $model->category_id]);
                  }
             ],
         ],

@@ -36,7 +36,7 @@ if (typeof ymaps !== 'undefined') {
 
         polygon.events.add('geometrychange', function () {
             const geometry = polygon.geometry.getCoordinates();
-            if (!Array.isArray(geometry) || !geometry.length) {
+            if (!Array.isArray(geometry) || !geometry.length || !geometry[0].length) {
                 return;
             }
 
@@ -64,27 +64,6 @@ if (typeof ymaps !== 'undefined') {
             } else {
                 polygon.editor.stopEditing();
             }
-        });
-
-        //
-        //
-        const polygonNewBtn = new ymaps.control.Button({
-            data: {
-                content: 'Заново',
-                //image: '/admin/images/icon-edit.png',
-            },
-            options: {
-                // Поскольку кнопка будет менять вид в зависимости от размера карты,
-                // зададим ей три разных значения maxWidth в массиве.
-                maxWidth: [28, 150, 178]
-            }
-        });
-
-        map.controls.add(polygonNewBtn, {float: 'right'});
-
-        polygonNewBtn.events.add("click", function () {
-            polygon.geometry.remove(0)
-            polygon.editor.startEditing();
         });
 
         //

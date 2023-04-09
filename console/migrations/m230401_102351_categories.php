@@ -13,7 +13,7 @@ class m230401_102351_categories extends Migration
     public function safeUp()
     {
         $this->createTable('categories', [
-            'id' => $this->primaryKey(),
+            'category_id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'image' => $this->string(),
             'parent_id' => $this->integer(),

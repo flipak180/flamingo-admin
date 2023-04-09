@@ -8,7 +8,7 @@ use yii\db\Expression;
 /**
  * This is the model class for table "visits".
  *
- * @property int $id
+ * @property int $visit_id
  * @property int $place_id
  * @property int $user_id
  * @property int $created_at
@@ -80,7 +80,7 @@ class Visit extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'visit_id' => 'ID',
             'place_id' => 'Место',
             'user_id' => 'Пользователь',
             'created_at' => 'Дата добавления',
@@ -93,7 +93,7 @@ class Visit extends \yii\db\ActiveRecord
      */
     public function getPlace()
     {
-        return $this->hasOne(Place::className(), ['id' => 'place_id']);
+        return $this->hasOne(Place::className(), ['visit_id' => 'place_id']);
     }
 
     /**
@@ -101,6 +101,6 @@ class Visit extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::className(), ['visit_id' => 'user_id']);
     }
 }

@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Редактирование пользователя: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->user_id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 

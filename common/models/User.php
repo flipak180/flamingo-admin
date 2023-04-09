@@ -8,7 +8,7 @@ use yii\db\Expression;
 /**
  * This is the model class for table "users".
  *
- * @property int $id
+ * @property int $user_id
  * @property string $phone
  * @property string|null $name
  * @property string|null $email
@@ -61,7 +61,7 @@ class User extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'user_id' => 'ID',
             'phone' => 'Телефон',
             'name' => 'Имя',
             'email' => 'Email',
@@ -77,6 +77,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getVisits()
     {
-        return $this->hasMany(Visit::className(), ['user_id' => 'id'])->orderBy('id DESC');
+        return $this->hasMany(Visit::className(), ['user_id' => 'user_id'])->orderBy('id DESC');
     }
 }
