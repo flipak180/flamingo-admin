@@ -38,8 +38,6 @@ class CategoriesController extends Controller
      */
     public function actionIndex()
     {
-        echo date('Y-m-d H:i:s');
-
         $searchModel = new CategoriesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
