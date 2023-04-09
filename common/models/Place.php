@@ -59,6 +59,7 @@ class Place extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
+            [['title'], 'unique'],
             [['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],

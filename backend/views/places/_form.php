@@ -21,10 +21,18 @@ $this->registerJsFile(
 );
 ?>
 
+<?php if (!$model->isNewRecord): ?>
+    <p>
+        <?= Html::a('Добавить место', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+<?php endif ?>
+
 <div class="place-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <!--
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    -->
     <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'title'),
         'options' => ['placeholder' => 'Выберите теги', 'multiple' => true],
