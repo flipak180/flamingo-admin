@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
 
 /**
  * This is the model class for table "users".
@@ -37,7 +36,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'value' => new Expression('NOW()'),
+                'value' => \Yii::$app->clock->date(),
             ],
         ];
     }
@@ -51,7 +50,7 @@ class User extends \yii\db\ActiveRecord
             [['phone'], 'required'],
             [['in_trash'], 'boolean'],
             [['phone', 'name', 'email', 'email_confirm_token'], 'string', 'max' => 255],
-            [['email_confirm_token'], 'unique'],
+            [['email_confirm_token', 'phone', 'email'], 'unique'],
         ];
     }
 

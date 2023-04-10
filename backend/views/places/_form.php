@@ -28,7 +28,7 @@ $this->registerJsFile(
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     -->
     <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Tag::find()->all(), 'id', 'title'),
+        'data' => ArrayHelper::map(Tag::find()->all(), 'tag_id', 'title'),
         'options' => ['placeholder' => 'Выберите теги', 'multiple' => true],
         'showToggleAll' => false,
         'pluginOptions' => [

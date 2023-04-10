@@ -76,7 +76,7 @@ class Tag extends \yii\db\ActiveRecord
      */
     public function getPlaces()
     {
-        return $this->hasMany(Place::className(), ['tag_id' => 'place_id'])
+        return $this->hasMany(Place::className(), ['place_id' => 'place_id'])
             ->via('placeTags');
     }
 }
