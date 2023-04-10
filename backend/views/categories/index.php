@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Category;
+use common\models\Tag;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -30,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
             'title',
-            'image',
+            //'image',
             [
                 'attribute' => 'parent_id',
                 'format' => 'raw',
@@ -38,6 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->parent ? Html::a($model->parent->title, ['categories/view', 'id' => $model->parent_id]) : '-';
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'parent_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+            ],
+            [
+                'attribute' => 'tags_field',
+                'format' => 'raw',
+                'value' => function(Category $model) {
+                    return $model->getTagsLabels();
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'tags_field', ArrayHelper::map(Tag::find()->orderBy('title ASC')->all(), 'tag_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
             ],
             //'in_trash',
             [

@@ -26,7 +26,7 @@ if (typeof ymaps !== 'undefined') {
 
         const polygon = new ymaps.Polygon(points, {}, {
             editorDrawingCursor: 'crosshair',
-            editorMaxPoints: 5,
+            editorMaxPoints: 15,
             fillColor: '#e05baa',
             fillOpacity: 0.4,
             strokeColor: '#212529',

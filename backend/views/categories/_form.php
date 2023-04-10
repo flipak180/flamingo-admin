@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Category;
+use common\models\Tag;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -20,6 +21,16 @@ use yii\widgets\ActiveForm;
         'options' => ['placeholder' => 'Выберите категорию'],
         'pluginOptions' => [
             'allowClear' => true
+        ],
+    ]); ?>
+    <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(Tag::find()->all(), 'tag_id', 'title'),
+        'options' => ['placeholder' => 'Выберите теги', 'multiple' => true],
+        'showToggleAll' => false,
+        'pluginOptions' => [
+            'tags' => true,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
         ],
     ]); ?>
     <div class="form-group">

@@ -16,11 +16,14 @@ use yii\db\Expression;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property Place[] $places
  * @property Category $parent
+ * @property CategoryTag[] $categoryTags
+ * @property Tag[] $tags
  */
 class Category extends \yii\db\ActiveRecord
 {
+    public $tags_field;
+
     /**
      * {@inheritdoc}
      */
@@ -51,6 +54,7 @@ class Category extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['parent_id', 'in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
+            [['tags_field'], 'safe'],
         ];
     }
 
@@ -64,6 +68,7 @@ class Category extends \yii\db\ActiveRecord
             'title' => 'Название',
             'image' => 'Изображение',
             'parent_id' => 'Родитель',
+            'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
@@ -71,11 +76,25 @@ class Category extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return void
      */
-    public function getPlaces()
+    public function afterFind()
     {
-        return $this->hasMany(Place::className(), ['category_id' => 'category_id']);
+        parent::afterFind();
+        foreach ($this->categoryTags as $categoryTag) {
+            $this->tags_field[] = $categoryTag->tag_id;
+        }
+    }
+
+    /**
+     * @param $insert
+     * @param $changedAttributes
+     * @return void
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->handleTags();
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**
@@ -83,6 +102,60 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(Category::className(), ['category_id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['parent_id' => 'category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategoryTags()
+    {
+        return $this->hasMany(CategoryTag::className(), ['category_id' => 'category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['tag_id' => 'tag_id'])
+            ->via('categoryTags');
+    }
+
+    /**
+     * @return void
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
+     */
+    public function handleTags() {
+        if (!is_array($this->tags_field)) {
+            return;
+        }
+
+        /** @var Tag[] $currentTags */
+        $currentTags = $this->getTags()->all();
+
+        foreach ($currentTags as $currentTag) {
+            if (!in_array($currentTag->title, $this->tags_field)) {
+                $this->unlink('tags', $currentTag, true);
+            }
+        }
+
+        foreach ($this->tags_field as $tagId) {
+            $tag = Tag::findOne($tagId);
+            $this->link('tags', $tag);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getTagsLabels()
+    {
+        $labels = [];
+        foreach ($this->tags as $tag) {
+            $labels[] = '<span class="badge bg-dark">'.$tag->title.'</span>';
+        }
+        return implode(' ', $labels);
     }
 }
