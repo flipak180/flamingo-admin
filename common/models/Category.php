@@ -49,7 +49,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['parent_id', 'in_trash'], 'integer'],
+            [['parent_id', 'in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
         ];
     }

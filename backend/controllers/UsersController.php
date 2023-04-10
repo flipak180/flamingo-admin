@@ -97,6 +97,8 @@ class UsersController extends Controller
             return $this->redirect(['view', 'id' => $model->user_id]);
         }
 
+        \Yii::info($model->errors);
+
         return $this->render('update', [
             'model' => $model,
         ]);

@@ -49,7 +49,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['phone'], 'required'],
-            [['in_trash'], 'integer'],
+            [['in_trash'], 'boolean'],
             [['phone', 'name', 'email', 'email_confirm_token'], 'string', 'max' => 255],
             [['email_confirm_token'], 'unique'],
         ];

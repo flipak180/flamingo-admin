@@ -93,7 +93,7 @@ class Visit extends \yii\db\ActiveRecord
      */
     public function getPlace()
     {
-        return $this->hasOne(Place::className(), ['visit_id' => 'place_id']);
+        return $this->hasOne(Place::className(), ['place_id' => 'place_id']);
     }
 
     /**
@@ -101,6 +101,6 @@ class Visit extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['visit_id' => 'user_id']);
+        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
     }
 }
