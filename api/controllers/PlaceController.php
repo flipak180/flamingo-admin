@@ -33,10 +33,10 @@ class PlaceController extends BaseApiController
         $visit = new Visit();
         $visit->place_id = $params['place_id'];
         $visit->user_id = $user->user_id;
-        if (!$visit->save()) {
+        if (!$visit->validate()) {
             throw new BadRequestHttpException('Вы уже отметились');
         }
 
-        return true;
+        return $visit->save();
     }
 }

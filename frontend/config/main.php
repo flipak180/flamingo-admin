@@ -10,6 +10,7 @@ return [
     'id' => 'app-frontend',
     'language' => 'ru',
     'name' => 'FlaminGO',
+    'timeZone' => 'Europe/Moscow',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',

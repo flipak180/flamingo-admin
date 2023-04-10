@@ -11,6 +11,7 @@ return [
     'id' => 'app-api',
     'language' => 'ru',
     'name' => 'FlaminGO',
+    'timeZone' => 'Europe/Moscow',
     'basePath' => dirname(__DIR__),    
     'bootstrap' => ['log'],
     'modules' => [
