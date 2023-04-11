@@ -15,6 +15,19 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [],
+    'container' => [
+        'definitions' => [
+            'yii\widgets\LinkPager' => [
+                'linkContainerOptions' => [
+                    'class' => 'page-item',
+                ],
+                'linkOptions' => [
+                    'class' => 'page-link',
+                ],
+                'disabledListItemSubTagOptions' => ['class' => 'page-link'],
+            ],
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',
