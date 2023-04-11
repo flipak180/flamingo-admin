@@ -107,6 +107,14 @@ div.required label.control-label:after {
     display: none;
 }
 
+.place-map-wrap {
+    position: relative;
+}
+.place-map-wrap .buttons {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
 #place-map {
     height: 400px;
     margin-bottom: 15px;

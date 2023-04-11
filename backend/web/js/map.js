@@ -1,4 +1,7 @@
 if (typeof ymaps !== 'undefined') {
+
+    let polygon;
+
     ymaps.ready(() => {
 
         const map = new ymaps.Map('place-map', {
@@ -24,46 +27,60 @@ if (typeof ymaps !== 'undefined') {
         const location = $('#place-location_field').val();
         const points = location ? JSON.parse(location) : [];
 
-        const polygon = new ymaps.Polygon(points, {}, {
-            editorDrawingCursor: 'crosshair',
-            editorMaxPoints: 15,
-            fillColor: '#e05baa',
-            fillOpacity: 0.4,
-            strokeColor: '#212529',
-            strokeWidth: 1
-        });
-        map.geoObjects.add(polygon);
+        function addPolygon(points = []) {
+            polygon = new ymaps.Polygon(points, {}, {
+                editorDrawingCursor: 'crosshair',
+                editorMaxPoints: 15,
+                fillColor: '#e05baa',
+                fillOpacity: 0.4,
+                strokeColor: '#212529',
+                strokeWidth: 1
+            });
+            map.geoObjects.add(polygon);
 
-        polygon.events.add('geometrychange', function () {
-            const geometry = polygon.geometry.getCoordinates();
-            if (!Array.isArray(geometry) || !geometry.length || !geometry[0].length) {
-                return;
-            }
+            polygon.events.add('geometrychange', function () {
+                const geometry = polygon.geometry.getCoordinates();
+                if (!Array.isArray(geometry) || !geometry.length || !geometry[0].length) {
+                    return;
+                }
 
-            $('#place-location_field').val(JSON.stringify(geometry));
-        });
+                $('#place-location_field').val(JSON.stringify(geometry));
+            });
+        }
+
+        addPolygon(points);
 
         //
-        const polygonEditBtn = new ymaps.control.Button({
-            data: {
-                content: 'Редактировать',
-                image: '/admin/images/icon-edit.png',
-            },
-            options: {
-                // Поскольку кнопка будет менять вид в зависимости от размера карты,
-                // зададим ей три разных значения maxWidth в массиве.
-                maxWidth: [28, 150, 178]
-            }
+        // const polygonEditBtn = new ymaps.control.Button({
+        //     data: {
+        //         content: 'Редактировать',
+        //         image: '/admin/images/icon-edit.png',
+        //     },
+        //     options: {
+        //         // Поскольку кнопка будет менять вид в зависимости от размера карты,
+        //         // зададим ей три разных значения maxWidth в массиве.
+        //         maxWidth: [28, 150, 178]
+        //     }
+        // });
+        //
+        // map.controls.add(polygonEditBtn, {float: 'right'});
+        //
+        // polygonEditBtn.events.add("click", function () {
+        //     if (!polygonEditBtn.isSelected()) {
+        //         polygon.editor.startEditing();
+        //     } else {
+        //         polygon.editor.stopEditing();
+        //     }
+        // });
+
+        $('.btn-edit-polygon').click(function() {
+            polygon.editor.startEditing();
         });
 
-        map.controls.add(polygonEditBtn, {float: 'right'});
-
-        polygonEditBtn.events.add("click", function () {
-            if (!polygonEditBtn.isSelected()) {
-                polygon.editor.startEditing();
-            } else {
-                polygon.editor.stopEditing();
-            }
+        $('.btn-clear-polygon').click(function() {
+            map.geoObjects.remove(polygon);
+            addPolygon();
+            polygon.editor.startDrawing();
         });
 
         //
