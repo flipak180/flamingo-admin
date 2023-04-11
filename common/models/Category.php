@@ -2,8 +2,10 @@
 
 namespace common\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "categories".
@@ -24,6 +26,7 @@ use yii\db\Expression;
 class Category extends \yii\db\ActiveRecord
 {
     public $tags_field;
+    public $image_field;
 
     /**
      * {@inheritdoc}
@@ -56,6 +59,7 @@ class Category extends \yii\db\ActiveRecord
             [['parent_id', 'in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg'], 'maxSize' => 1024*1024],
         ];
     }
 
@@ -76,6 +80,7 @@ class Category extends \yii\db\ActiveRecord
             'category_id' => 'ID',
             'title' => 'Название',
             'image' => 'Изображение',
+            'image_field' => 'Изображение',
             'parent_id' => 'Родитель',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
@@ -93,6 +98,16 @@ class Category extends \yii\db\ActiveRecord
         foreach ($this->categoryTags as $categoryTag) {
             $this->tags_field[] = $categoryTag->tag_id;
         }
+    }
+
+    /**
+     * @param $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        $this->uploadImage();
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -179,5 +194,29 @@ class Category extends \yii\db\ActiveRecord
         }
 
         return Place::find()->joinWith('placeTags')->where(['in', 'place_tags.tag_id', $tagIds])->all();
+    }
+
+    /**
+     *
+     */
+    public function uploadImage()
+    {
+        if ($image = UploadedFile::getInstance($this, 'image_field')) {
+            $image_path = '/upload/images/category_'.$this->category_id.'.'. $image->extension;
+            $image->saveAs(Yii::getAlias('@frontend_web').$image_path);
+            $this->image = $image_path;
+        }
+    }
+
+    /**
+     *
+     */
+    public function deleteImage()
+    {
+        if ($this->image and file_exists(Yii::getAlias('@frontend_web').$this->image)) {
+            unlink(Yii::getAlias('@frontend_web').$this->image);
+            $this->image = null;
+            $this->save(false);
+        }
     }
 }

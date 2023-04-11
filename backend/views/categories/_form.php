@@ -2,6 +2,8 @@
 
 use common\models\Category;
 use common\models\Tag;
+use himiklab\thumbnail\EasyThumbnailImage;
+use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -15,7 +17,23 @@ use yii\widgets\ActiveForm;
 <div class="category-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image_field')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'pluginOptions' => [
+            'browseLabel' => 'Выбрать',
+            'showPreview' => false,
+            'showUpload' => false,
+            'showRemove' => false,
+        ]
+    ]); ?>
+    <?php if ($model->image): ?>
+        <div class="image-preview">
+            <a href="<?= $model->image ?>" target="_blank">
+                <?= EasyThumbnailImage::thumbnailImg(Yii::getAlias('@frontend_web').$model->image, 100, 100) ?>
+            </a>
+            <p><?= Html::a('Удалить', ['delete-image', 'id' => $model->category_id], ['class' => 'btn btn-xs btn-danger']) ?></p>
+        </div>
+    <?php endif ?>
     <?= $form->field($model, 'parent_id')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'),
         'options' => ['placeholder' => 'Выберите категорию'],

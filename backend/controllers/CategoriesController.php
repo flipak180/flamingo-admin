@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\CategoriesSearch;
 use common\models\Category;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -71,7 +72,7 @@ class CategoriesController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->category_id]);
+                return $this->redirect(['update', 'id' => $model->category_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -94,7 +95,7 @@ class CategoriesController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->category_id]);
+            return $this->redirect(['update', 'id' => $model->category_id]);
         }
 
         return $this->render('update', [
@@ -118,6 +119,17 @@ class CategoriesController extends Controller
         // $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     */
+    public function actionDeleteImage($id)
+    {
+        $this->findModel($id)->deleteImage();
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
