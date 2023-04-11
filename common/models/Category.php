@@ -19,6 +19,7 @@ use yii\db\Expression;
  * @property Category $parent
  * @property CategoryTag[] $categoryTags
  * @property Tag[] $tags
+ * @property Place[] $places
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -56,6 +57,14 @@ class Category extends \yii\db\ActiveRecord
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
         ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function extraFields()
+    {
+        return ['places'];
     }
 
     /**
@@ -157,5 +166,18 @@ class Category extends \yii\db\ActiveRecord
             $labels[] = '<span class="badge bg-dark">'.$tag->title.'</span>';
         }
         return implode(' ', $labels);
+    }
+
+    /**
+     * @return Place[]
+     */
+    public function getPlaces()
+    {
+        $tagIds = [];
+        foreach ($this->categoryTags as $categoryTag) {
+            $tagIds[] = $categoryTag->tag_id;
+        }
+
+        return Place::find()->joinWith('placeTags')->where(['in', 'place_tags.tag_id', $tagIds])->all();
     }
 }

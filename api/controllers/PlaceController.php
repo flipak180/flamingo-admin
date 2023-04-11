@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use common\models\Category;
+use common\models\Place;
 use common\models\User;
 use common\models\Visit;
 use Yii;
@@ -11,6 +13,29 @@ use yii\web\NotFoundHttpException;
 class PlaceController extends BaseApiController
 {
     public $modelClass = 'common\models\Place';
+
+    /**
+     * @param $category_id
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function actionList($category_id = null)
+    {
+        if (!$category_id) {
+            return [];
+        }
+
+        $category = Category::findOne($category_id);
+        if (!$category) {
+            throw new NotFoundHttpException('Категория не найдена');
+        }
+
+        $tagIds = [];
+        foreach ($category->categoryTags as $categoryTag) {
+            $tagIds[] = $categoryTag->tag_id;
+        }
+
+        return Place::find()->joinWith('placeTags')->where(['in', 'tag_id', $tagIds])->all();
+    }
 
     /**
      * @return bool

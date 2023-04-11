@@ -49,9 +49,16 @@ return [
                     'controller' => 'place',
                     'extraPatterns' => [
                         'POST,OPTIONS visit' => 'visit',
+                        'GET list' => 'list',
                     ],
                 ],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
+                [
+                    'class' => 'yii\rest\UrlRule', 'controller' => 'category',
+                    'extraPatterns' => [
+                        'POST,OPTIONS visit' => 'visit',
+                        'GET list' => 'list',
+                    ],
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
                 [
                     'class' => 'yii\rest\UrlRule',
