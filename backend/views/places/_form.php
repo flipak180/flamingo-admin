@@ -53,10 +53,10 @@ $this->registerJsFile(
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Новое место', ['create'], ['class' => 'btn btn-secondary']) ?>
+        <?= Html::a('+ Место', ['create'], ['class' => 'btn btn-primary']) ?>
         <?php if (!$model->isNewRecord): ?>
             <?php foreach ($model->tags as $tag): ?>
-                <?= Html::a('Добавить ' . $tag->title, ['create', 'tag_id' => $tag->tag_id], ['class' => 'btn btn-secondary']) ?>
+                <?= Html::a('+ ' . $tag->title, ['create', 'tag_id' => $tag->tag_id], ['class' => 'btn btn-secondary']) ?>
             <?php endforeach; ?>
         <?php endif ?>
     </div>
