@@ -3,6 +3,7 @@
 namespace common\models;
 
 use yii\behaviors\TimestampBehavior;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "users".
@@ -36,7 +37,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'value' => \Yii::$app->clock->date(),
+                'value' => new Expression('NOW()'),
             ],
         ];
     }
