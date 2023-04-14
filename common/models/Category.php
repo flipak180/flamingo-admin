@@ -56,7 +56,8 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['parent_id', 'in_trash'], 'boolean'],
+            [['parent_id'], 'integer'],
+            [['in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
             [['image_field'], 'file', 'extensions' => ['png', 'jpg'], 'maxSize' => 1024*1024],
@@ -126,7 +127,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public function getParent()
     {
-        return $this->hasOne(Category::className(), ['parent_id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['category_id' => 'parent_id']);
     }
 
     /**
