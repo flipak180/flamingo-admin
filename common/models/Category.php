@@ -103,22 +103,15 @@ class Category extends \yii\db\ActiveRecord
 
     /**
      * @param $insert
-     * @return bool
-     */
-    public function beforeSave($insert)
-    {
-        $this->uploadImage();
-        return parent::beforeSave($insert);
-    }
-
-    /**
-     * @param $insert
      * @param $changedAttributes
      * @return void
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
      */
     public function afterSave($insert, $changedAttributes)
     {
         $this->handleTags();
+        $this->uploadImage();
         parent::afterSave($insert, $changedAttributes);
     }
 
@@ -206,6 +199,7 @@ class Category extends \yii\db\ActiveRecord
             $image_path = '/upload/images/category_'.$this->category_id.'.'. $image->extension;
             $image->saveAs(Yii::getAlias('@frontend_web').$image_path);
             $this->image = $image_path;
+            $this->save(false);
         }
     }
 
