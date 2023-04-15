@@ -13,10 +13,12 @@ use yii\db\Expression;
  * @property string $title
  * @property string|null $description
  * @property string $location
+ * @property int|null $category_id
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
  *
+ * @property Category $category
  * @property PlaceTag[] $placeTags
  * @property Tag[] $tags
  * @property Visit[] $visits
@@ -63,6 +65,7 @@ class Place extends \yii\db\ActiveRecord
             [['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
+            [['category_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['tags_field', 'location_field'], 'safe'],
         ];
@@ -114,11 +117,20 @@ class Place extends \yii\db\ActiveRecord
             'description' => 'Описание',
             'location' => 'Местоположение',
             'location_field' => 'Местоположение',
+            'category_id' => 'Категория',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(Category::className(), ['category_id' => 'category_id']);
     }
 
     /**

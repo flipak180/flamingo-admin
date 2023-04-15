@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'place_id',
             'title',
+            'category_id',
             'description:ntext',
             // 'location',
             // 'in_trash',

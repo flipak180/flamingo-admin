@@ -17,6 +17,7 @@ class m230401_102344_places extends Migration
         $this->createTable('places', [
             'place_id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
+            'category_id' => $this->integer(),
             'description' => $this->text(),
             'location' => 'geometry NOT NULL',
             'in_trash' => $this->boolean()->defaultValue(false),

@@ -193,7 +193,9 @@ class Category extends \yii\db\ActiveRecord
             $tagIds[] = $categoryTag->tag_id;
         }
 
-        return Place::find()->joinWith('placeTags')->where(['in', 'place_tags.tag_id', $tagIds])->all();
+        return Place::find()->joinWith('placeTags')
+            ->where(['category_id' => $this->category_id])
+            ->orWhere(['in', 'place_tags.tag_id', $tagIds])->all();
     }
 
     /**

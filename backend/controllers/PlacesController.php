@@ -64,10 +64,11 @@ class PlacesController extends Controller
      * @param $tag_id
      * @return string|\yii\web\Response
      */
-    public function actionCreate($tag_id = null)
+    public function actionCreate($tag_id = null, $category_id = null)
     {
         $model = new Place();
         $model->scenario = 'form';
+        $model->category_id = $category_id;
 
         if ($tag_id) {
             $model->tags_field[] = $tag_id;

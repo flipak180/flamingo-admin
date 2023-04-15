@@ -34,7 +34,13 @@ class PlaceController extends BaseApiController
             $tagIds[] = $categoryTag->tag_id;
         }
 
-        return Place::find()->joinWith('placeTags')->where(['in', 'tag_id', $tagIds])->all();
+        $orderDir = ($category->type == Category::TYPE_CATALOG) ? 'DESC' : 'ASC';
+
+        return Place::find()->joinWith('placeTags')
+            ->where(['category_id' => $category_id])
+            ->orWhere(['in', 'tag_id', $tagIds])
+            ->orderBy('place_id ' . $orderDir)
+            ->all();
     }
 
     /**

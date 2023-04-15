@@ -23,6 +23,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description') ?>
 
+    <?= $form->field($model, 'category_id') ?>
+
     <?php // echo $form->field($model, 'in_trash') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>

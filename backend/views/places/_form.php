@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Category;
 use common\models\Tag;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
@@ -27,6 +28,10 @@ $this->registerJsFile(
     <!--
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     -->
+    <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(Category::find()->all(), 'category_id', 'title'),
+        'options' => ['placeholder' => 'Выберите категорию'],
+    ]); ?>
     <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Tag::find()->all(), 'tag_id', 'title'),
         'options' => ['placeholder' => 'Выберите теги', 'multiple' => true],
@@ -53,8 +58,11 @@ $this->registerJsFile(
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
-        <?= Html::a('+ Место', ['create'], ['class' => 'btn btn-primary']) ?>
         <?php if (!$model->isNewRecord): ?>
+            <?= Html::a('+ Место', ['create'], ['class' => 'btn btn-primary']) ?>
+            <?php if ($model->category): ?>
+                <?= Html::a('+ ' . $model->category->title, ['create', 'category_id' => $model->category_id], ['class' => 'btn btn-secondary']) ?>
+            <?php endif ?>
             <?php foreach ($model->tags as $tag): ?>
                 <?= Html::a('+ ' . $tag->title, ['create', 'tag_id' => $tag->tag_id], ['class' => 'btn btn-secondary']) ?>
             <?php endforeach; ?>

@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Category;
 use common\models\Place;
 use common\models\Tag;
 use yii\grid\ActionColumn;
@@ -32,6 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'title',
             //'description:ntext',
+            [
+                'attribute' => 'category_id',
+                'format' => 'raw',
+                'value' => function(Place $model) {
+                    return $model->category ? Html::a($model->category->title, ['categories/view', 'id' => $model->category_id]) : '-';
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'category_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+            ],
             [
                 'attribute' => 'tags_field',
                 'format' => 'raw',

@@ -17,7 +17,7 @@ class PlacesSearch extends Place
     public function rules()
     {
         return [
-            [['place_id', 'in_trash'], 'integer'],
+            [['place_id', 'category_id', 'in_trash'], 'integer'],
             [['title', 'location', 'description', 'tags_field', 'location_field'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class PlacesSearch extends Place
         // grid filtering conditions
         $query->andFilterWhere([
             'place_id' => $this->place_id,
+            'category_id' => $this->category_id,
             'in_trash' => $this->in_trash,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
