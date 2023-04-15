@@ -67,7 +67,10 @@ return [
                         'POST,OPTIONS visits' => 'visits',
                     ],
                 ],
+
                 'POST,OPTIONS quests/start' => 'quest/start',
+                'POST,OPTIONS quests/visit' => 'quest/visit',
+
 //                [
 //                    'class' => 'yii\rest\UrlRule',
 //                    'controller' => 'v1/place',
