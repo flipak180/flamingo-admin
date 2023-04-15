@@ -21,6 +21,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'image') ?>
 
+    <?= $form->field($model, 'type') ?>
+
     <?= $form->field($model, 'parent_id') ?>
 
     <?= $form->field($model, 'in_trash') ?>

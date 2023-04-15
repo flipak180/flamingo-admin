@@ -33,6 +33,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             //'image',
             [
+                'attribute' => 'type',
+                'format' => 'raw',
+                'value' => function(Category $model) {
+                    return $model->getTypeTitle();
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'type', Category::getTypesList(), ['class' => 'form-control', 'prompt' => '']),
+            ],
+            [
                 'attribute' => 'parent_id',
                 'format' => 'raw',
                 'value' => function(Category $model) {

@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
  * @property int $category_id
  * @property string $title
  * @property string|null $image
+ * @property int $type
  * @property int|null $parent_id
  * @property int|null $in_trash
  * @property int $created_at
@@ -27,6 +28,10 @@ class Category extends \yii\db\ActiveRecord
 {
     public $tags_field;
     public $image_field;
+
+    const TYPE_CATALOG = 1;
+    const TYPE_ROUTE = 2;
+    const TYPE_QUEST = 3;
 
     /**
      * {@inheritdoc}
@@ -55,8 +60,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
-            [['parent_id'], 'integer'],
+            [['title', 'type'], 'required'],
+            [['parent_id', 'type'], 'integer'],
             [['in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
@@ -82,6 +87,7 @@ class Category extends \yii\db\ActiveRecord
             'title' => 'Название',
             'image' => 'Изображение',
             'image_field' => 'Изображение',
+            'type' => 'Тип',
             'parent_id' => 'Родитель',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
@@ -213,5 +219,23 @@ class Category extends \yii\db\ActiveRecord
             $this->image = null;
             $this->save(false);
         }
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTypesList() {
+        return [
+            self::TYPE_CATALOG => 'Каталог',
+            self::TYPE_ROUTE => 'Маршрут',
+            self::TYPE_QUEST => 'Квест',
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTypeTitle() {
+        return self::getTypesList()[$this->type] ?? '-';
     }
 }

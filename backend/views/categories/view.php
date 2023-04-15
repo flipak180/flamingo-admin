@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'category_id',
             'title',
             'image',
+            'type',
             [
                 'attribute' => 'parent_id',
                 'format' => 'raw',
