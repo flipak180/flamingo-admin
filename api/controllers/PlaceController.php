@@ -61,8 +61,13 @@ class PlaceController extends BaseApiController
             throw new NotFoundHttpException('Пользователь не найден');
         }
 
+        $place = Place::findOne($params['place_id']);
+        if (!$place) {
+            throw new NotFoundHttpException('Место не найдено');
+        }
+
         $visit = new Visit();
-        $visit->place_id = $params['place_id'];
+        $visit->place_id = $place->place_id;
         $visit->user_id = $user->user_id;
         if (!$visit->validate()) {
             throw new BadRequestHttpException('Вы уже отметились');
