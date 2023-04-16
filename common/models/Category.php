@@ -20,6 +20,7 @@ use yii\web\UploadedFile;
  * @property int $updated_at
  *
  * @property Category $parent
+ * @property Category $children
  * @property CategoryTag[] $categoryTags
  * @property Tag[] $tags
  * @property Place[] $places
@@ -74,7 +75,7 @@ class Category extends \yii\db\ActiveRecord
      */
     public function extraFields()
     {
-        return ['places'];
+        return ['places', 'children', 'parent'];
     }
 
     /**
@@ -127,6 +128,14 @@ class Category extends \yii\db\ActiveRecord
     public function getParent()
     {
         return $this->hasOne(Category::className(), ['category_id' => 'parent_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getChildren()
+    {
+        return $this->hasOne(Category::className(), ['parent_id' => 'category_id']);
     }
 
     /**
