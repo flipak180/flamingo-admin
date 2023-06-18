@@ -10,9 +10,8 @@ use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
-class PlaceController extends BaseApiController
+class PlacesController extends BaseApiController
 {
-    public $modelClass = 'common\models\Place';
 
     /**
      * @param $category_id
@@ -41,6 +40,15 @@ class PlaceController extends BaseApiController
             ->orWhere(['in', 'tag_id', $tagIds])
             ->orderBy('place_id ' . $orderDir)
             ->all();
+    }
+
+    /**
+     * @param $id
+     * @return Place|null
+     */
+    public function actionView($id)
+    {
+        return Place::findOne($id);
     }
 
     /**

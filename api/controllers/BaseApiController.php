@@ -4,10 +4,10 @@ namespace app\controllers;
 
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
-use yii\rest\ActiveController;
+use yii\rest\Controller;
 use yii\web\Response;
 
-abstract class BaseApiController extends ActiveController
+abstract class BaseApiController extends Controller
 {
 
     /**
@@ -24,6 +24,18 @@ abstract class BaseApiController extends ActiveController
             'corsFilter' => [
                 'class' => Cors::class,
             ],
+        ];
+    }
+
+    /**
+     * @return \string[][]
+     */
+    public function actions()
+    {
+        return [
+            'options' => [
+                'class' => 'yii\rest\OptionsAction'
+            ]
         ];
     }
 
