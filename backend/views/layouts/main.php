@@ -36,6 +36,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Места', 'url' => ['/places/index']],
+        ['label' => 'Подборки', 'url' => ['/compilations/index']],
         ['label' => 'Категории', 'url' => ['/categories/index']],
         ['label' => 'Теги', 'url' => ['/tags/index']],
         ['label' => 'Пользователи', 'url' => ['/users/index']],

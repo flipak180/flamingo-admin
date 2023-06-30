@@ -70,7 +70,7 @@ class PlaceTag extends \yii\db\ActiveRecord
      */
     public function getPlace()
     {
-        return $this->hasOne(Place::className(), ['place_tag_id' => 'place_id']);
+        return $this->hasOne(Place::className(), ['place_id' => 'place_id']);
     }
 
     /**
@@ -78,6 +78,6 @@ class PlaceTag extends \yii\db\ActiveRecord
      */
     public function getTag()
     {
-        return $this->hasOne(Tag::className(), ['place_tag_id' => 'tag_id']);
+        return $this->hasOne(Tag::className(), ['tag_id' => 'tag_id']);
     }
 }
