@@ -44,6 +44,15 @@ class PlaceController extends BaseApiController
     }
 
     /**
+     * @param $id
+     * @return Place|null
+     */
+    public function actionDetails($id)
+    {
+        return Place::findOne($id);
+    }
+
+    /**
      * @return bool
      * @throws BadRequestHttpException
      * @throws NotFoundHttpException

@@ -20,4 +20,13 @@ class CategoryController extends BaseApiController
             return Category::find()->where(['parent_id' => null])->all();
         }
     }
+
+    /**
+     * @param $id
+     * @return Category|null
+     */
+    public function actionDetails($id)
+    {
+        return Category::findOne($id);
+    }
 }
