@@ -43,15 +43,19 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'controller' => 'place',
-                    'extraPatterns' => [
-                        'POST,OPTIONS visit' => 'visit',
-                        'GET list' => 'list',
-                        'GET details' => 'details',
-                    ],
-                ],
+                'GET places/list' => 'places/list',
+                'GET places/visit' => 'places/visit',
+                'GET places/<id:\d+>' => 'places/view',
+
+//                [
+//                    'class' => 'yii\rest\UrlRule',
+//                    'controller' => 'place',
+//                    'extraPatterns' => [
+//                        'POST,OPTIONS visit' => 'visit',
+//                        'GET list' => 'list',
+//                        'GET details' => 'details',
+//                    ],
+//                ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'category',

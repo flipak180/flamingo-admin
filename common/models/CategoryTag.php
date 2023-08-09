@@ -72,7 +72,7 @@ class CategoryTag extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['category_tag_id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['category_id' => 'category_id']);
     }
 
     /**
@@ -80,6 +80,6 @@ class CategoryTag extends \yii\db\ActiveRecord
      */
     public function getTag()
     {
-        return $this->hasOne(Tag::className(), ['category_tag_id' => 'tag_id']);
+        return $this->hasOne(Tag::className(), ['tag_id' => 'tag_id']);
     }
 }
