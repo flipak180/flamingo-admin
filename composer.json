@@ -22,7 +22,8 @@
         "nanson/yii2-postgis": "*",
         "ext-curl": "*",
         "ext-json": "*",
-        "himiklab/yii2-easy-thumbnail-image-helper": "*"
+        "himiklab/yii2-easy-thumbnail-image-helper": "*",
+        "kartik-v/yii2-editors": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

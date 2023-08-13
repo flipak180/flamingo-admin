@@ -43,6 +43,9 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
+                'GET events/list' => 'events/list',
+                'GET events/details' => 'events/details',
+
                 'GET places/list' => 'places/list',
                 'GET places/visit' => 'places/visit',
                 'GET places/<id:\d+>' => 'places/view',
