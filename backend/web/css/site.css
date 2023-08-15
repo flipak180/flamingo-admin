@@ -119,3 +119,14 @@ div.required label.control-label:after {
     height: 400px;
     margin-bottom: 15px;
 }
+
+.image-preview {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 15px;
+}
+.image-preview .actions {
+    position: absolute;
+    top: 0;
+    right: -100px;
+}

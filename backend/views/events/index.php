@@ -1,10 +1,12 @@
 <?php
 
 use common\models\Event;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use common\models\Place;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var backend\models\EventsSearch $searchModel */
@@ -28,10 +30,23 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'event_id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
-            'title',
+            [
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function(Event $model) {
+                    return Html::a($model->title, ['events/update', 'event_id' => $model->event_id]);
+                },
+            ],
             'subtitle',
             //'image',
-            'place_id',
+            [
+                'attribute' => 'place_id',
+                'format' => 'raw',
+                'value' => function(Event $model) {
+                    return $model->place ? Html::a($model->place->title, ['places/view', 'id' => $model->place_id]) : '-';
+                },
+                'filter' => Html::activeDropDownList($searchModel, 'place_id', ArrayHelper::map(Place::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+            ],
             //'description:ntext',
             [
                 'attribute' => 'created_at',
@@ -44,7 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Event $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'event_id' => $model->event_id]);
-                 }
+                },
+                'template' => '{delete}'
             ],
         ],
     ]); ?>

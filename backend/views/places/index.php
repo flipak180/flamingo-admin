@@ -31,7 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'place_id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
-            'title',
+            [
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function(Place $model) {
+                    return Html::a($model->title, ['places/update', 'id' => $model->place_id]);
+                },
+            ],
             //'description:ntext',
             [
                 'attribute' => 'category_id',
