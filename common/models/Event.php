@@ -2,9 +2,11 @@
 
 namespace common\models;
 
+use Imagine\Image\Box;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\imagine\Image;
 use yii\web\UploadedFile;
 
 /**
@@ -57,7 +59,7 @@ class Event extends \yii\db\ActiveRecord
             [['place_id'], 'integer'],
             [['description'], 'string'],
             [['title', 'subtitle', 'image'], 'string', 'max' => 255],
-            [['image_field'], 'file', 'extensions' => ['png', 'jpg'], 'maxSize' => 1024*1024],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024],
         ];
     }
 
@@ -80,17 +82,6 @@ class Event extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $insert
-     * @param $changedAttributes
-     * @return void
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        $this->uploadImage();
-        parent::afterSave($insert, $changedAttributes);
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPlace()
@@ -104,8 +95,17 @@ class Event extends \yii\db\ActiveRecord
     public function uploadImage()
     {
         if ($image = UploadedFile::getInstance($this, 'image_field')) {
-            $image_path = '/upload/images/event_'.$this->event_id.'.'. $image->extension;
-            $image->saveAs(Yii::getAlias('@frontend_web').$image_path);
+            do {
+                $image_path = '/upload/images/event_'.md5(rand()).'.'.$image->extension;
+                $full_path = Yii::getAlias('@frontend_web').$image_path;
+            } while (file_exists($full_path));
+
+            $image->saveAs($full_path);
+
+            Image::frame($full_path, 0)
+                ->thumbnail(new Box(400, 400))
+                ->save($full_path, ['quality' => 100]);
+
             $this->image = $image_path;
             $this->save(false);
         }

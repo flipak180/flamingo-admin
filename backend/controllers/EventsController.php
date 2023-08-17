@@ -2,12 +2,12 @@
 
 namespace backend\controllers;
 
-use common\models\Event;
 use backend\models\EventsSearch;
+use common\models\Event;
 use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * EventsController implements the CRUD actions for Event model.
@@ -72,6 +72,7 @@ class EventsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                $model->uploadImage();
                 return $this->redirect(['index']);
             }
         } else {
@@ -95,6 +96,7 @@ class EventsController extends Controller
         $model = $this->findModel($event_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            $model->uploadImage();
             return $this->redirect(['index']);
         }
 

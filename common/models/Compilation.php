@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -56,7 +55,7 @@ class Compilation extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
-            [['image_field'], 'file', 'extensions' => ['png', 'jpg'], 'maxSize' => 1024*1024],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024],
             ['places_field', 'safe']
         ];
     }
