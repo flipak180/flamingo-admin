@@ -59,7 +59,7 @@ class Event extends \yii\db\ActiveRecord
             [['place_id'], 'integer'],
             [['description'], 'string'],
             [['title', 'subtitle', 'image'], 'string', 'max' => 255],
-            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*2],
         ];
     }
 
@@ -103,7 +103,7 @@ class Event extends \yii\db\ActiveRecord
             $image->saveAs($full_path);
 
             Image::frame($full_path, 0)
-                ->thumbnail(new Box(400, 400))
+                ->thumbnail(new Box(800, 800))
                 ->save($full_path, ['quality' => 100]);
 
             $this->image = $image_path;

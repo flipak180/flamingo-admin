@@ -66,7 +66,7 @@ class Category extends \yii\db\ActiveRecord
             [['in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
-            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*2],
         ];
     }
 
