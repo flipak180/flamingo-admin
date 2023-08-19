@@ -61,6 +61,28 @@ class Compilation extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return void
+     */
+    public function afterFind()
+    {
+        parent::afterFind();
+        foreach ($this->places as $place) {
+            $this->places_field[] = $place->place_id;
+        }
+    }
+
+    /**
+     * @param $insert
+     * @param $changedAttributes
+     * @return void
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->handlePlaces();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function attributeLabels()
@@ -93,5 +115,30 @@ class Compilation extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Place::className(), ['place_id' => 'place_id'])
             ->via('compilationPlaces');
+    }
+
+    /**
+     * @return void
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
+     */
+    public function handlePlaces() {
+        if (!is_array($this->places_field)) {
+            return;
+        }
+
+        /** @var Place[] $currentPlaces */
+        $currentPlaces = $this->getPlaces()->all();
+
+        foreach ($currentPlaces as $currentPlace) {
+            if (!in_array($currentPlace->title, $this->places_field)) {
+                $this->unlink('places', $currentPlace, true);
+            }
+        }
+
+        foreach ($this->places_field as $placeId) {
+            $place = Place::findOne($placeId);
+            $this->link('places', $place);
+        }
     }
 }

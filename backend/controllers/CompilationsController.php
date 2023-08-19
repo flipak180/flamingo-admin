@@ -72,7 +72,7 @@ class CompilationsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'compilation_id' => $model->compilation_id]);
+                return $this->redirect(['update', 'compilation_id' => $model->compilation_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -95,7 +95,7 @@ class CompilationsController extends Controller
         $model = $this->findModel($compilation_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'compilation_id' => $model->compilation_id]);
+            return $this->redirect(['update', 'compilation_id' => $model->compilation_id]);
         }
 
         return $this->render('update', [
