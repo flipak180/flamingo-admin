@@ -59,7 +59,7 @@ class Event extends \yii\db\ActiveRecord
             [['place_id'], 'integer'],
             [['description'], 'string'],
             [['title', 'subtitle', 'image'], 'string', 'max' => 255],
-            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*2],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*10],
         ];
     }
 
