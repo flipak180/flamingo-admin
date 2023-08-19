@@ -49,6 +49,7 @@ return [
                 'GET places/list' => 'places/list',
                 'GET places/visit' => 'places/visit',
                 'GET places/<id:\d+>' => 'places/view',
+                'GET places/details' => 'places/details',
 
 //                [
 //                    'class' => 'yii\rest\UrlRule',

@@ -10,7 +10,7 @@ use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
-class PlaceController extends BaseApiController
+class PlacesController extends BaseApiController
 {
     public $modelClass = 'common\models\Place';
 
@@ -45,11 +45,17 @@ class PlaceController extends BaseApiController
 
     /**
      * @param $id
-     * @return Place|null
+     * @return array
      */
     public function actionDetails($id)
     {
-        return Place::findOne($id);
+        $place = Place::findOne($id);
+
+        return [
+            'id' => $place->place_id,
+            'title' => $place->title,
+            'description' => $place->description,
+        ];
     }
 
     /**
