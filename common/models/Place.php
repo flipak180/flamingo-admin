@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\ImageBehavior;
 use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -13,6 +14,7 @@ use yii\db\Expression;
  * @property string $title
  * @property string|null $description
  * @property string $location
+ * @property string $coords
  * @property int|null $category_id
  * @property int|null $in_trash
  * @property int $created_at
@@ -26,7 +28,9 @@ use yii\db\Expression;
 class Place extends \yii\db\ActiveRecord
 {
     public $location_field;
+    public $coords_field;
     public $tags_field;
+    public $images_field;
 
     /**
      * {@inheritdoc}
@@ -47,9 +51,18 @@ class Place extends \yii\db\ActiveRecord
                 'value' => new Expression('NOW()'),
             ],
             [
-                'class' => GeometryBehavior::className(),
+                'class' => GeometryBehavior::class,
                 'type' => GeometryBehavior::GEOMETRY_POLYGON,
                 'attribute' => 'location',
+            ],
+            [
+                'class' => GeometryBehavior::class,
+                'type' => GeometryBehavior::GEOMETRY_POINT,
+                'attribute' => 'coords',
+            ],
+            [
+                'class' => ImageBehavior::class,
+                'attribute' => 'images_field',
             ],
         ];
     }
@@ -62,12 +75,12 @@ class Place extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['title'], 'unique'],
-            [['location_field'], 'required', 'on' => 'form'],
+            //[['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
             [['category_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
-            [['tags_field', 'location_field'], 'safe'],
+            [['tags_field', 'location_field', 'coords_field', 'images_field'], 'safe'],
         ];
     }
 
@@ -78,6 +91,9 @@ class Place extends \yii\db\ActiveRecord
     {
         if ($this->location_field) {
             $this->location = json_decode($this->location_field, true);
+        }
+        if ($this->coords_field) {
+            $this->coords = array_map('trim', explode(',', $this->coords_field));
         }
         return parent::beforeValidate();
     }
@@ -92,7 +108,12 @@ class Place extends \yii\db\ActiveRecord
             $this->tags_field[] = $placeTag->tag_id;
         }
 
-        $this->location_field = json_encode($this->location);
+        if ($this->location) {
+            $this->location_field = json_encode($this->location);
+        }
+        if ($this->coords) {
+            $this->coords_field = implode(', ', $this->coords);
+        }
     }
 
     /**
@@ -117,6 +138,9 @@ class Place extends \yii\db\ActiveRecord
             'description' => 'Описание',
             'location' => 'Местоположение',
             'location_field' => 'Местоположение',
+            'coords' => 'Координаты',
+            'coords_field' => 'Координаты',
+            'images_field' => 'Изображения',
             'category_id' => 'Категория',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',

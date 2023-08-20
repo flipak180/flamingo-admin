@@ -2,6 +2,7 @@
 
 use common\models\Category;
 use common\models\Tag;
+use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -42,6 +43,18 @@ $this->registerJsFile(
             'maximumInputLength' => 10
         ],
     ]); ?>
+
+    <?= $form->field($model, 'images_field')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*', 'multiple' => true],
+        'pluginOptions' => [
+            'browseLabel' => 'Выбрать',
+            'showPreview' => false,
+            'showUpload' => false,
+            'showRemove' => false,
+        ]
+    ]); ?>
+
+    <?= $form->field($model, 'coords_field')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'location_field')->hiddenInput() ?>
     <div class="place-map-wrap">

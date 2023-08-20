@@ -19,7 +19,7 @@ class m230401_102344_places extends Migration
             'title' => $this->string()->notNull(),
             'category_id' => $this->integer(),
             'description' => $this->text(),
-            'location' => 'geometry NOT NULL',
+            'location' => 'geometry',
             'in_trash' => $this->boolean()->defaultValue(false),
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),

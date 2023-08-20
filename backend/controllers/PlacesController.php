@@ -67,7 +67,7 @@ class PlacesController extends Controller
     public function actionCreate($tag_id = null, $category_id = null)
     {
         $model = new Place();
-        $model->scenario = 'form';
+        //$model->scenario = 'form';
         $model->category_id = $category_id;
 
         if ($tag_id) {
@@ -97,7 +97,7 @@ class PlacesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'form';
+        //$model->scenario = 'form';
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['update', 'id' => $model->place_id]);
