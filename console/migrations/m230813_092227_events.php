@@ -16,7 +16,6 @@ class m230813_092227_events extends Migration
             'event_id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'subtitle' => $this->string(),
-            'image' => $this->string(),
             'place_id' => $this->integer(),
             'description' => $this->text(),
 

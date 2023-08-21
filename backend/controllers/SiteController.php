@@ -2,10 +2,11 @@
 
 namespace backend\controllers;
 
+use common\models\ImageModel;
 use common\models\LoginForm;
 use Yii;
-use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -28,7 +29,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'delete-image'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -100,5 +101,19 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDeleteImage($id)
+    {
+        if ($image = ImageModel::findOne($id)) {
+            $image->delete();
+        }
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

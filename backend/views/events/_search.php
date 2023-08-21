@@ -21,8 +21,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'subtitle') ?>
 
-    <?= $form->field($model, 'image') ?>
-
     <?= $form->field($model, 'place_id') ?>
 
     <?php // echo $form->field($model, 'description') ?>

@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'event_id',
             'title',
             'subtitle',
-            'image',
             'place_id',
             'description:ntext',
             'created_at',

@@ -38,7 +38,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'subtitle',
-            //'image',
             [
                 'attribute' => 'place_id',
                 'format' => 'raw',

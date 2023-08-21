@@ -23,11 +23,17 @@ class EventsController extends BaseApiController
                 ]
             ] : [];
 
+            $images = [];
+            foreach ($event->images as $image) {
+                $images[] = $image->path;
+            }
+
             $result[] = [
                 'id' => $event->event_id,
                 'type' => $event->subtitle,
                 'title' => $event->title,
-                'image' => $event->image,
+                'image' => count($images) ? $images[0] : '',
+                'images' => $images,
                 'totalPlaces' => 0,
                 'places' => $place,
             ];
@@ -51,11 +57,17 @@ class EventsController extends BaseApiController
             ]
         ] : [];
 
+        $images = [];
+        foreach ($event->images as $image) {
+            $images[] = $image->path;
+        }
+
         return [
             'id' => $event->event_id,
             'type' => $event->subtitle,
             'title' => $event->title,
-            'image' => $event->image,
+            'image' => count($images) ? $images[0] : '',
+            'images' => $images,
             'description' => $event->description,
             'totalPlaces' => 0,
             'places' => $place,

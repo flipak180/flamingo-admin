@@ -2,9 +2,9 @@
 
 namespace backend\models;
 
+use common\models\Event;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Event;
 
 /**
  * EventsSearch represents the model behind the search form of `common\models\Event`.
@@ -67,7 +67,6 @@ class EventsSearch extends Event
 
         $query->andFilterWhere(['ilike', 'title', $this->title])
             ->andFilterWhere(['ilike', 'subtitle', $this->subtitle])
-            ->andFilterWhere(['ilike', 'image', $this->image])
             ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;

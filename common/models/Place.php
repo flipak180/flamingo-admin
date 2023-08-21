@@ -24,6 +24,7 @@ use yii\db\Expression;
  * @property PlaceTag[] $placeTags
  * @property Tag[] $tags
  * @property Visit[] $visits
+ * @property ImageModel[] $images
  */
 class Place extends \yii\db\ActiveRecord
 {

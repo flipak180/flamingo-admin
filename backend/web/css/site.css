@@ -120,13 +120,20 @@ div.required label.control-label:after {
     margin-bottom: 15px;
 }
 
+.image-preview__cont {
+    margin-bottom: 15px;
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
 .image-preview {
     display: inline-block;
     position: relative;
-    margin-bottom: 15px;
+    overflow: hidden;
 }
 .image-preview .actions {
     position: absolute;
-    top: 0;
-    right: -100px;
+    top: 5px;
+    right: 5px;
+    z-index: 10;
 }

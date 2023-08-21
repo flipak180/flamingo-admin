@@ -18,6 +18,11 @@ class ImageBehavior extends Behavior
     public $owner;
 
     /**
+     * @var array
+     */
+    public $images = [];
+
+    /**
      * @var
      */
     public $attribute;
@@ -62,15 +67,9 @@ class ImageBehavior extends Behavior
     public function afterSave()
     {
         foreach (UploadedFile::getInstances($this->owner, $this->attribute) as $image) {
-            Yii::info($image);
-
-
             $classPath = get_class($this->owner);
             $classPathArr = explode('\\', $classPath);
             $className = end($classPathArr);
-
-            Yii::info($classPath);
-            Yii::info($className);
 
             do {
                 $image_path = '/upload/images/'.strtolower($className).'_'.md5(rand()).'.'.$image->extension;
@@ -98,6 +97,11 @@ class ImageBehavior extends Behavior
      */
     public function afterFind()
     {
+        $classPath = get_class($this->owner);
+        $classPathArr = explode('\\', $classPath);
+        $className = end($classPathArr);
+
+        $this->images = ImageModel::find()->where(['model' => $className, 'model_id' => $this->owner->primaryKey])->all();
         return true;
     }
 

@@ -4,7 +4,6 @@ namespace backend\controllers;
 
 use backend\models\EventsSearch;
 use common\models\Event;
-use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -72,8 +71,7 @@ class EventsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                $model->uploadImage();
-                return $this->redirect(['index']);
+                return $this->redirect(['update', 'id' => $model->event_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -96,8 +94,7 @@ class EventsController extends Controller
         $model = $this->findModel($event_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            $model->uploadImage();
-            return $this->redirect(['index']);
+            return $this->redirect(['update', 'id' => $model->event_id]);
         }
 
         return $this->render('update', [
@@ -117,17 +114,6 @@ class EventsController extends Controller
         $this->findModel($event_id)->delete();
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * @param $id
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException
-     */
-    public function actionDeleteImage($id)
-    {
-        $this->findModel($id)->deleteImage();
-        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
