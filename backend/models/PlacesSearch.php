@@ -57,6 +57,8 @@ class PlacesSearch extends Place
             return $dataProvider;
         }
 
+        $query->andWhere('places.in_trash IS NOT TRUE');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'place_id' => $this->place_id,

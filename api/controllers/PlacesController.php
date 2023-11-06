@@ -6,6 +6,7 @@ use common\models\Category;
 use common\models\Place;
 use common\models\User;
 use common\models\Visit;
+use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
@@ -21,12 +22,18 @@ class PlacesController extends BaseApiController
         $result = [];
 
         /** @var Place[] $places */
-        $places = Place::find()->orderBy('place_id DESC')->all();
+        $places = Place::find()
+            ->where('in_trash IS NOT TRUE')
+            ->orderBy('place_id DESC')
+            //->limit(10)
+            //->orderBy(new Expression('RANDOM()'))
+            ->all();
 
         foreach ($places as $place) {
             $images = [];
             foreach ($place->images as $image) {
-                $images[] = $image->path;
+                // $images[] = $image->path;
+                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 500, 800, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
             }
 
             $tags = [];

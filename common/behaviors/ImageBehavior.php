@@ -3,11 +3,9 @@
 namespace common\behaviors;
 
 use common\models\ImageModel;
-use Imagine\Image\Box;
 use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
-use yii\imagine\Image;
 use yii\web\UploadedFile;
 
 class ImageBehavior extends Behavior
@@ -78,9 +76,9 @@ class ImageBehavior extends Behavior
 
             $image->saveAs($full_path);
 
-            Image::frame($full_path, 0)
-                ->thumbnail(new Box(800, 800))
-                ->save($full_path, ['quality' => 100]);
+//            Image::frame($full_path, 0)
+//                ->thumbnail(new Box(800, 800))
+//                ->save($full_path, ['quality' => 100]);
 
             $newImage = new ImageModel();
             $newImage->path = $image_path;
