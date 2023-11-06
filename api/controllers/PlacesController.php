@@ -12,14 +12,40 @@ use yii\web\NotFoundHttpException;
 
 class PlacesController extends BaseApiController
 {
-    public $modelClass = 'common\models\Place';
-
     /**
      * @param $category_id
      * @return array|\yii\db\ActiveRecord[]
      */
     public function actionList($category_id = null)
     {
+        $result = [];
+
+        /** @var Place[] $places */
+        $places = Place::find()->orderBy('place_id DESC')->all();
+
+        foreach ($places as $place) {
+            $images = [];
+            foreach ($place->images as $image) {
+                $images[] = $image->path;
+            }
+
+            $tags = [];
+            foreach ($place->tags as $tag) {
+                $tags[] = $tag->title;
+            }
+
+            $result[] = [
+                'id' => $place->place_id,
+                'title' => $place->title,
+                'image' => count($images) ? $images[0] : '',
+                'images' => $images,
+                'tags' => $tags,
+            ];
+        }
+
+        return $result;
+
+
         if (!$category_id) {
             return [];
         }
