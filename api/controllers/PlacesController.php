@@ -25,7 +25,7 @@ class PlacesController extends BaseApiController
         $places = Place::find()
             ->where('in_trash IS NOT TRUE')
             ->orderBy('place_id DESC')
-            //->limit(10)
+            ->limit(5)
             //->orderBy(new Expression('RANDOM()'))
             ->all();
 
@@ -47,6 +47,7 @@ class PlacesController extends BaseApiController
                 'image' => count($images) ? $images[0] : '',
                 'images' => $images,
                 'tags' => $tags,
+                'coords' => $place->coords,
             ];
         }
 

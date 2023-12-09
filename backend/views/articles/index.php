@@ -1,23 +1,23 @@
 <?php
 
-use common\models\Compilation;
+use common\models\Article;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
-/** @var backend\models\CompilationsSearch $searchModel */
+/** @var backend\models\ArticlesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Подборки';
+$this->title = 'Статьи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="compilation-index">
+<div class="article-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
-        <?= Html::a('Добавить подборку', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?= GridView::widget([
@@ -25,19 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             [
-                'attribute' => 'compilation_id',
+                'attribute' => 'id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
             [
                 'attribute' => 'title',
                 'format' => 'raw',
-                'value' => function(Compilation $model) {
-                    return Html::a($model->title, ['compilations/update', 'compilation_id' => $model->compilation_id]);
+                'value' => function(Article $model) {
+                    return Html::a($model->title, ['articles/update', 'id' => $model->id]);
                 },
             ],
-            'image',
+            'subtitle',
             //'description:ntext',
-            //'in_trash:boolean',
             [
                 'attribute' => 'created_at',
                 'format' => 'datetime',
@@ -47,13 +46,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Compilation $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'compilation_id' => $model->compilation_id]);
+                'urlCreator' => function ($action, Article $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
                 },
                 'template' => '{delete}'
             ],
         ],
     ]); ?>
-
-
 </div>

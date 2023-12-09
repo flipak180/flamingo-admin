@@ -2,14 +2,14 @@
 
 namespace backend\models;
 
-use common\models\Compilation;
+use common\models\Article;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * CompilationsSearch represents the model behind the search form of `common\models\Compilation`.
+ * ArticlesSearch represents the model behind the search form of `common\models\Article`.
  */
-class CompilationsSearch extends Compilation
+class ArticlesSearch extends Article
 {
     /**
      * {@inheritdoc}
@@ -17,9 +17,8 @@ class CompilationsSearch extends Compilation
     public function rules()
     {
         return [
-            [['compilation_id'], 'integer'],
-            [['title', 'image', 'description', 'created_at', 'updated_at'], 'safe'],
-            [['in_trash'], 'boolean'],
+            [['id'], 'integer'],
+            [['title', 'subtitle', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -41,13 +40,13 @@ class CompilationsSearch extends Compilation
      */
     public function search($params)
     {
-        $query = Compilation::find();
+        $query = Article::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['compilation_id' => SORT_DESC]],
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -60,14 +59,13 @@ class CompilationsSearch extends Compilation
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'compilation_id' => $this->compilation_id,
-            'in_trash' => $this->in_trash,
+            'id' => $this->id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
         $query->andFilterWhere(['ilike', 'title', $this->title])
-            ->andFilterWhere(['ilike', 'image', $this->image])
+            ->andFilterWhere(['ilike', 'subtitle', $this->subtitle])
             ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;

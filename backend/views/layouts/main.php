@@ -35,6 +35,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Статьи', 'url' => ['/articles/index']],
         ['label' => 'События', 'url' => ['/events/index']],
         ['label' => 'Места', 'url' => ['/places/index']],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],

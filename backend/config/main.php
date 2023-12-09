@@ -60,5 +60,5 @@ return [
         ],
     ],
     'params' => $params,
-    'defaultRoute' => 'events/index',
+    'defaultRoute' => 'articles/index',
 ];
