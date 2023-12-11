@@ -58,24 +58,28 @@ class PlaceBehavior extends Behavior
     }
 
     /**
-     * @return bool
+     * @return true
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
      */
     public function afterSave()
     {
-        if (!is_array($this->attribute)) {
-            return true;
+        $places = $this->owner->{$this->attribute};
+
+        if (!is_array($places)) {
+            $places = [];
         }
 
         /** @var Place[] $currentPlaces */
         $currentPlaces = $this->owner->getPlaces()->all();
 
         foreach ($currentPlaces as $currentPlace) {
-            if (!in_array($currentPlace->title, $this->attribute)) {
+            if (!in_array($currentPlace->place_id, $places)) {
                 $this->owner->unlink('places', $currentPlace, true);
             }
         }
 
-        foreach ($this->attribute as $placeId) {
+        foreach ($places as $placeId) {
             $place = Place::findOne($placeId);
             $this->owner->link('places', $place);
         }
