@@ -46,6 +46,9 @@ return [
                 'GET events/list' => 'events/list',
                 'GET events/details' => 'events/details',
 
+                'GET articles/list' => 'articles/list',
+                'GET articles/details' => 'articles/details',
+
                 'GET places/list' => 'places/list',
                 'GET places/visit' => 'places/visit',
                 'GET places/<id:\d+>' => 'places/view',

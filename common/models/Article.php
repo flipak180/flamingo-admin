@@ -17,6 +17,7 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property ImageModel[] $images
  * @property Place[] $places
  */
 class Article extends \yii\db\ActiveRecord
