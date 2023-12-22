@@ -13,6 +13,10 @@ class ArticlesController extends BaseApiController
         /** @var Article[] $articles */
         $articles = Article::find()->orderBy('id DESC')->all();
         foreach ($articles as $article) {
+            if ($article->id == 8 || $article->id == 9) {
+                continue;
+            }
+
 //            $place = $article->place ? [
 //                [
 //                    'id' => $article->place->place_id,

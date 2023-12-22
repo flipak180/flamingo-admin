@@ -75,6 +75,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        return 'Under construction';
         return $this->render('index');
     }
 
@@ -255,5 +256,13 @@ class SiteController extends Controller
         return $this->render('resendVerificationEmail', [
             'model' => $model
         ]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionPrivacy()
+    {
+        return $this->renderPartial('privacy');
     }
 }

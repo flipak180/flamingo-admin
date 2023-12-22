@@ -13,7 +13,11 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
-    'modules' => [],
+    'modules' => [
+        'markdown' => [
+            'class' => 'kartik\markdown\Module',
+        ]
+    ],
     'container' => [
         'definitions' => [
             'yii\widgets\LinkPager' => [
