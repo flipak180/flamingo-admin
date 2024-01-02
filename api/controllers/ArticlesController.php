@@ -17,15 +17,17 @@ class ArticlesController extends BaseApiController
                 continue;
             }
 
-//            $place = $article->place ? [
-//                [
-//                    'id' => $article->place->place_id,
-//                    'title' => $article->place->title,
-//                    'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
-//                    'lastVisit' => null,
-//                    'atPlace' => false,
-//                ]
-//            ] : [];
+            $places = [];
+            foreach ($article->places as $place) {
+                $places[] = [
+                    'id' => $place->place_id,
+                    'title' => $place->title,
+                    'coords' => $place->coords,
+                    'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
+                    'lastVisit' => null,
+                    'atPlace' => false,
+                ];
+            }
 
             $images = [];
             foreach ($article->images as $image) {
@@ -39,7 +41,7 @@ class ArticlesController extends BaseApiController
                 'image' => count($images) ? $images[0] : '',
                 'images' => $images,
                 'totalPlaces' => 0,
-                'places' => [] //$place,
+                'places' => $places,
             ];
         }
 
@@ -55,15 +57,17 @@ class ArticlesController extends BaseApiController
         /** @var Article $article */
         $article = Article::findOne($id);
 
-//        $place = $event->place ? [
-//            [
-//                'id' => $event->place->place_id,
-//                'title' => $event->place->title,
-//                'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
-//                'lastVisit' => null,
-//                'atPlace' => false,
-//            ]
-//        ] : [];
+        $places = [];
+        foreach ($article->places as $place) {
+            $places[] = [
+                'id' => $place->place_id,
+                'title' => $place->title,
+                'coords' => $place->coords,
+                'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
+                'lastVisit' => null,
+                'atPlace' => false,
+            ];
+        }
 
         $images = [];
         foreach ($article->images as $image) {
@@ -78,7 +82,7 @@ class ArticlesController extends BaseApiController
             'images' => $images,
             'description' => $article->description,
             'totalPlaces' => 0,
-            'places' => [] //$place,
+            'places' => $places,
         ];
     }
 
