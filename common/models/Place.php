@@ -22,7 +22,9 @@ use yii\db\Expression;
  *
  * @property Category $category
  * @property PlaceTag[] $placeTags
+ * @property PlaceCategory[] $placeCategories
  * @property Tag[] $tags
+ * @property Category[] $categories
  * @property Visit[] $visits
  * @property ImageModel[] $images
  */
@@ -32,6 +34,7 @@ class Place extends \yii\db\ActiveRecord
     public $coords_field;
     public $tags_field;
     public $images_field;
+    public $categories_field;
 
     /**
      * {@inheritdoc}
@@ -81,7 +84,7 @@ class Place extends \yii\db\ActiveRecord
             [['in_trash'], 'boolean'],
             [['category_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
-            [['tags_field', 'location_field', 'coords_field', 'images_field'], 'safe'],
+            [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field'], 'safe'],
         ];
     }
 
@@ -105,8 +108,13 @@ class Place extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
+
         foreach ($this->placeTags as $placeTag) {
             $this->tags_field[] = $placeTag->tag_id;
+        }
+
+        foreach ($this->placeCategories as $placeCategory) {
+            $this->categories_field[] = $placeCategory->category_id;
         }
 
         if ($this->location) {
@@ -125,6 +133,7 @@ class Place extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         $this->handleTags();
+        $this->handleCategories();
         parent::afterSave($insert, $changedAttributes);
     }
 
@@ -143,6 +152,7 @@ class Place extends \yii\db\ActiveRecord
             'coords_field' => 'Координаты',
             'images_field' => 'Изображения',
             'category_id' => 'Категория',
+            'categories_field' => 'Категории',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
@@ -184,6 +194,23 @@ class Place extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaceCategories()
+    {
+        return $this->hasMany(PlaceCategory::className(), ['place_id' => 'place_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategories()
+    {
+        return $this->hasMany(Category::className(), ['category_id' => 'category_id'])
+            ->via('placeCategories');
+    }
+
+    /**
      * @return void
      * @throws \yii\db\Exception
      * @throws \yii\db\StaleObjectException
@@ -209,6 +236,31 @@ class Place extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return void
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
+     */
+    public function handleCategories() {
+        if (!is_array($this->categories_field)) {
+            return;
+        }
+
+        /** @var Category[] $currentCategories */
+        $currentCategories = $this->getCategories()->all();
+
+        foreach ($currentCategories as $currentCategory) {
+            if (!in_array($currentCategory->title, $this->categories_field)) {
+                $this->unlink('categories', $currentCategory, true);
+            }
+        }
+
+        foreach ($this->categories_field as $categoryId) {
+            $category = Category::findOne($categoryId);
+            $this->link('categories', $category);
+        }
+    }
+
+    /**
      * @return string
      */
     public function getTagsLabels()
@@ -216,6 +268,18 @@ class Place extends \yii\db\ActiveRecord
         $labels = [];
         foreach ($this->tags as $tag) {
             $labels[] = '<span class="badge bg-dark">'.$tag->title.'</span>';
+        }
+        return implode(' ', $labels);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCategoriesLabels()
+    {
+        $labels = [];
+        foreach ($this->categories as $category) {
+            $labels[] = '<span class="badge bg-dark">'.$category->title.'</span>';
         }
         return implode(' ', $labels);
     }

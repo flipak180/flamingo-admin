@@ -39,13 +39,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             //'description:ntext',
+//            [
+//                'attribute' => 'category_id',
+//                'format' => 'raw',
+//                'value' => function(Place $model) {
+//                    return $model->category ? Html::a($model->category->title, ['categories/view', 'id' => $model->category_id]) : '-';
+//                },
+//                'filter' => Html::activeDropDownList($searchModel, 'category_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+//            ],
             [
-                'attribute' => 'category_id',
+                'attribute' => 'categories_field',
                 'format' => 'raw',
                 'value' => function(Place $model) {
-                    return $model->category ? Html::a($model->category->title, ['categories/view', 'id' => $model->category_id]) : '-';
+                    return $model->getCategoriesLabels();
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'category_id', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
+                'filter' => Html::activeDropDownList($searchModel, 'categories_field', ArrayHelper::map(Category::find()->orderBy('title ASC')->all(), 'category_id', 'title'), ['class' => 'form-control', 'prompt' => '']),
             ],
             [
                 'attribute' => 'tags_field',

@@ -30,9 +30,15 @@ $this->registerJsFile(
     <!--
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     -->
-    <?= $form->field($model, 'category_id')->widget(Select2::classname(), [
+    <?= $form->field($model, 'categories_field')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Category::find()->all(), 'category_id', 'title'),
-        'options' => ['placeholder' => 'Выберите категорию'],
+        'options' => ['placeholder' => 'Выберите категорию', 'multiple' => true],
+        'showToggleAll' => false,
+        'pluginOptions' => [
+            'tags' => true,
+            'tokenSeparators' => [',', ' '],
+            'maximumInputLength' => 10
+        ],
     ]); ?>
     <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Tag::find()->all(), 'tag_id', 'title'),

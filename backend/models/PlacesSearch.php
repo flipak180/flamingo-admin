@@ -18,7 +18,7 @@ class PlacesSearch extends Place
     {
         return [
             [['place_id', 'category_id', 'in_trash'], 'integer'],
-            [['title', 'location', 'description', 'tags_field', 'location_field'], 'safe'],
+            [['title', 'location', 'description', 'tags_field', 'location_field', 'categories_field'], 'safe'],
         ];
     }
 
@@ -62,11 +62,15 @@ class PlacesSearch extends Place
         // grid filtering conditions
         $query->andFilterWhere([
             'place_id' => $this->place_id,
-            'category_id' => $this->category_id,
+            //'category_id' => $this->category_id,
             'in_trash' => $this->in_trash,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        if ($this->categories_field) {
+            $query->joinWith(['placeCategories'])->andWhere(['place_categories.category_id' => $this->categories_field]);
+        }
 
         if ($this->tags_field) {
             $query->joinWith(['placeTags'])->andWhere(['place_tags.tag_id' => $this->tags_field]);

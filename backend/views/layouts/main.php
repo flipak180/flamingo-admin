@@ -37,7 +37,11 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Статьи', 'url' => ['/articles/index']],
         ['label' => 'События', 'url' => ['/events/index']],
-        ['label' => 'Места', 'url' => ['/places/index']],
+        //['label' => 'Места', 'url' => ['/places/index']],
+        ['label' => 'Места', 'items' => [
+            ['label' => 'Все', 'url' => ['/places/index']],
+            ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
+        ]],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],
         ['label' => 'Категории', 'url' => ['/categories/index']],
         ['label' => 'Теги', 'url' => ['/tags/index']],
