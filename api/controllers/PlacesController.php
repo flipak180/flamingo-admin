@@ -19,14 +19,59 @@ class PlacesController extends BaseApiController
      */
     public function actionList($category_id = null)
     {
+//        $result = [];
+//
+//        /** @var Place[] $places */
+//        $places = Place::find()
+//            ->where('in_trash IS NOT TRUE')
+//            ->orderBy('place_id DESC')
+//            ->limit(5)
+//            //->orderBy(new Expression('RANDOM()'))
+//            ->all();
+//
+//        foreach ($places as $place) {
+//            $images = [];
+//            foreach ($place->images as $image) {
+//                // $images[] = $image->path;
+//                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 500, 800, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
+//            }
+//
+//            $tags = [];
+//            foreach ($place->tags as $tag) {
+//                $tags[] = $tag->title;
+//            }
+//
+//            $result[] = [
+//                'id' => $place->place_id,
+//                'title' => $place->title,
+//                'image' => count($images) ? $images[0] : '',
+//                'images' => $images,
+//                'tags' => $tags,
+//                'coords' => $place->coords,
+//            ];
+//        }
+//
+//        return $result;
+
+
         $result = [];
+        $tagIds = [];
+
+        $category = Category::findOne($category_id);
+        if ($category) {
+            foreach ($category->categoryTags as $categoryTag) {
+                $tagIds[] = $categoryTag->tag_id;
+            }
+        }
+
+        //$orderDir = ($category->type == Category::TYPE_CATALOG) ? 'DESC' : 'ASC';
 
         /** @var Place[] $places */
-        $places = Place::find()
-            ->where('in_trash IS NOT TRUE')
-            ->orderBy('place_id DESC')
-            ->limit(5)
-            //->orderBy(new Expression('RANDOM()'))
+        $places = Place::find()->joinWith('placeTags')
+            ->where(['category_id' => $category_id])
+            ->orWhere(['in', 'tag_id', $tagIds])
+            //->orderBy('place_id ' . $orderDir)
+            ->limit(20)
             ->all();
 
         foreach ($places as $place) {
@@ -53,28 +98,12 @@ class PlacesController extends BaseApiController
 
         return $result;
 
-
-        if (!$category_id) {
-            return [];
-        }
-
-        $category = Category::findOne($category_id);
-        if (!$category) {
-            throw new NotFoundHttpException('Категория не найдена');
-        }
-
-        $tagIds = [];
-        foreach ($category->categoryTags as $categoryTag) {
-            $tagIds[] = $categoryTag->tag_id;
-        }
-
-        $orderDir = ($category->type == Category::TYPE_CATALOG) ? 'DESC' : 'ASC';
-
-        return Place::find()->joinWith('placeTags')
-            ->where(['category_id' => $category_id])
-            ->orWhere(['in', 'tag_id', $tagIds])
-            ->orderBy('place_id ' . $orderDir)
-            ->all();
+//        return Place::find()->joinWith('placeTags')
+//            ->where(['category_id' => $category_id])
+//            ->orWhere(['in', 'tag_id', $tagIds])
+//            //->orderBy('place_id ' . $orderDir)
+//            ->limit(20)
+//            ->all();
     }
 
     /**
