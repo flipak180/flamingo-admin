@@ -67,8 +67,10 @@ class PlacesController extends BaseApiController
         //$orderDir = ($category->type == Category::TYPE_CATALOG) ? 'DESC' : 'ASC';
 
         /** @var Place[] $places */
-        $places = Place::find()->joinWith('placeTags')
-            ->where(['category_id' => $category_id])
+        $places = Place::find()->joinWith(['placeTags', 'placeCategories'])
+            ->where('in_trash IS NOT TRUE')
+            ->orWhere(['places.category_id' => $category_id])
+            ->orWhere(['place_categories.category_id' => $category_id])
             ->orWhere(['in', 'tag_id', $tagIds])
             //->orderBy('place_id ' . $orderDir)
             ->limit(20)
