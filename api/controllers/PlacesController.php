@@ -68,11 +68,14 @@ class PlacesController extends BaseApiController
 
         /** @var Place[] $places */
         $places = Place::find()->joinWith(['placeTags', 'placeCategories'])
-            ->where('in_trash IS NOT TRUE')
-            ->orWhere(['places.category_id' => $category_id])
-            ->orWhere(['place_categories.category_id' => $category_id])
-            ->orWhere(['in', 'tag_id', $tagIds])
-            //->orderBy('place_id ' . $orderDir)
+            ->andWhere('places.in_trash IS NOT TRUE')
+            ->andWhere([
+                'or',
+                ['places.category_id' => $category_id],
+                ['place_categories.category_id' => $category_id],
+                ['in', 'place_tags.tag_id', $tagIds]
+            ])
+            ->orderBy('places.place_id ASC')
             ->limit(20)
             ->all();
 
