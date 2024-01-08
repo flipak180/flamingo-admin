@@ -117,11 +117,19 @@ class PlacesController extends BaseApiController
      */
     public function actionDetails($id)
     {
+        /** @var Place $place */
         $place = Place::findOne($id);
+
+        $images = [];
+        foreach ($place->images as $image) {
+            $images[] = $image->path;
+        }
 
         return [
             'id' => $place->place_id,
             'title' => $place->title,
+            'image' => count($images) ? $images[0] : '',
+            'images' => $images,
             'description' => $place->description,
         ];
     }
