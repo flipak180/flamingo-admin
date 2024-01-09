@@ -2,8 +2,8 @@
 
 use common\models\Category;
 use common\models\Tag;
+use himiklab\sortablegrid\SortableGridView;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить категорию', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?= GridView::widget([
+    <?= SortableGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -30,7 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'category_id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
-            'title',
+            [
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function(Category $model) {
+                    return Html::a($model->title, ['categories/update', 'id' => $model->category_id]);
+                },
+            ],
             //'image',
             [
                 'attribute' => 'type',
@@ -68,7 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Category $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->category_id]);
-                 }
+                },
+                'template' => '{delete}'
             ],
         ],
     ]); ?>

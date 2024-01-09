@@ -18,6 +18,7 @@ class m230401_102351_categories extends Migration
             'image' => $this->string(),
             'parent_id' => $this->integer(),
             'type' => $this->smallInteger()->notNull(),
+            'position' => $this->integer()->notNull()->defaultValue(0),
             'in_trash' => $this->boolean()->defaultValue(false),
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),

@@ -15,9 +15,9 @@ class CategoryController extends BaseApiController
     public function actionList($parent_id = null)
     {
         if ($parent_id) {
-            return Category::find()->where(['parent_id' => $parent_id])->all();
+            return Category::find()->where(['parent_id' => $parent_id])->orderBy('position ASC')->all();
         } else {
-            return Category::find()->where(['parent_id' => null])->all();
+            return Category::find()->where(['parent_id' => null])->orderBy('position ASC')->all();
         }
     }
 

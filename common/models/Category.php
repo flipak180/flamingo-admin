@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use himiklab\sortablegrid\SortableGridBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -15,6 +16,7 @@ use yii\web\UploadedFile;
  * @property string|null $image
  * @property int $type
  * @property int|null $parent_id
+ * @property int $position
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -52,6 +54,10 @@ class Category extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'value' => new Expression('NOW()'),
             ],
+            'sort' => [
+                'class' => SortableGridBehavior::className(),
+                'sortableAttribute' => 'position'
+            ],
         ];
     }
 
@@ -62,7 +68,7 @@ class Category extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'type'], 'required'],
-            [['parent_id', 'type'], 'integer'],
+            [['parent_id', 'type', 'position'], 'integer'],
             [['in_trash'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
@@ -91,6 +97,7 @@ class Category extends \yii\db\ActiveRecord
             'type' => 'Тип',
             'parent_id' => 'Родитель',
             'tags_field' => 'Теги',
+            'position' => 'Позиция',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',

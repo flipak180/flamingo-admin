@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\CategoriesSearch;
 use common\models\Category;
+use himiklab\sortablegrid\SortableGridAction;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -28,6 +29,19 @@ class CategoriesController extends Controller
                         'roles' => ['@'],
                     ],
                 ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array[]
+     */
+    public function actions()
+    {
+        return [
+            'sort' => [
+                'class' => SortableGridAction::className(),
+                'modelName' => Category::className(),
             ],
         ];
     }
