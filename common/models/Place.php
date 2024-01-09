@@ -15,7 +15,6 @@ use yii\db\Expression;
  * @property string|null $description
  * @property string $location
  * @property string $coords
- * @property int|null $category_id
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -82,7 +81,6 @@ class Place extends \yii\db\ActiveRecord
             //[['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
-            [['category_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field'], 'safe'],
         ];
@@ -151,21 +149,12 @@ class Place extends \yii\db\ActiveRecord
             'coords' => 'Координаты',
             'coords_field' => 'Координаты',
             'images_field' => 'Изображения',
-            'category_id' => 'Категория',
             'categories_field' => 'Категории',
             'tags_field' => 'Теги',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory()
-    {
-        return $this->hasOne(Category::className(), ['category_id' => 'category_id']);
     }
 
     /**

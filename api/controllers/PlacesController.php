@@ -71,7 +71,6 @@ class PlacesController extends BaseApiController
             ->andWhere('places.in_trash IS NOT TRUE')
             ->andWhere([
                 'or',
-                ['places.category_id' => $category_id],
                 ['place_categories.category_id' => $category_id],
                 ['in', 'place_tags.tag_id', $tagIds]
             ])

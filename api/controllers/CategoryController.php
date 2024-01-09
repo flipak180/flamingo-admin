@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use common\models\Category;
+use himiklab\thumbnail\EasyThumbnailImage;
+use Yii;
 
 class CategoryController extends BaseApiController
 {
@@ -14,11 +16,20 @@ class CategoryController extends BaseApiController
      */
     public function actionList($parent_id = null)
     {
-        if ($parent_id) {
-            return Category::find()->where(['parent_id' => $parent_id])->orderBy('position ASC')->all();
-        } else {
-            return Category::find()->where(['parent_id' => null])->orderBy('position ASC')->all();
+        $result = [];
+
+        /** @var Category[] $categories */
+        $categories = Category::find()->where(['parent_id' => $parent_id])->orderBy('position ASC')->all();
+        foreach ($categories as $category) {
+            $image = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$category->image, 736, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
+            $result[] = [
+                'category_id' => $category->category_id,
+                'title' => $category->title,
+                'image' => $image,
+            ];
         }
+
+        return $result;
     }
 
     /**
