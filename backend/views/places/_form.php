@@ -96,9 +96,9 @@ $this->registerJsFile(
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         <?php if (!$model->isNewRecord): ?>
             <?= Html::a('+ Место', ['create'], ['class' => 'btn btn-primary']) ?>
-            <?php if ($model->category): ?>
-                <?= Html::a('+ ' . $model->category->title, ['create', 'category_id' => $model->category_id], ['class' => 'btn btn-secondary']) ?>
-            <?php endif ?>
+            <?php foreach ($model->categories as $category): ?>
+                <?= Html::a('+ ' . $category->title, ['create', 'category_id' => $category->category_id], ['class' => 'btn btn-secondary']) ?>
+            <?php endforeach; ?>
             <?php foreach ($model->tags as $tag): ?>
                 <?= Html::a('+ ' . $tag->title, ['create', 'tag_id' => $tag->tag_id], ['class' => 'btn btn-secondary']) ?>
             <?php endforeach; ?>
