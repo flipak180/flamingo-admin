@@ -3,6 +3,7 @@
 use common\models\Category;
 use common\models\Tag;
 use himiklab\thumbnail\EasyThumbnailImage;
+use kartik\editors\Summernote;
 use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
@@ -91,6 +92,11 @@ $this->registerJsFile(
             </svg>', ['class' => 'btn btn-sm btn-danger btn-clear-polygon', 'title' => 'Очистить']) ?>
         </div>
     </div>
+
+    <?= $form->field($model, 'description')->widget(Summernote::class, [
+        'useKrajeePresets' => true,
+        // other widget settings
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

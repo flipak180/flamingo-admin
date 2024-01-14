@@ -87,6 +87,7 @@ class PlacesController extends BaseApiController
             'image' => count($images) ? $images[0] : '',
             'images' => $images,
             'description' => $place->description,
+            'coords' => $place->coords,
         ];
     }
 
