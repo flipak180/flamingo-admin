@@ -3,21 +3,19 @@
 use yii\db\Migration;
 
 /**
- * Class m231209_093022_articles
+ * Class m240116_153132_quest_places
  */
-class m231209_093022_articles extends Migration
+class m240116_153132_quest_places extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('articles', [
+        $this->createTable('quest_places', [
             'id' => $this->primaryKey(),
-            'title' => $this->string()->notNull(),
-            'subtitle' => $this->string(),
-            'description' => $this->text(),
-
+            'quest_id' => $this->integer()->notNull(),
+            'place_id' => $this->integer()->notNull(),
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
         ]);
@@ -28,6 +26,6 @@ class m231209_093022_articles extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('articles');
+        $this->dropTable('quest_places');
     }
 }

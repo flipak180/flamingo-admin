@@ -11,7 +11,7 @@ return [
     'id' => 'app-api',
     'language' => 'ru',
     'name' => 'FlaminGO',
-    'basePath' => dirname(__DIR__),    
+    'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
 //        'v1' => [
@@ -48,6 +48,9 @@ return [
 
                 'GET articles/list' => 'articles/list',
                 'GET articles/details' => 'articles/details',
+
+                'GET quests/list' => 'quests/list',
+                'GET quests/details' => 'quests/details',
 
                 'GET places/list' => 'places/list',
                 'GET places/visit' => 'places/visit',
@@ -93,7 +96,7 @@ return [
 //                    ]
 //
 //                ]
-            ],        
+            ],
         ]
     ],
     'params' => $params,

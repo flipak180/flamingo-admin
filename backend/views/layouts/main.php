@@ -42,6 +42,7 @@ AppAsset::register($this);
             ['label' => 'Все', 'url' => ['/places/index']],
             ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
         ]],
+        ['label' => 'Квесты', 'url' => ['/quests/index']],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],
         ['label' => 'Категории', 'url' => ['/categories/index']],
         ['label' => 'Теги', 'url' => ['/tags/index']],
@@ -49,7 +50,7 @@ AppAsset::register($this);
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-    }     
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
         'items' => $menuItems,

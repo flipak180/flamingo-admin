@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m231209_093022_articles
+ * Class m240116_153125_quests
  */
-class m231209_093022_articles extends Migration
+class m240116_153125_quests extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('articles', [
+        $this->createTable('quests', [
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'subtitle' => $this->string(),
@@ -28,6 +28,6 @@ class m231209_093022_articles extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('articles');
+        $this->dropTable('quests');
     }
 }
