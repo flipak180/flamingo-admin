@@ -3,6 +3,8 @@
 namespace app\controllers;
 
 use common\models\Article;
+use himiklab\thumbnail\EasyThumbnailImage;
+use Yii;
 
 class ArticlesController extends BaseApiController
 {
@@ -31,7 +33,7 @@ class ArticlesController extends BaseApiController
 
             $images = [];
             foreach ($article->images as $image) {
-                $images[] = $image->path;
+                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
             }
 
             $result[] = [
@@ -71,7 +73,7 @@ class ArticlesController extends BaseApiController
 
         $images = [];
         foreach ($article->images as $image) {
-            $images[] = $image->path;
+            $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
         }
 
         return [
