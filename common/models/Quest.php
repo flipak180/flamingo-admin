@@ -3,7 +3,6 @@
 namespace common\models;
 
 use common\behaviors\ImageBehavior;
-use common\behaviors\PlaceBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -23,7 +22,6 @@ use yii\db\Expression;
 class Quest extends \yii\db\ActiveRecord
 {
     public $images_field;
-    public $places_field;
 
     /**
      * {@inheritdoc}
@@ -47,10 +45,6 @@ class Quest extends \yii\db\ActiveRecord
                 'class' => ImageBehavior::class,
                 'attribute' => 'images_field',
             ],
-            [
-                'class' => PlaceBehavior::class,
-                'attribute' => 'places_field',
-            ],
         ];
     }
 
@@ -63,7 +57,7 @@ class Quest extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['description'], 'string'],
             [['title', 'subtitle'], 'string', 'max' => 255],
-            [['places_field', 'images_field'], 'safe']
+            [['images_field'], 'safe']
         ];
     }
 
@@ -78,7 +72,6 @@ class Quest extends \yii\db\ActiveRecord
             'subtitle' => 'Подзаголовок',
             'description' => 'Описание',
             'images_field' => 'Изображения',
-            'places_field' => 'Места',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];

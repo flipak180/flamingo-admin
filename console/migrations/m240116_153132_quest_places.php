@@ -15,7 +15,15 @@ class m240116_153132_quest_places extends Migration
         $this->createTable('quest_places', [
             'id' => $this->primaryKey(),
             'quest_id' => $this->integer()->notNull(),
-            'place_id' => $this->integer()->notNull(),
+            'title' => $this->string()->notNull(),
+            'description' => $this->text(),
+            'location' => 'geometry',
+
+//            'locked' => $this->boolean()->defaultValue(false),
+//            'question' => $this->text(),
+//            'answer' => $this->string(),
+//            'quiz_type' => $this->smallInteger(),
+
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
         ]);

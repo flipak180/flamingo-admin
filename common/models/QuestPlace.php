@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\ImageBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -10,12 +11,13 @@ use yii\db\Expression;
  *
  * @property int $id
  * @property int $quest_id
- * @property int $place_id
+ * @property string $title
+ * @property string|null $description
+ * @property string|null $location
  * @property string $created_at
  * @property string $updated_at
  *
  * @property Quest $quest
- * @property Place $place
  */
 class QuestPlace extends \yii\db\ActiveRecord
 {
@@ -37,6 +39,10 @@ class QuestPlace extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'value' => new Expression('NOW()'),
             ],
+            [
+                'class' => ImageBehavior::class,
+                'attribute' => 'images_field',
+            ],
         ];
     }
 
@@ -46,9 +52,11 @@ class QuestPlace extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['quest_id', 'place_id'], 'required'],
-            [['quest_id', 'place_id'], 'default', 'value' => null],
-            [['quest_id', 'place_id'], 'integer'],
+            [['quest_id', 'title'], 'required'],
+            [['quest_id'], 'default', 'value' => null],
+            [['quest_id'], 'integer'],
+            [['description', 'location'], 'string'],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -60,7 +68,9 @@ class QuestPlace extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'quest_id' => 'Quest ID',
-            'place_id' => 'Place ID',
+            'title' => 'Title',
+            'description' => 'Description',
+            'location' => 'Location',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -72,13 +82,5 @@ class QuestPlace extends \yii\db\ActiveRecord
     public function getQuest()
     {
         return $this->hasOne(Quest::className(), ['id' => 'quest_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlace()
-    {
-        return $this->hasOne(Place::className(), ['place_id' => 'place_id']);
     }
 }

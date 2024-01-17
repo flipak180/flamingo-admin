@@ -3,8 +3,6 @@
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
 use kartik\widgets\FileInput;
-use kartik\widgets\Select2;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -43,17 +41,6 @@ use yii\widgets\ActiveForm;
             <?php endforeach; ?>
         </div>
     <?php endif ?>
-
-    <?= $form->field($model, 'places_field')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\common\models\Place::find()->all(), 'place_id', 'title'),
-        'options' => ['placeholder' => 'Выберите места', 'multiple' => true],
-        'showToggleAll' => false,
-        'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 10
-        ],
-    ]); ?>
 
     <?= $form->field($model, 'description')->widget(Summernote::class, [
         'useKrajeePresets' => true,
