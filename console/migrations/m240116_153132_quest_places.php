@@ -18,6 +18,7 @@ class m240116_153132_quest_places extends Migration
             'title' => $this->string()->notNull(),
             'description' => $this->text(),
             'location' => 'geometry',
+            'coords' => 'geography',
 
 //            'locked' => $this->boolean()->defaultValue(false),
 //            'question' => $this->text(),

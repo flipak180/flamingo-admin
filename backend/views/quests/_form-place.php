@@ -1,25 +1,19 @@
 <?php
 
-use common\models\QuestPlace;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
 use kartik\widgets\FileInput;
-use yii\data\ActiveDataProvider;
-use yii\grid\ActionColumn;
-use yii\grid\GridView;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Quest $model */
+/** @var common\models\QuestPlace $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
-<div class="quest-form">
+<div class="quest-place-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'subtitle')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'images_field')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'multiple' => true],
@@ -51,51 +45,6 @@ use yii\widgets\ActiveForm;
         'useKrajeePresets' => true,
         // other widget settings
     ]) ?>
-
-    <?php if (!$model->isNewRecord): ?>
-        <h3>Места</h3>
-        <p>
-            <?= Html::a('Добавить место', ['create-place'], ['class' => 'btn btn-success btn-xs']) ?>
-        </p>
-        <?= GridView::widget([
-            'dataProvider' => new ActiveDataProvider([
-                'query' => $model->getQuestPlaces(),
-                'pagination' => [
-                    'pageSize' => 20,
-                ],
-            ]),
-            'columns' => [
-                [
-                    'attribute' => 'id',
-                    'headerOptions' => ['style' => 'width: 75px;'],
-                ],
-                [
-                    'attribute' => 'title',
-                    'format' => 'raw',
-                    'value' => function(QuestPlace $model) {
-                        return Html::a($model->title, ['quests/update-place', 'id' => $model->id]);
-                    },
-                ],
-                //'description:ntext',
-                [
-                    'attribute' => 'created_at',
-                    'format' => 'datetime',
-                    'filter' => false,
-                    'headerOptions' => ['style' => 'width: 200px;'],
-                ],
-                //'updated_at',
-                [
-                    'class' => ActionColumn::className(),
-                    'urlCreator' => function ($action, QuestPlace $model, $key, $index, $column) {
-                        return Url::toRoute([$action, 'id' => $model->id]);
-                    },
-                    'template' => '{delete}'
-                ],
-            ],
-        ]); ?>
-    <?php endif ?>
-
-    <hr>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

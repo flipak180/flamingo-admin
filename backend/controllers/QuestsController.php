@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\QuestsSearch;
 use common\models\Quest;
+use common\models\QuestPlace;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -126,6 +127,78 @@ class QuestsController extends Controller
     protected function findModel($id)
     {
         if (($model = Quest::findOne(['id' => $id])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * Creates a new QuestPlace model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return string|\yii\web\Response
+     */
+    public function actionCreatePlace()
+    {
+        $model = new QuestPlace();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['update', 'id' => $model->quest_id]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('create-place', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Updates an existing QuestPlace model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param int $id ID
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionUpdatePlace($id)
+    {
+        $model = $this->findPlace($id);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['update', 'id' => $model->quest_id]);
+        }
+
+        return $this->render('update-place', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Deletes an existing QuestPlace model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeletePlace($id)
+    {
+        $this->findPlace($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Finds the QuestPlace model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param int $id ID
+     * @return QuestPlace the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findPlace($id)
+    {
+        if (($model = QuestPlace::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

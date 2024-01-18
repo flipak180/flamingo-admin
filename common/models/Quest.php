@@ -17,7 +17,7 @@ use yii\db\Expression;
  * @property string $updated_at
  *
  * @property ImageModel[] $images
- * @property Place[] $places
+ * @property QuestPlace[] $questPlaces
  */
 class Quest extends \yii\db\ActiveRecord
 {
@@ -83,14 +83,5 @@ class Quest extends \yii\db\ActiveRecord
     public function getQuestPlaces()
     {
         return $this->hasMany(QuestPlace::className(), ['quest_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getPlaces()
-    {
-        return $this->hasMany(Place::className(), ['place_id' => 'place_id'])
-            ->via('questPlaces');
     }
 }
