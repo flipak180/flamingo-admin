@@ -55,7 +55,7 @@ use yii\widgets\ActiveForm;
     <?php if (!$model->isNewRecord): ?>
         <h3>Места</h3>
         <p>
-            <?= Html::a('Добавить место', ['create-place'], ['class' => 'btn btn-success btn-xs']) ?>
+            <?= Html::a('Добавить место', ['create-place', 'quest_id' => $model->id], ['class' => 'btn btn-success btn-xs']) ?>
         </p>
         <?= GridView::widget([
             'dataProvider' => new ActiveDataProvider([

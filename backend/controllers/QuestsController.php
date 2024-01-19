@@ -138,9 +138,10 @@ class QuestsController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreatePlace()
+    public function actionCreatePlace($quest_id)
     {
         $model = new QuestPlace();
+        $model->quest_id = $quest_id;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {

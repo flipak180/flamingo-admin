@@ -7,6 +7,7 @@ use yii\helpers\Html;
 
 $this->title = 'Добавление места квеста';
 $this->params['breadcrumbs'][] = ['label' => 'Квесты', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => $model->quest->title, 'url' => ['update', 'id' => $model->quest_id]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
