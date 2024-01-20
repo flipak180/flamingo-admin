@@ -83,7 +83,7 @@ class QuestsController extends BaseApiController
             'image' => count($images) ? $images[0] : '',
             'images' => $images,
             'description' => $quest->description,
-            'totalPlaces' => 0,
+            'totalPlaces' => count($places),
             'places' => $places,
         ];
     }
