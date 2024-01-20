@@ -4,9 +4,23 @@ namespace app\controllers;
 
 use common\models\Quest;
 use common\models\QuestReadModel;
+use yii\filters\auth\HttpBearerAuth;
 
 class QuestsController extends BaseApiController
 {
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBearerAuth::class,
+            'only' => ['start'],
+        ];
+        return $behaviors;
+    }
 
     /**
      * @return array
@@ -39,6 +53,14 @@ class QuestsController extends BaseApiController
         $quest = Quest::findOne($id);
 
         return QuestReadModel::from($quest)->getDetails();
+    }
+
+    /**
+     * @return void
+     */
+    public function actionStart()
+    {
+        return 'ok';
     }
 
 }

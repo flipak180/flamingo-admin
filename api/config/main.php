@@ -28,6 +28,7 @@ return [
         'user' => [
             'identityClass' => 'common\models\Admin',
             'enableAutoLogin' => false,
+            'enableSession' => false
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -51,6 +52,7 @@ return [
 
                 'GET quests/list' => 'quests/list',
                 'GET quests/details' => 'quests/details',
+                'POST,OPTIONS quests/start' => 'quests/start',
 
                 'GET places/list' => 'places/list',
                 'GET places/visit' => 'places/visit',
@@ -85,8 +87,8 @@ return [
                     ],
                 ],
 
-                'POST,OPTIONS quests/start' => 'quest/start',
-                'POST,OPTIONS quests/visit' => 'quest/visit',
+                //'POST,OPTIONS quests/start' => 'quest/start',
+                //'POST,OPTIONS quests/visit' => 'quest/visit',
 
 //                [
 //                    'class' => 'yii\rest\UrlRule',
