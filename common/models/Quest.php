@@ -82,6 +82,6 @@ class Quest extends \yii\db\ActiveRecord
      */
     public function getQuestPlaces()
     {
-        return $this->hasMany(QuestPlace::className(), ['quest_id' => 'id']);
+        return $this->hasMany(QuestPlace::className(), ['quest_id' => 'id'])->orderBy('id ASC');
     }
 }
