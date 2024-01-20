@@ -20,9 +20,9 @@ class QuestsController extends BaseApiController
             }
 
             $places = [];
-            foreach ($quest->places as $place) {
+            foreach ($quest->questPlaces as $place) {
                 $places[] = [
-                    'id' => $place->place_id,
+                    'id' => $place->id,
                     'title' => $place->title,
                     'coords' => $place->coords,
                     'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
@@ -60,9 +60,9 @@ class QuestsController extends BaseApiController
         $quest = Quest::findOne($id);
 
         $places = [];
-        foreach ($quest->places as $place) {
+        foreach ($quest->questPlaces as $place) {
             $places[] = [
-                'id' => $place->place_id,
+                'id' => $place->id,
                 'title' => $place->title,
                 'coords' => $place->coords,
                 'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
