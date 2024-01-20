@@ -21,6 +21,11 @@ class ImageBehavior extends Behavior
     public $images = [];
 
     /**
+     * @var ImageModel|null
+     */
+    public $firstImage = null;
+
+    /**
      * @var
      */
     public $attribute;
@@ -100,6 +105,7 @@ class ImageBehavior extends Behavior
         $className = end($classPathArr);
 
         $this->images = ImageModel::find()->where(['model' => $className, 'model_id' => $this->owner->primaryKey])->all();
+        $this->firstImage = count($this->images) ? $this->images[0] : null;
         return true;
     }
 

@@ -17,6 +17,7 @@ use yii\db\Expression;
  * @property string $updated_at
  *
  * @property ImageModel[] $images
+ * @property ImageModel $firstImage
  * @property QuestPlace[] $questPlaces
  */
 class Quest extends \yii\db\ActiveRecord
