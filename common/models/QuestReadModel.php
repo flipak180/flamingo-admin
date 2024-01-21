@@ -42,7 +42,7 @@ class QuestReadModel
             'image' => $this->quest->firstImage
                 ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$this->quest->firstImage->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
                 : '',
-            'totalPlaces' => count($this->quest->questPlaces),
+            'total_places' => count($this->quest->questPlaces),
         ];
     }
 
@@ -78,7 +78,7 @@ class QuestReadModel
             'image' => count($images) ? $images[0] : '',
             'images' => $images,
             'description' => $this->quest->description,
-            'totalPlaces' => count($places),
+            'total_places' => count($places),
             'places' => $places,
         ];
     }
