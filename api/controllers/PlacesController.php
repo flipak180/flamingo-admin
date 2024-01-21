@@ -78,7 +78,7 @@ class PlacesController extends BaseApiController
 
         $images = [];
         foreach ($place->images as $image) {
-            $images[] = $image->path;
+            $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
         }
 
         return [

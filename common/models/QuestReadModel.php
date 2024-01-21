@@ -41,7 +41,7 @@ class QuestReadModel
             'title' => $this->quest->title,
             'image' => $this->quest->firstImage
                 ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$this->quest->firstImage->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
-                : '',
+                : sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
             'total_places' => count($this->quest->questPlaces),
         ];
     }

@@ -52,6 +52,7 @@ return [
 
                 'GET quests/list' => 'quests/list',
                 'GET quests/details' => 'quests/details',
+                'GET quests/place' => 'quests/place',
                 'POST,OPTIONS quests/start' => 'quests/start',
 
                 'GET places/list' => 'places/list',
