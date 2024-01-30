@@ -60,6 +60,8 @@ return [
                 'GET places/<id:\d+>' => 'places/view',
                 'GET places/details' => 'places/details',
 
+                'GET search' => 'flamingo/search',
+
 //                [
 //                    'class' => 'yii\rest\UrlRule',
 //                    'controller' => 'place',
