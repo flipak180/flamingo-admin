@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use common\models\Place;
 use Yii;
 
 class FlamingoController extends BaseApiController
@@ -17,17 +16,23 @@ class FlamingoController extends BaseApiController
             return $result;
         }
 
-        /** @var Place[] $places */
-        $places = Place::find()->andFilterWhere([
-            'or',
-            ['ilike', 'title', $term],
-            ['ilike', 'description', $term],
-        ])->orderBy('title ASC')->all();
+        $searchResults = Yii::$app->db->createCommand("
+            (SELECT places.place_id as id, places.title, 'place' as type FROM places WHERE places.title ILIKE :term OR places.description ILIKE :term LIMIT 10)
+            UNION ALL
+            (SELECT articles.id, articles.title, 'article' as type FROM articles WHERE articles.title ILIKE :term OR articles.description ILIKE :term LIMIT 10)
+            UNION ALL
+            (SELECT quests.id, quests.title, 'quest' as type FROM quests WHERE quests.title ILIKE :term OR quests.description ILIKE :term LIMIT 10)
+            UNION ALL
+            (SELECT categories.category_id as id, categories.title, 'category' as type FROM categories WHERE categories.title ILIKE :term LIMIT 10)
+        ")
+            ->bindValue(':term', '%' . $term . '%')
+            ->queryAll();
 
-        foreach ($places as $place) {
+        foreach ($searchResults as $searchResult) {
             $result[] = [
-                'id' => $place->place_id,
-                'title' => $place->title,
+                'id' => $searchResult['id'],
+                'title' => $searchResult['title'],
+                'type' => $searchResult['type'],
             ];
         }
 
