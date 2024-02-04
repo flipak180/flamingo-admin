@@ -63,6 +63,9 @@ class QuestReadModel
                 'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
                 'lastVisit' => null,
                 'atPlace' => false,
+                'quiz_type' => $place->quiz_type,
+                'quiz_question' => $place->quiz_question,
+                'quiz_answer' => $place->quiz_answer,
             ];
         }
 
