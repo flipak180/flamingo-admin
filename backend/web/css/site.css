@@ -137,3 +137,7 @@ div.required label.control-label:after {
     right: 5px;
     z-index: 10;
 }
+
+.hidden {
+    display: none;
+}

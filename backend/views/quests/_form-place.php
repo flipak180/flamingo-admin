@@ -76,8 +76,14 @@ $this->registerJsFile(
     <?= $form->field($model, 'quiz_question')->textarea() ?>
 <!--    --><?php //= $form->field($model, 'quiz_answer')->textInput(['maxlength' => true]) ?>
 
+    <div class="quiz_type quiz_type-<?= QuestPlace::QUIZ_TYPE_OPTIONS ?> <?= $model->quiz_type == QuestPlace::QUIZ_TYPE_OPTIONS ? '' : 'hidden' ?>">
+        <p>123</p>
+    </div>
+
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+
+<?php $this->registerJsFile('/admin/js/quest-place.js', ['position' => View::POS_END]); ?>
