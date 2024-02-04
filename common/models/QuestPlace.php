@@ -16,6 +16,9 @@ use yii\db\Expression;
  * @property string|null $description
  * @property string|null $location
  * @property string|null $coords
+ * @property int|null $quiz_type
+ * @property string|null $quiz_question
+ * @property string|null $quiz_answer
  * @property string $created_at
  * @property string $updated_at
  *
@@ -27,6 +30,9 @@ class QuestPlace extends \yii\db\ActiveRecord
     public $location_field;
     public $coords_field;
     public $images_field;
+
+    const QUIZ_TYPE_OPTIONS = 1;
+    const QUIZ_TYPE_LOCATION_SEARCH = 2;
 
     /**
      * {@inheritdoc}
@@ -71,10 +77,10 @@ class QuestPlace extends \yii\db\ActiveRecord
         return [
             [['quest_id', 'title'], 'required'],
             [['quest_id'], 'default', 'value' => null],
-            [['quest_id'], 'integer'],
-            [['description', 'location'], 'string'],
+            [['quest_id', 'quiz_type'], 'integer'],
+            [['description', 'location', 'quiz_question'], 'string'],
             [['title'], 'string', 'max' => 255],
-            [['location_field', 'coords_field', 'images_field'], 'safe'],
+            [['location_field', 'coords_field', 'images_field', 'quiz_answer'], 'safe'],
         ];
     }
 
@@ -122,6 +128,9 @@ class QuestPlace extends \yii\db\ActiveRecord
             'coords' => 'Координаты',
             'coords_field' => 'Координаты',
             'images_field' => 'Изображения',
+            'quiz_type' => 'Тип загадки',
+            'quiz_question' => 'Текст загадки',
+            'quiz_answer' => 'Ответ к загадке',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
@@ -133,5 +142,16 @@ class QuestPlace extends \yii\db\ActiveRecord
     public function getQuest()
     {
         return $this->hasOne(Quest::className(), ['id' => 'quest_id']);
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getQuizTypes()
+    {
+        return [
+            self::QUIZ_TYPE_OPTIONS => 'Варианты ответа',
+            self::QUIZ_TYPE_LOCATION_SEARCH => 'Поиск места',
+        ];
     }
 }

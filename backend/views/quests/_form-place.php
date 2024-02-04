@@ -1,5 +1,6 @@
 <?php
 
+use common\models\QuestPlace;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
 use kartik\widgets\FileInput;
@@ -70,6 +71,10 @@ $this->registerJsFile(
         'useKrajeePresets' => true,
         // other widget settings
     ]) ?>
+
+    <?= $form->field($model, 'quiz_type')->dropDownList(QuestPlace::getQuizTypes(), ['prompt' => '[Нет загадки]']) ?>
+    <?= $form->field($model, 'quiz_question')->textarea() ?>
+<!--    --><?php //= $form->field($model, 'quiz_answer')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
