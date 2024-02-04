@@ -56,17 +56,25 @@ class QuestReadModel
     {
         $places = [];
         foreach ($this->quest->questPlaces as $place) {
-            $places[] = [
+            $placeInfo = [
                 'id' => $place->id,
                 'title' => $place->title,
                 'coords' => $place->coords,
                 'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
                 'lastVisit' => null,
                 'atPlace' => false,
-                'quiz_type' => $place->quiz_type,
-                'quiz_question' => $place->quiz_question,
-                'quiz_answer' => $place->quiz_answer,
+                'quiz' => null,
             ];
+
+            if ($place->quiz_type) {
+                $placeInfo['quiz'] = [
+                    'type' => $place->quiz_type,
+                    'question' => $place->quiz_question,
+                    'answer' => $place->quiz_answer,
+                ];
+            }
+
+            $places[] = $placeInfo;
         }
 
         $images = [];
