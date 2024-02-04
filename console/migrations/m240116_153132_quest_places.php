@@ -19,12 +19,7 @@ class m240116_153132_quest_places extends Migration
             'description' => $this->text(),
             'location' => 'geometry',
             'coords' => 'geography',
-
-//            'locked' => $this->boolean()->defaultValue(false),
-//            'question' => $this->text(),
-//            'answer' => $this->string(),
-//            'quiz_type' => $this->smallInteger(),
-
+            'quiz_id' => $this->integer(),
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
         ]);
