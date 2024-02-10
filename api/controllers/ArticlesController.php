@@ -9,16 +9,14 @@ use Yii;
 class ArticlesController extends BaseApiController
 {
 
-    public function actionList()
+    public function actionList($limit = 10, $offset = 0)
     {
         $result = [];
         /** @var Article[] $articles */
-        $articles = Article::find()->orderBy('id DESC')->all();
+        $articles = Article::find()
+            ->andWhere(['not in', 'id', [8, 9]])
+            ->orderBy('id DESC')->limit($limit)->offset($offset)->all();
         foreach ($articles as $article) {
-            if ($article->id == 8 || $article->id == 9) {
-                continue;
-            }
-
             $places = [];
             foreach ($article->places as $place) {
                 $places[] = [
