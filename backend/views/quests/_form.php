@@ -21,6 +21,15 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'subtitle')->textInput(['maxlength' => true]) ?>
 
+    <div class="row">
+        <div class="col-md-6">
+            <?= $form->field($model, 'distance')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'time')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
+
     <?= $form->field($model, 'images_field')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*', 'multiple' => true],
         'pluginOptions' => [

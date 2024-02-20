@@ -13,6 +13,8 @@ use yii\db\Expression;
  * @property string $title
  * @property string|null $subtitle
  * @property string|null $description
+ * @property int|null $distance
+ * @property int|null $time
  * @property string $created_at
  * @property string $updated_at
  *
@@ -57,6 +59,7 @@ class Quest extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['description'], 'string'],
+            [['distance', 'time'], 'integer'],
             [['title', 'subtitle'], 'string', 'max' => 255],
             [['images_field'], 'safe']
         ];
@@ -72,6 +75,8 @@ class Quest extends \yii\db\ActiveRecord
             'title' => 'Название',
             'subtitle' => 'Подзаголовок',
             'description' => 'Описание',
+            'distance' => 'Дистанция (в метрах)',
+            'time' => 'Длительность (в минутах)',
             'images_field' => 'Изображения',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
