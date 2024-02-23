@@ -39,7 +39,7 @@ class QuestReadModel
             'id' => $this->quest->id,
             'type' => $this->quest->subtitle,
             'title' => $this->quest->title,
-            'distance' => $this->quest->distance,
+            'distance' => Helper::formatDistance($this->quest->distance),
             'time' => Helper::formatTime($this->quest->time),
             'image' => $this->quest->firstImage
                 ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$this->quest->firstImage->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
@@ -93,7 +93,7 @@ class QuestReadModel
             'description' => $this->quest->description,
             'total_places' => count($places),
             'places' => $places,
-            'distance' => $this->quest->distance,
+            'distance' => Helper::formatDistance($this->quest->distance),
             'time' => Helper::formatTime($this->quest->time),
         ];
     }
