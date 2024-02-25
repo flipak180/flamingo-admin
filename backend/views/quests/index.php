@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'created_at',
                 'format' => 'datetime',
                 'filter' => false,
-                'headerOptions' => ['style' => 'width: 200px;'],
+                'headerOptions' => ['style' => 'width: 220px;'],
             ],
             //'updated_at',
             [
