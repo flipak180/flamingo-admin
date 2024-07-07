@@ -57,9 +57,10 @@ class QuestReadModel
     public function getDetails()
     {
         $places = [];
-        foreach ($this->quest->questPlaces as $place) {
+        foreach ($this->quest->questPlaces as $key => $place) {
             $placeInfo = [
                 'id' => $place->id,
+                'number' => $key + 1,
                 'title' => $place->title,
                 'coords' => $place->coords,
                 'image' => sprintf('#%06X', mt_rand(0, 0xFFFFFF)),
