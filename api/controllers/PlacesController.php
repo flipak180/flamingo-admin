@@ -123,4 +123,35 @@ class PlacesController extends BaseApiController
 
         return $visit->save();
     }
+
+    public function actionTest()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $params = Yii::$app->request->getBodyParams();
+        $messages = $params['data']['messages'];
+
+        $data = [
+            "modelUri" => "gpt://b1ge8qr3t2a98df29m34/yandexgpt-lite",
+            "completionOptions" => [
+                "stream" => false,
+                "temperature" => 0.1,
+                "maxTokens" => "1000"
+            ],
+            "messages" => $messages
+        ];
+        $ch = curl_init('https://llm.api.cloud.yandex.net/foundationModels/v1/completion');
+        $payload = json_encode($data);
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json',
+            'Authorization: Api-Key AQVN26Wh1Z9DIBEtfRxiHDq7cWhf0bw7EydI0blq',
+            'x-folder-id: b1ge8qr3t2a98df29m34'
+        ]);
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($result);
+    }
 }

@@ -59,6 +59,7 @@ return [
                 'GET places/visit' => 'places/visit',
                 'GET places/<id:\d+>' => 'places/view',
                 'GET places/details' => 'places/details',
+                'POST,OPTIONS places/test' => 'places/test',
 
                 'GET search' => 'flamingo/search',
 
