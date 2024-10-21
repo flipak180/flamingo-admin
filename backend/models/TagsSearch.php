@@ -18,7 +18,7 @@ class TagsSearch extends Tag
     {
         return [
             [['tag_id', 'created_at', 'updated_at'], 'integer'],
-            [['title'], 'safe'],
+            [['title', 'full_title'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class TagsSearch extends Tag
      */
     public function search($params)
     {
-        $query = Tag::find();
+        $query = Tag::find()->orderBy(['title' => SORT_ASC]);
 
         // add conditions that should always apply here
 
@@ -64,6 +64,7 @@ class TagsSearch extends Tag
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['like', 'full_title', $this->full_title]);
 
         return $dataProvider;
     }

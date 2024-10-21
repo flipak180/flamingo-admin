@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 
 $this->registerJsFile(
-    'https://api-maps.yandex.ru/2.1/?apikey=048d2b9a-9e4a-481c-9799-c8f42c0ce65a&lang=ru_RU',
+    'https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=048d2b9a-9e4a-481c-9799-c8f42c0ce65a&suggest_apikey=6c2da75d-2aeb-430a-8cd9-2641ace59812',
     ['position' => View::POS_HEAD]
 );
 $this->registerJsFile(

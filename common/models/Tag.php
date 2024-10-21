@@ -10,6 +10,7 @@ use yii\db\Expression;
  *
  * @property int $tag_id
  * @property string $title
+ * @property string $full_title
  * @property int $created_at
  * @property int $updated_at
  *
@@ -46,7 +47,7 @@ class Tag extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'full_title'], 'string', 'max' => 255],
         ];
     }
 
@@ -58,6 +59,7 @@ class Tag extends \yii\db\ActiveRecord
         return [
             'tag_id' => 'ID',
             'title' => 'Название',
+            'full_title' => 'Полное название',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];

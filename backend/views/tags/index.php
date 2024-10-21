@@ -28,7 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'tag_id',
                 'headerOptions' => ['style' => 'width: 75px;'],
             ],
-            'title',
+            [
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function(Tag $model) {
+                    return Html::a($model->title, ['tags/update', 'id' => $model->tag_id]);
+                },
+            ],
+            'full_title',
             [
                 'attribute' => 'created_at',
                 'format' => 'datetime',

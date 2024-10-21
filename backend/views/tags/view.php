@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'tag_id',
             'title',
+            'full_title',
             'created_at:datetime',
             'updated_at:datetime',
         ],
