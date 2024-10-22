@@ -28,27 +28,23 @@ $this->registerJsFile(
 <div class="place-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'full_title')->textInput(['maxlength' => true]) ?>
     <!--
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     -->
     <?= $form->field($model, 'categories_field')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Category::find()->all(), 'category_id', 'title'),
+        'data' => ArrayHelper::map(Category::find()->orderBy('title')->all(), 'category_id', 'title'),
         'options' => ['placeholder' => 'Выберите категорию', 'multiple' => true],
         'showToggleAll' => false,
         'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 10
         ],
     ]); ?>
     <?= $form->field($model, 'tags_field')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Tag::find()->all(), 'tag_id', 'title'),
+        'data' => ArrayHelper::map(Tag::find()->orderBy('title')->all(), 'tag_id', 'title'),
         'options' => ['placeholder' => 'Выберите теги', 'multiple' => true],
         'showToggleAll' => false,
         'pluginOptions' => [
-            'tags' => true,
-            'tokenSeparators' => [',', ' '],
-            'maximumInputLength' => 10
+            'closeOnSelect' => false,
         ],
     ]); ?>
 
@@ -78,6 +74,7 @@ $this->registerJsFile(
         </div>
     <?php endif ?>
 
+    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'coords_field')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'location_field')->hiddenInput() ?>

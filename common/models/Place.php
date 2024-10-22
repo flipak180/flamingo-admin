@@ -12,9 +12,11 @@ use yii\db\Expression;
  *
  * @property int $place_id
  * @property string $title
+ * @property string $full_title
  * @property string|null $description
  * @property string $location
  * @property string $coords
+ * @property string $address
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -81,7 +83,7 @@ class Place extends \yii\db\ActiveRecord
             //[['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
-            [['title'], 'string', 'max' => 255],
+            [['title', 'full_title', 'address'], 'string', 'max' => 255],
             [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field'], 'safe'],
         ];
     }
@@ -143,7 +145,9 @@ class Place extends \yii\db\ActiveRecord
         return [
             'place_id' => 'ID',
             'title' => 'Название',
+            'full_title' => 'Полное название',
             'description' => 'Описание',
+            'address' => 'Адрес',
             'location' => 'Местоположение',
             'location_field' => 'Местоположение',
             'coords' => 'Координаты',
