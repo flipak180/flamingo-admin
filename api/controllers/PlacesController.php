@@ -17,16 +17,18 @@ class PlacesController extends BaseApiController
      * @param $category_id
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function actionList($category_id = null)
+    public function actionList($category_id = null, $tag_id = null)
     {
         $result = [];
         $tagIds = [];
 
         $category = Category::findOne($category_id);
-        if ($category) {
+        if ($category && !$tag_id) {
             foreach ($category->categoryTags as $categoryTag) {
                 $tagIds[] = $categoryTag->tag_id;
             }
+        } else {
+            $tagIds = [$tag_id];
         }
 
         //$orderDir = ($category->type == Category::TYPE_CATALOG) ? 'DESC' : 'ASC';
@@ -35,11 +37,11 @@ class PlacesController extends BaseApiController
         $places = Place::find()->joinWith(['placeTags', 'placeCategories'])
             ->andWhere('places.in_trash IS NOT TRUE')
             ->andWhere([
-                'or',
+                $tag_id ? 'and' : 'or',
                 ['place_categories.category_id' => $category_id],
                 ['in', 'place_tags.tag_id', $tagIds]
             ])
-            ->orderBy('places.place_id ASC')
+            ->orderBy('places.title ASC')
             ->limit(20)
             ->all();
 

@@ -47,10 +47,23 @@ class CategoryController extends BaseApiController
 
     /**
      * @param $id
-     * @return Category|null
+     * @return array
      */
     public function actionDetails($id)
     {
-        return Category::findOne($id);
+        $category = Category::findOne($id);
+        $tags = [];
+        foreach ($category->tags as $tag) {
+            $tags[] = [
+                'id' => $tag->tag_id,
+                'title' => $tag->title,
+            ];
+        }
+
+        return [
+            'id' => $category->category_id,
+            'title' => $category->title,
+            'tags' => $tags,
+        ];
     }
 }
