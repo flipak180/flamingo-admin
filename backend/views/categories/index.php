@@ -25,6 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= SortableGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function(Category $model) {
+            if (!$model->parent_id) {
+                return ['style' => 'background-color: #ccc'];
+            }
+        },
         'columns' => [
             [
                 'attribute' => 'category_id',

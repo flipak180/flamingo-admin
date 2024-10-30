@@ -46,7 +46,10 @@ class CategoriesSearch extends Category
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['position' => SORT_ASC]]
+            'sort' => ['defaultOrder' => ['position' => SORT_ASC]],
+            'pagination' => [
+                'pageSize' => 100,
+            ],
         ]);
 
         $this->load($params);

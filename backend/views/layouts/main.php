@@ -42,6 +42,7 @@ AppAsset::register($this);
             ['label' => 'Все', 'url' => ['/places/index']],
             ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
             ['label' => 'Театры', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 16]],
+            ['label' => 'Дворы', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 26]],
         ]],
         ['label' => 'Квесты', 'url' => ['/quests/index']],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],
