@@ -63,6 +63,8 @@ return [
 
                 'GET search' => 'flamingo/search',
 
+                'POST,OPTIONS tickets/create' => 'tickets/create',
+
 //                [
 //                    'class' => 'yii\rest\UrlRule',
 //                    'controller' => 'place',
