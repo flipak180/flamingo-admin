@@ -9,12 +9,8 @@ class TicketsController extends BaseApiController
 {
     public function actionCreate()
     {
-        $type = Yii::$app->request->post('type');
-        $message = Yii::$app->request->post('message');
-
         $ticket = new Ticket();
-        $ticket->type = $type;
-        $ticket->message = $message;
+        $ticket->load(Yii::$app->request->post());
 
         if (!$ticket->save()) {
             throw new \yii\web\HttpException(500, 'Unable to create ticket.');

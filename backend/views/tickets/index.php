@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions' => ['style' => 'width: 75px;'],
                 'format' => 'raw',
                 'value' => function(Ticket $model) {
-                    return Html::a($model->id, ['tickets/update', 'id' => $model->id]);
+                    return Html::a($model->id, ['tickets/view', 'id' => $model->id]);
                 },
             ],
             'user_id',
@@ -53,7 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Ticket $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                 },
+                'template' => '{view}'
             ],
         ],
     ]); ?>

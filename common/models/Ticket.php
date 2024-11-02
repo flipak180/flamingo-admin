@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\ImageBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -14,9 +15,13 @@ use yii\db\Expression;
  * @property string|null $message
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property ImageModel[] $images
  */
 class Ticket extends \yii\db\ActiveRecord
 {
+    public $images_field;
+
     const TYPE_BUG = 1;
     const TYPE_INCORRECT = 2;
     const TYPE_SUGGESTION = 3;
@@ -39,6 +44,10 @@ class Ticket extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'value' => new Expression('NOW()'),
             ],
+            [
+                'class' => ImageBehavior::class,
+                'attribute' => 'images_field',
+            ],
         ];
     }
 
@@ -51,6 +60,7 @@ class Ticket extends \yii\db\ActiveRecord
             [['user_id', 'type'], 'default', 'value' => null],
             [['user_id', 'type'], 'integer'],
             [['message'], 'string'],
+            [['images_field'], 'safe'],
         ];
     }
 
@@ -64,6 +74,7 @@ class Ticket extends \yii\db\ActiveRecord
             'user_id' => 'Пользователь',
             'type' => 'Тип',
             'message' => 'Сообщение',
+            'images_field' => 'Изображения',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
