@@ -12,18 +12,18 @@ class UserController extends BaseApiController
     public $modelClass = 'common\models\User';
 
     /**
-     * @return User|null
+     * @return User
      * @throws BadRequestHttpException
-     * @throws \yii\base\InvalidConfigException
+     * @throws NotFoundHttpException
      */
     public function actionLogin()
     {
-        $params = Yii::$app->request->getBodyParams();
-        if (!isset($params['phone'])) {
+        $phone = Yii::$app->request->post('phone');
+        if (!$phone) {
             throw new BadRequestHttpException();
         }
 
-        $user = User::findOne(['phone' => $params['phone']]);
+        $user = User::findOne(['phone' => $phone]);
         if (!$user) {
             throw new NotFoundHttpException();
         }
