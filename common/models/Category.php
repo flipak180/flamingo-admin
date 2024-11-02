@@ -178,7 +178,8 @@ class Category extends \yii\db\ActiveRecord
      */
     public function handleTags() {
         if (!is_array($this->tags_field)) {
-            return;
+            $this->tags_field = [];
+            //return;
         }
 
         /** @var Tag[] $currentTags */
