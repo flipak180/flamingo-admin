@@ -31,7 +31,7 @@ class CategoryController extends BaseApiController
             ];
             foreach ($subcategories as $subcategory) {
                 $image = $subcategory->image
-                    ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$subcategory->image, 736, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+                    ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$subcategory->image, 100, 82, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
                     : null;
                 $result[$category->position]['subcategories'][] = [
                     'id' => $subcategory->category_id,
@@ -93,7 +93,7 @@ class CategoryController extends BaseApiController
         $categoryPlaces = array_slice($categoryPlaces, 0, 5);
         foreach ($categoryPlaces as $place) {
             $image = count($place->images)
-                ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$place->images[0]->path, 400, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+                ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$place->images[0]->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
                 : '';
             $places[] = [
                 'id' => $place->place_id,

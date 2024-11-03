@@ -47,9 +47,10 @@ class PlacesController extends BaseApiController
 
         foreach ($places as $place) {
             $images = [];
+            $smallImages = [];
             foreach ($place->images as $image) {
-                // 500x800
-                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 400, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
+                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
+                $smallImages[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 150, 150, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
             }
 
             $tags = [];
@@ -62,6 +63,8 @@ class PlacesController extends BaseApiController
                 'title' => $place->title,
                 'image' => count($images) ? $images[0] : '',
                 'images' => $images,
+                'small_images' => $smallImages,
+                'small_image' => count($smallImages) ? $smallImages[0] : '',
                 'tags' => $tags,
                 'coords' => $place->coords,
                 'status' => 1,
