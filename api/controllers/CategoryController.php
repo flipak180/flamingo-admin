@@ -5,6 +5,7 @@ namespace app\controllers;
 use common\models\Category;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
+use yii\db\Expression;
 
 class CategoryController extends BaseApiController
 {
@@ -64,6 +65,47 @@ class CategoryController extends BaseApiController
             'id' => $category->category_id,
             'title' => $category->title,
             'tags' => $tags,
+        ];
+    }
+
+    /**
+     * @return array|null
+     * @throws \himiklab\thumbnail\FileNotFoundException
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function actionGetHomepageCategory()
+    {
+        /** @var Category $category */
+        $category = Category::find()
+            ->where(['show_on_homepage' => true])
+            ->orderBy(new Expression('random()'))
+            ->one();
+
+        if (!$category) {
+            return null;
+        }
+
+        $places = [];
+
+        $categoryPlaces = $category->places;
+        shuffle($categoryPlaces);
+        $categoryPlaces = array_slice($categoryPlaces, 0, 5);
+        foreach ($categoryPlaces as $place) {
+            $image = count($place->images)
+                ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$place->images[0]->path, 400, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+                : '';
+            $places[] = [
+                'id' => $place->place_id,
+                'title' => $place->title,
+                'image' => $image,
+            ];
+        }
+
+        return [
+            'id' => $category->category_id,
+            'title' => $category->title,
+            'places' => $places,
         ];
     }
 }

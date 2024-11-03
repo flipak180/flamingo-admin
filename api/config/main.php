@@ -81,6 +81,7 @@ return [
                         'POST,OPTIONS visit' => 'visit',
                         'GET list' => 'list',
                         'GET details' => 'details',
+                        'GET get-homepage-category' => 'get-homepage-category',
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],

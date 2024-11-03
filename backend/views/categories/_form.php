@@ -52,6 +52,7 @@ use yii\widgets\ActiveForm;
             'maximumInputLength' => 10
         ],
     ]); ?>
+    <?= $form->field($model, 'show_on_homepage')->checkbox() ?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
