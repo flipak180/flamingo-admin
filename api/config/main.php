@@ -82,6 +82,7 @@ return [
                         'GET list' => 'list',
                         'GET details' => 'details',
                         'GET get-homepage-category' => 'get-homepage-category',
+                        'GET get-popular-categories' => 'get-popular-categories',
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],

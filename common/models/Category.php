@@ -18,6 +18,7 @@ use yii\web\UploadedFile;
  * @property int|null $parent_id
  * @property int $position
  * @property int $show_on_homepage
+ * @property int $is_popular
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -70,7 +71,7 @@ class Category extends \yii\db\ActiveRecord
         return [
             [['title', 'type'], 'required'],
             [['parent_id', 'type', 'position'], 'integer'],
-            [['in_trash', 'show_on_homepage'], 'boolean'],
+            [['in_trash', 'show_on_homepage', 'is_popular'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
             [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*10],
@@ -99,6 +100,7 @@ class Category extends \yii\db\ActiveRecord
             'parent_id' => 'Родитель',
             'tags_field' => 'Теги',
             'position' => 'Позиция',
+            'is_popular' => 'Популярная',
             'show_on_homepage' => 'Отображать на главной',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',

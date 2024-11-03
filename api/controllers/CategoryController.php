@@ -108,4 +108,28 @@ class CategoryController extends BaseApiController
             'places' => $places,
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function actionGetPopularCategories()
+    {
+        /** @var Category[] $categories */
+        $categories = Category::find()
+            ->where(['is_popular' => true])
+            ->orderBy('title')
+            ->all();
+
+        $result = [];
+
+        foreach ($categories as $category) {
+            $result[] = [
+                'id' => $category->category_id,
+                'title' => $category->title,
+                'total_places' => count($category->getPlaces()),
+            ];
+        }
+
+        return $result;
+    }
 }

@@ -13,6 +13,7 @@ class m241103_110152_extend_categories extends Migration
     public function safeUp()
     {
         $this->addColumn('categories', 'show_on_homepage', $this->boolean());
+        $this->addColumn('categories', 'is_popular', $this->boolean());
     }
 
     /**
