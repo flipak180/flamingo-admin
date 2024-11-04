@@ -26,6 +26,7 @@ use yii\web\UploadedFile;
  * @property Category $parent
  * @property Category $children
  * @property CategoryTag[] $categoryTags
+ * @property PlaceCategory[] $categoryPlaces
  * @property Tag[] $tags
  * @property Place[] $places
  */
@@ -169,6 +170,14 @@ class Category extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getCategoryPlaces()
+    {
+        return $this->hasMany(PlaceCategory::className(), ['category_id' => 'category_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTags()
     {
         return $this->hasMany(Tag::className(), ['tag_id' => 'tag_id'])
@@ -223,9 +232,21 @@ class Category extends \yii\db\ActiveRecord
             $tagIds[] = $categoryTag->tag_id;
         }
 
-        return Place::find()->joinWith('placeTags')
-            ->where(['category_id' => $this->category_id])
+        return Place::find()
+            ->joinWith(['placeTags', 'categories'])
+            ->where(['in', 'categories.category_id', [$this->category_id]])
             ->orWhere(['in', 'place_tags.tag_id', $tagIds])->all();
+    }
+
+    /**
+     * @return bool|int|string|null
+     */
+    public function getCountPlaces()
+    {
+        return Place::find()
+            ->joinWith('categories')
+            ->where(['in', 'categories.category_id', [$this->category_id]])
+            ->count();
     }
 
     /**

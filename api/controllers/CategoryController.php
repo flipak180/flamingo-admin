@@ -126,7 +126,7 @@ class CategoryController extends BaseApiController
             $result[] = [
                 'id' => $category->category_id,
                 'title' => $category->title,
-                'total_places' => count($category->getPlaces()),
+                'total_places' => $category->getCountPlaces(),
             ];
         }
 
