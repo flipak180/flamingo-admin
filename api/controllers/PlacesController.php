@@ -61,6 +61,7 @@ class PlacesController extends BaseApiController
             $result[] = [
                 'id' => $place->place_id,
                 'title' => $place->title,
+                'sort_title' => $place->sort_title,
                 'image' => count($images) ? $images[0] : '',
                 'images' => $images,
                 'small_images' => $smallImages,
