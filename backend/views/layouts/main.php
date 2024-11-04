@@ -37,12 +37,15 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Статьи', 'url' => ['/articles/index']],
         ['label' => 'События', 'url' => ['/events/index']],
-        //['label' => 'Места', 'url' => ['/places/index']],
         ['label' => 'Места', 'items' => [
             ['label' => 'Все', 'url' => ['/places/index']],
-            ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
-            ['label' => 'Театры', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 16]],
             ['label' => 'Дворы', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 26]],
+            ['label' => 'Катки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 5]],
+            ['label' => 'Музеи', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 6]],
+            ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
+            ['label' => 'Пространства', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 7]],
+            ['label' => 'Театры', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 16]],
+            ['label' => 'ТЦ', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 8]],
         ]],
         ['label' => 'Квесты', 'url' => ['/quests/index']],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],
