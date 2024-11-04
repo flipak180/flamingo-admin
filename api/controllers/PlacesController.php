@@ -89,8 +89,8 @@ class PlacesController extends BaseApiController
 
         /** @var Place[] $places */
         $places = Place::find()
-            ->where(['like', 'title', $term])
-            ->orWhere(['like', 'full_title', $term])
+            ->where(['ilike', 'title', $term])
+            ->orWhere(['ilike', 'full_title', $term])
             ->all();
 
         foreach ($places as $place) {
