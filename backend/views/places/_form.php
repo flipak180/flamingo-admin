@@ -29,6 +29,7 @@ $this->registerJsFile(
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'full_title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'sort_title')->textInput(['maxlength' => true]) ?>
     <!--
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     -->

@@ -13,6 +13,7 @@ use yii\db\Expression;
  * @property int $place_id
  * @property string $title
  * @property string $full_title
+ * @property string $sort_title
  * @property string|null $description
  * @property string $location
  * @property string $coords
@@ -83,7 +84,7 @@ class Place extends \yii\db\ActiveRecord
             //[['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
-            [['title', 'full_title', 'address'], 'string', 'max' => 255],
+            [['title', 'full_title', 'sort_title', 'address'], 'string', 'max' => 255],
             [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field'], 'safe'],
         ];
     }
@@ -146,6 +147,7 @@ class Place extends \yii\db\ActiveRecord
             'place_id' => 'ID',
             'title' => 'Название',
             'full_title' => 'Полное название',
+            'sort_title' => 'Название для сортировки',
             'description' => 'Описание',
             'address' => 'Адрес',
             'location' => 'Местоположение',

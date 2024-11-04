@@ -42,7 +42,7 @@ AppAsset::register($this);
             ['label' => 'Дворы', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 26]],
             ['label' => 'Катки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 5]],
             ['label' => 'Музеи', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 6]],
-            ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
+            ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 1]],
             ['label' => 'Пространства', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 7]],
             ['label' => 'Театры', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 16]],
             ['label' => 'ТЦ', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 8]],

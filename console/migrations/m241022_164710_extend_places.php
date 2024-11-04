@@ -13,6 +13,7 @@ class m241022_164710_extend_places extends Migration
     public function safeUp()
     {
         $this->addColumn('places', 'full_title', $this->string());
+        $this->addColumn('places', 'sort_title', $this->string());
         $this->addColumn('places', 'address', $this->string());
     }
 
