@@ -8,6 +8,7 @@ use common\models\User;
 use common\models\Visit;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
+use yii\db\Expression;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
@@ -41,7 +42,7 @@ class PlacesController extends BaseApiController
                 ['place_categories.category_id' => $category_id],
                 ['in', 'place_tags.tag_id', $tagIds]
             ])
-            ->orderBy('places.title ASC')
+            ->orderBy(new Expression('coalesce(places.sort_title, places.title) ASC'))
             ->limit(20)
             ->all();
 
