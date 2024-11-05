@@ -39,4 +39,24 @@ abstract class BaseApiController extends Controller
         ];
     }
 
+    /**
+     * @param $code
+     * @param $desc
+     * @return array
+     */
+    protected function error($code, $desc = '')
+    {
+        return $this->response(['code' => $code, 'desc' => $desc], 1);
+    }
+
+    /**
+     * @param $data
+     * @param $error
+     * @param $onlyData
+     * @return array
+     */
+    protected function response($data, $error = 0, $onlyData = false)
+    {
+        return (!$onlyData) ? ['error' => $error, 'data' => $data] : $data;
+    }
 }

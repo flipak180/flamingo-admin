@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\Helper;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 

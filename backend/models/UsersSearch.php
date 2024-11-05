@@ -18,7 +18,7 @@ class UsersSearch extends User
     {
         return [
             [['user_id', 'in_trash', 'created_at', 'updated_at'], 'integer'],
-            [['phone', 'name', 'email', 'email_confirm_token'], 'safe'],
+            [['phone', 'name'], 'safe'],
         ];
     }
 
@@ -65,9 +65,7 @@ class UsersSearch extends User
         ]);
 
         $query->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'email_confirm_token', $this->email_confirm_token]);
+            ->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

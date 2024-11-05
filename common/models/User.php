@@ -11,8 +11,6 @@ use yii\db\Expression;
  * @property int $user_id
  * @property string $phone
  * @property string|null $name
- * @property string|null $email
- * @property string|null $email_confirm_token
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -21,6 +19,8 @@ use yii\db\Expression;
  */
 class User extends \yii\db\ActiveRecord
 {
+    const SALT = '$2y$10$';
+
     /**
      * {@inheritdoc}
      */
@@ -50,8 +50,8 @@ class User extends \yii\db\ActiveRecord
         return [
             [['phone'], 'required'],
             [['in_trash'], 'boolean'],
-            [['phone', 'name', 'email', 'email_confirm_token'], 'string', 'max' => 255],
-            [['email_confirm_token', 'phone', 'email'], 'unique'],
+            [['phone', 'name'], 'string', 'max' => 255],
+            [['phone'], 'unique'],
         ];
     }
 
@@ -64,8 +64,6 @@ class User extends \yii\db\ActiveRecord
             'user_id' => 'ID',
             'phone' => 'Телефон',
             'name' => 'Имя',
-            'email' => 'Email',
-            'email_confirm_token' => 'Email Confirm Token',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
@@ -78,5 +76,14 @@ class User extends \yii\db\ActiveRecord
     public function getVisits()
     {
         return $this->hasMany(Visit::className(), ['user_id' => 'user_id'])->orderBy('visit_id DESC');
+    }
+
+    /**
+     * @param $phone
+     * @return string
+     */
+    public static function encryptPhone($phone)
+    {
+        return md5($phone . self::SALT);
     }
 }

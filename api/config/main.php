@@ -91,7 +91,7 @@ return [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'user',
                     'extraPatterns' => [
-                        'POST,OPTIONS login' => 'login',
+                        'POST,OPTIONS auth' => 'auth',
                         'POST,OPTIONS visits' => 'visits',
                     ],
                 ],
