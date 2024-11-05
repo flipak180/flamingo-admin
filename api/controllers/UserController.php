@@ -26,6 +26,9 @@ class UserController extends BaseApiController
             return $this->error(404, 'Номер не зарегистрирован.');
         }
 
-        return $this->response($user);
+        return $this->response([
+            'token' => $user->phone,
+            'name' => $user->name,
+        ]);
     }
 }
