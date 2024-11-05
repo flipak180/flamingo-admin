@@ -20,6 +20,7 @@ use yii\db\Expression;
 class User extends \yii\db\ActiveRecord
 {
     const SALT = '$2y$10$';
+    const DEFAULT_NAME = 'Странник';
 
     /**
      * {@inheritdoc}
