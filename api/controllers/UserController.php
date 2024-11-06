@@ -50,6 +50,7 @@ class UserController extends BaseApiController
         return $this->response([
             'token' => $user->phone,
             'name' => $user->name,
+            'avatar' => $user->avatar,
         ]);
     }
 
