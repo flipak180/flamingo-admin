@@ -6,6 +6,7 @@ use common\components\Helper;
 use common\models\User;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
+use yii\web\UploadedFile;
 
 class UserController extends BaseApiController
 {
@@ -59,9 +60,22 @@ class UserController extends BaseApiController
     {
         /** @var User $user */
         $user = Yii::$app->user->identity;
-        $user->name = Yii::$app->request->post('name');
-        if (!$user->save()) {
-            return $this->error(400, $user->errors);
+
+        $name = Yii::$app->request->post('name');
+        if ($name) {
+            $user->name = Yii::$app->request->post('name');
+            if (!$user->save()) {
+                $errors = $user->getFirstErrors();
+                return $this->error(400, reset($errors));
+            }
+        }
+
+        $image = UploadedFile::getInstanceByName('avatar');
+        if ($image) {
+            if (!$user->uploadImage($image)) {
+                $errors = $user->getFirstErrors();
+                return $this->error(400, reset($errors));
+            }
         }
 
         return $this->response('ok');

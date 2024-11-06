@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use yii\web\IdentityInterface;
@@ -12,6 +13,7 @@ use yii\web\IdentityInterface;
  * @property int $user_id
  * @property string $phone
  * @property string|null $name
+ * @property string|null $avatar
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -20,6 +22,8 @@ use yii\web\IdentityInterface;
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    public $avatar_field;
+
     const SALT = '$2y$10$';
     const DEFAULT_NAME = 'Странник';
 
@@ -52,8 +56,9 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
         return [
             [['phone', 'name'], 'required'],
             [['in_trash'], 'boolean'],
-            [['phone', 'name'], 'string', 'max' => 255],
+            [['phone', 'name', 'avatar'], 'string', 'max' => 255],
             [['phone'], 'unique'],
+            [['avatar_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*2],
         ];
     }
 
@@ -66,10 +71,48 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             'user_id' => 'ID',
             'phone' => 'Телефон',
             'name' => 'Имя',
+            'avatar' => 'Аватарка',
+            'avatar_field' => 'Аватарка',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function uploadImage($image)
+    {
+        if (!$image) {
+            return true;
+        }
+
+        $className = 'avatar';
+        $oldAvatar = $this->avatar;
+
+        do {
+            $image_path = '/upload/images/'.strtolower($className).'_'.md5(rand()).'.'.$image->extension;
+            $full_path = Yii::getAlias('@frontend_web').$image_path;
+        } while (file_exists($full_path));
+
+        $image->saveAs($full_path);
+        $this->avatar = $image_path;
+        unlink(Yii::getAlias('@frontend_web').$oldAvatar);
+        return $this->save();
+    }
+
+    /**
+     * @return true
+     */
+    public function deleteImage()
+    {
+        if ($this->avatar && file_exists(Yii::getAlias('@frontend_web').$this->avatar)) {
+            unlink(Yii::getAlias('@frontend_web').$this->avatar);
+            $this->avatar = null;
+            $this->save(false);
+        }
+        return true;
     }
 
     /**
