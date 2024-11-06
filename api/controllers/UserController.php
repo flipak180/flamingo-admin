@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use common\components\Helper;
 use common\models\User;
+use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\UploadedFile;
@@ -47,10 +48,14 @@ class UserController extends BaseApiController
             }
         }
 
+        $avatar = $user->avatar
+            ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$user->avatar, 200, 200, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+            : '';
+
         return $this->response([
             'token' => $user->phone,
             'name' => $user->name,
-            'avatar' => $user->avatar,
+            'avatar' => $avatar,
         ]);
     }
 
