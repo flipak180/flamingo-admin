@@ -5,10 +5,24 @@ namespace app\controllers;
 use common\components\Helper;
 use common\models\User;
 use Yii;
+use yii\filters\auth\HttpBearerAuth;
 
 class UserController extends BaseApiController
 {
     public $modelClass = 'common\models\User';
+
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBearerAuth::class,
+            'except' => ['auth'],
+        ];
+        return $behaviors;
+    }
 
     /**
      * @return array
@@ -36,5 +50,20 @@ class UserController extends BaseApiController
             'token' => $user->phone,
             'name' => $user->name,
         ]);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionUpdateProfile()
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+        $user->name = Yii::$app->request->post('name');
+        if (!$user->save()) {
+            return $this->error(400, $user->errors);
+        }
+
+        return $this->response('ok');
     }
 }

@@ -4,6 +4,7 @@ namespace common\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "users".
@@ -17,7 +18,7 @@ use yii\db\Expression;
  *
  * @property Visit[] $visits
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
     const SALT = '$2y$10$';
     const DEFAULT_NAME = 'Странник';
@@ -49,7 +50,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['phone'], 'required'],
+            [['phone', 'name'], 'required'],
             [['in_trash'], 'boolean'],
             [['phone', 'name'], 'string', 'max' => 255],
             [['phone'], 'unique'],
@@ -86,5 +87,35 @@ class User extends \yii\db\ActiveRecord
     public static function encryptPhone($phone)
     {
         return md5($phone . self::SALT);
+    }
+
+    /**
+     * @param mixed $token
+     * @param null $type
+     * @return User|IdentityInterface|null
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['phone' => $token]);
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne(['user_id' => $id]);
+    }
+
+    public function getId()
+    {
+        return $this->user_id;
+    }
+
+    public function getAuthKey()
+    {
+        return null;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return true;
     }
 }

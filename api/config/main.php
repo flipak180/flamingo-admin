@@ -26,7 +26,7 @@ return [
             ],
         ],
         'user' => [
-            'identityClass' => 'common\models\Admin',
+            'identityClass' => 'common\models\User',
             'enableAutoLogin' => false,
             'enableSession' => false
         ],
@@ -92,7 +92,7 @@ return [
                     'controller' => 'user',
                     'extraPatterns' => [
                         'POST,OPTIONS auth' => 'auth',
-                        'POST,OPTIONS visits' => 'visits',
+                        'POST,OPTIONS update-profile' => 'update-profile',
                     ],
                 ],
 
