@@ -62,28 +62,43 @@ class UserController extends BaseApiController
     /**
      * @return array
      */
-    public function actionUpdateProfile()
+    public function actionUpdateName()
     {
         /** @var User $user */
         $user = Yii::$app->user->identity;
 
         $name = Yii::$app->request->post('name');
-        if ($name) {
-            $user->name = Yii::$app->request->post('name');
-            if (!$user->save()) {
-                $errors = $user->getFirstErrors();
-                return $this->error(400, reset($errors));
-            }
+        if (!$name) {
+            return $this->error(400, 'Имя обязательно для заполнения');
         }
+
+        $user->name = $name;
+        if (!$user->save()) {
+            $errors = $user->getFirstErrors();
+            return $this->error(400, reset($errors));
+        }
+
+        return $this->response($user->name);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionUpdateAvatar()
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
 
         $image = UploadedFile::getInstanceByName('avatar');
-        if ($image) {
-            if (!$user->uploadImage($image)) {
-                $errors = $user->getFirstErrors();
-                return $this->error(400, reset($errors));
-            }
+        if (!$image) {
+            return $this->error(400, 'Изображение не загружено');
         }
 
-        return $this->response('ok');
+        if (!$user->uploadImage($image)) {
+            $errors = $user->getFirstErrors();
+            return $this->error(400, reset($errors));
+        }
+
+        return $this->response($user->avatar);
     }
 }

@@ -92,7 +92,8 @@ return [
                     'controller' => 'user',
                     'extraPatterns' => [
                         'POST,OPTIONS auth' => 'auth',
-                        'POST,OPTIONS update-profile' => 'update-profile',
+                        'POST,OPTIONS update-name' => 'update-name',
+                        'POST,OPTIONS update-avatar' => 'update-avatar',
                     ],
                 ],
 
