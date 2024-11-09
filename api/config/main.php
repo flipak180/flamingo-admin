@@ -44,26 +44,26 @@ return [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                'GET,OPTIONS events/list' => 'events/list',
-                'GET,OPTIONS events/details' => 'events/details',
+                'GET events/list' => 'events/list',
+                'GET events/details' => 'events/details',
 
-                'GET,OPTIONS articles/list' => 'articles/list',
-                'GET,OPTIONS articles/details' => 'articles/details',
+                'GET articles/list' => 'articles/list',
+                'GET articles/details' => 'articles/details',
 
-                'GET,OPTIONS quests/list' => 'quests/list',
-                'GET,OPTIONS quests/details' => 'quests/details',
-                'GET,OPTIONS quests/place' => 'quests/place',
+                'GET quests/list' => 'quests/list',
+                'GET quests/details' => 'quests/details',
+                'GET quests/place' => 'quests/place',
                 'POST,OPTIONS quests/start' => 'quests/start',
 
-                'GET,OPTIONS places/list' => 'places/list',
-                'GET,OPTIONS places/search' => 'places/search',
-                'GET,OPTIONS places/visit' => 'places/visit',
-                'GET,OPTIONS places/<id:\d+>' => 'places/view',
-                'GET,OPTIONS places/details' => 'places/details',
+                'GET places/list' => 'places/list',
+                'GET places/search' => 'places/search',
+                'GET places/visit' => 'places/visit',
+                'GET places/<id:\d+>' => 'places/view',
+                'GET places/details' => 'places/details',
                 'POST,OPTIONS places/rate' => 'places/rate',
                 'POST,OPTIONS places/test' => 'places/test',
 
-                'GET,OPTIONS search' => 'flamingo/search',
+                'GET search' => 'flamingo/search',
 
                 'POST,OPTIONS tickets/create' => 'tickets/create',
 
@@ -72,8 +72,8 @@ return [
 //                    'controller' => 'place',
 //                    'extraPatterns' => [
 //                        'POST,OPTIONS visit' => 'visit',
-//                        'GET,OPTIONS list' => 'list',
-//                        'GET,OPTIONS details' => 'details',
+//                        'GET list' => 'list',
+//                        'GET details' => 'details',
 //                    ],
 //                ],
                 [
@@ -81,10 +81,10 @@ return [
                     'controller' => 'category',
                     'extraPatterns' => [
                         'POST,OPTIONS visit' => 'visit',
-                        'GET,OPTIONS list' => 'list',
-                        'GET,OPTIONS details' => 'details',
-                        'GET,OPTIONS get-homepage-category' => 'get-homepage-category',
-                        'GET,OPTIONS get-popular-categories' => 'get-popular-categories',
+                        'GET list' => 'list',
+                        'GET details' => 'details',
+                        'GET get-homepage-category' => 'get-homepage-category',
+                        'GET get-popular-categories' => 'get-popular-categories',
                     ],
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
