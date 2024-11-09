@@ -153,7 +153,7 @@ class PlacesController extends BaseApiController
             'tags' => $tags,
             'coords' => $place->coords,
             'status' => 1,
-            'rate_info' => $place->getRateInfo(),
+            'stats' => $place->getStats(),
         ];
     }
 

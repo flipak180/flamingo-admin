@@ -282,7 +282,7 @@ class Place extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public function getRateInfo()
+    public function getStats()
     {
         $total_rates = Rate::find()
             ->where(['place_id' => $this->place_id])
