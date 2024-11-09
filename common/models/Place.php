@@ -278,4 +278,23 @@ class Place extends \yii\db\ActiveRecord
         }
         return implode(' ', $labels);
     }
+
+    /**
+     * @return array
+     */
+    public function getRateInfo()
+    {
+        $total_rates = Rate::find()
+            ->where(['place_id' => $this->place_id])
+            ->count();
+
+        $total_likes = Rate::find()
+            ->where(['place_id' => $this->place_id, 'rate' => 1])
+            ->count();
+
+        return [
+            'total_rates' => $total_rates,
+            'likes_percent' => $total_likes ? round($total_likes / $total_rates * 100) : 0,
+        ];
+    }
 }
