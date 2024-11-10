@@ -17,9 +17,9 @@ use yii\db\Expression;
  */
 class PlaceRate extends \yii\db\ActiveRecord
 {
-    const DISLIKE = 1;
+    const BAD = 1;
     const NEUTRAL = 2;
-    const LIKE = 3;
+    const GOOD = 3;
 
     /**
      * {@inheritdoc}
