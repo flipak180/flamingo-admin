@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use common\models\Category;
 use common\models\Place;
-use common\models\Rate;
+use common\models\PlaceRate;
 use common\models\User;
 use common\models\Visit;
 use himiklab\thumbnail\EasyThumbnailImage;
@@ -229,9 +229,9 @@ class PlacesController extends BaseApiController
         $rate = Yii::$app->request->post('rate');
         $place_id = Yii::$app->request->post('place_id');
 
-        $currentRate = Rate::findOne(['place_id' => $place_id, 'user_id' => Yii::$app->user->id]);
+        $currentRate = PlaceRate::findOne(['place_id' => $place_id, 'user_id' => Yii::$app->user->id]);
         if (!$currentRate) {
-            $currentRate = new Rate();
+            $currentRate = new PlaceRate();
             $currentRate->user_id = Yii::$app->user->id;
             $currentRate->place_id = $place_id;
         }

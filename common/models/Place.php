@@ -284,11 +284,11 @@ class Place extends \yii\db\ActiveRecord
      */
     public function getStats()
     {
-        $total_rates = Rate::find()
+        $total_rates = PlaceRate::find()
             ->where(['place_id' => $this->place_id])
             ->count();
 
-        $total_likes = Rate::find()
+        $total_likes = PlaceRate::find()
             ->where(['place_id' => $this->place_id, 'rate' => 1])
             ->count();
 

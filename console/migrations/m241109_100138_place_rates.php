@@ -5,14 +5,14 @@ use yii\db\Migration;
 /**
  * Class m241109_100138_rates
  */
-class m241109_100138_rates extends Migration
+class m241109_100138_place_rates extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('rates', [
+        $this->createTable('place_rates', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'place_id' => $this->integer(),
@@ -27,6 +27,6 @@ class m241109_100138_rates extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('rates');
+        $this->dropTable('place_rates');
     }
 }

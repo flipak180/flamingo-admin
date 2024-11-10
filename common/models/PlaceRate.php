@@ -15,8 +15,12 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  */
-class Rate extends \yii\db\ActiveRecord
+class PlaceRate extends \yii\db\ActiveRecord
 {
+    const DISLIKE = 1;
+    const MEH = 2;
+    const LIKE = 3;
+
     /**
      * {@inheritdoc}
      */
