@@ -26,7 +26,7 @@ class PlaceRate extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'rates';
+        return 'place_rates';
     }
 
     /**
