@@ -18,7 +18,7 @@ use yii\db\Expression;
 class PlaceRate extends \yii\db\ActiveRecord
 {
     const DISLIKE = 1;
-    const MEH = 2;
+    const NEUTRAL = 2;
     const LIKE = 3;
 
     /**
