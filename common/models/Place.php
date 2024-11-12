@@ -29,6 +29,7 @@ use yii\db\Expression;
  * @property Category[] $categories
  * @property Visit[] $visits
  * @property ImageModel[] $images
+ * @property PlaceRate[] $rates
  */
 class Place extends \yii\db\ActiveRecord
 {
@@ -203,6 +204,14 @@ class Place extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Category::className(), ['category_id' => 'category_id'])
             ->via('placeCategories');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRates()
+    {
+        return $this->hasMany(PlaceRate::className(), ['place_id' => 'place_id']);
     }
 
     /**

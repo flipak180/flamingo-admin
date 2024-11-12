@@ -14,6 +14,9 @@ use yii\db\Expression;
  * @property int|null $rate
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property Place $place
+ * @property User $user
  */
 class PlaceRate extends \yii\db\ActiveRecord
 {
@@ -66,5 +69,21 @@ class PlaceRate extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlace()
+    {
+        return $this->hasOne(Place::className(), ['place_id' => 'place_id']);
     }
 }

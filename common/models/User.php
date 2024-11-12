@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property int $updated_at
  *
  * @property Visit[] $visits
+ * @property PlaceRate[] $rates
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -121,6 +122,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getVisits()
     {
         return $this->hasMany(Visit::className(), ['user_id' => 'user_id'])->orderBy('visit_id DESC');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRates()
+    {
+        return $this->hasMany(PlaceRate::className(), ['user_id' => 'user_id']);
     }
 
     /**
