@@ -141,6 +141,7 @@ class UserController extends BaseApiController
                 'tags' => $tags,
                 'coords' => $place->coords,
                 'status' => 1,
+                'rate' => $rate->rate,
             ];
         }
 

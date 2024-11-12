@@ -10,11 +10,25 @@ use common\models\Visit;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\db\Expression;
+use yii\filters\auth\HttpBearerAuth;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
 class PlacesController extends BaseApiController
 {
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => HttpBearerAuth::class,
+            'only' => ['rate'],
+        ];
+        return $behaviors;
+    }
+
     /**
      * @param $category_id
      * @return array|\yii\db\ActiveRecord[]

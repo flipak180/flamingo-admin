@@ -95,7 +95,7 @@ return [
                         'POST,OPTIONS auth' => 'auth',
                         'POST,OPTIONS update-name' => 'update-name',
                         'POST,OPTIONS update-avatar' => 'update-avatar',
-                        'GET,OPTIONS get-rated-places' => 'get-rated-places',
+                        'POST,OPTIONS get-rated-places' => 'get-rated-places',
                     ],
                 ],
 
