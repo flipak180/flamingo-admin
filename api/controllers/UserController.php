@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use common\components\Helper;
 use common\models\User;
+use common\models\UserPlace;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
@@ -146,5 +147,76 @@ class UserController extends BaseApiController
         }
 
         return $this->response($result);
+    }
+
+    /**
+     * @return array
+     * @throws \himiklab\thumbnail\FileNotFoundException
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function actionGetPlaces()
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+
+        $result = [];
+
+        foreach ($user->places as $userPlace) {
+            $place = $userPlace->place;
+
+            $images = [];
+            $smallImages = [];
+            foreach ($place->images as $image) {
+                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
+                $smallImages[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 150, 150, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
+            }
+
+            $tags = [];
+            foreach ($place->tags as $tag) {
+                $tags[] = $tag->title;
+            }
+
+            $result[] = [
+                'id' => $place->place_id,
+                'title' => $place->title,
+                'sort_title' => $place->sort_title,
+                'image' => count($images) ? $images[0] : '',
+                'images' => $images,
+                'small_images' => $smallImages,
+                'small_image' => count($smallImages) ? $smallImages[0] : '',
+                'tags' => $tags,
+                'coords' => $place->coords,
+                'status' => $userPlace->status,
+            ];
+        }
+
+        return $this->response($result);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionPlace()
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+
+        $place_id = Yii::$app->request->post('place_id');
+        $status = Yii::$app->request->post('status');
+
+        $userPlace = UserPlace::findOne(['place_id' => $place_id, 'user_id' => $user->user_id]);
+        if (!$userPlace) {
+            $userPlace = new UserPlace();
+            $userPlace->user_id = $user->user_id;
+            $userPlace->place_id = $place_id;
+        }
+        $userPlace->status = $status;
+        if (!$userPlace->save()) {
+            $errors = $userPlace->getFirstErrors();
+            return $this->error(400, reset($errors));
+        }
+
+        return $this->response(true);
     }
 }

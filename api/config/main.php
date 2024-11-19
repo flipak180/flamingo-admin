@@ -55,11 +55,11 @@ return [
                 'GET quests/place' => 'quests/place',
                 'POST,OPTIONS quests/start' => 'quests/start',
 
-                'GET places/list' => 'places/list',
+                'POST,OPTIONS places/list' => 'places/list',
                 'GET places/search' => 'places/search',
                 'GET places/visit' => 'places/visit',
                 'GET places/<id:\d+>' => 'places/view',
-                'GET places/details' => 'places/details',
+                'POST,OPTIONS places/details' => 'places/details',
                 'POST,OPTIONS places/rate' => 'places/rate',
                 'POST,OPTIONS places/test' => 'places/test',
 
@@ -96,6 +96,8 @@ return [
                         'POST,OPTIONS update-name' => 'update-name',
                         'POST,OPTIONS update-avatar' => 'update-avatar',
                         'POST,OPTIONS get-rated-places' => 'get-rated-places',
+                        'POST,OPTIONS get-places' => 'get-places',
+                        'POST,OPTIONS place' => 'place',
                     ],
                 ],
 

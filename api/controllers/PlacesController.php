@@ -6,6 +6,7 @@ use common\models\Category;
 use common\models\Place;
 use common\models\PlaceRate;
 use common\models\User;
+use common\models\UserPlace;
 use common\models\Visit;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
@@ -24,7 +25,8 @@ class PlacesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['rate'],
+            'only' => ['rate', 'details'],
+            'optional' => ['details'],
         ];
         return $behaviors;
     }
@@ -141,9 +143,17 @@ class PlacesController extends BaseApiController
     /**
      * @param $id
      * @return array
+     * @throws \himiklab\thumbnail\FileNotFoundException
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
      */
-    public function actionDetails($id)
+    public function actionDetails()
     {
+        $id = Yii::$app->request->post('id');
+
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+
         /** @var Place $place */
         $place = Place::findOne($id);
 
@@ -166,7 +176,7 @@ class PlacesController extends BaseApiController
             'description' => $place->description,
             'tags' => $tags,
             'coords' => $place->coords,
-            'status' => 1,
+            'status' => $user ? UserPlace::findOne(['place_id' => $place->place_id, 'user_id' => $user->user_id])->status : 0,
             'stats' => $place->getStats(),
         ];
     }

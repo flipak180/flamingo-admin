@@ -20,6 +20,7 @@ use yii\web\IdentityInterface;
  *
  * @property Visit[] $visits
  * @property PlaceRate[] $rates
+ * @property UserPlace[] $places
  */
 class User extends \yii\db\ActiveRecord implements IdentityInterface
 {
@@ -130,6 +131,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getRates()
     {
         return $this->hasMany(PlaceRate::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPlaces()
+    {
+        return $this->hasMany(UserPlace::className(), ['user_id' => 'user_id']);
     }
 
     /**
