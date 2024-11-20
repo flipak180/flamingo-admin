@@ -167,6 +167,8 @@ class PlacesController extends BaseApiController
             $tags[] = $tag->title;
         }
 
+        $userPlace = $user ? UserPlace::findOne(['place_id' => $place->place_id, 'user_id' => $user->user_id]) : null;
+
         return [
             'id' => $place->place_id,
             'title' => $place->title,
@@ -176,7 +178,7 @@ class PlacesController extends BaseApiController
             'description' => $place->description,
             'tags' => $tags,
             'coords' => $place->coords,
-            'status' => $user ? UserPlace::findOne(['place_id' => $place->place_id, 'user_id' => $user->user_id])->status : 0,
+            'status' => $userPlace ? $userPlace->status : 0,
             'stats' => $place->getStats(),
         ];
     }

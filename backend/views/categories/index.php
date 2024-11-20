@@ -6,7 +6,6 @@ use himiklab\sortablegrid\SortableGridView;
 use yii\grid\ActionColumn;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var backend\models\CategoriesSearch $searchModel */
@@ -77,10 +76,17 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Category $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->category_id]);
-                },
-                'template' => '{delete}'
+                'buttons' => [
+                    'toggle' => function ($url, Category $model, $key) {
+                        return $model->in_trash
+                            ? Html::a('<i class="bi bi-eye"></i>', $url)
+                            : Html::a('<i class="bi bi-eye"></i>', $url);
+                    },
+                ],
+//                'urlCreator' => function ($action, Category $model, $key, $index, $column) {
+//                    return Url::toRoute([$action, 'id' => $model->category_id]);
+//                },
+                'template' => '{toggle}'
             ],
         ],
     ]); ?>
