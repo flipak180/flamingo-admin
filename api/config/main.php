@@ -55,7 +55,7 @@ return [
                 'GET quests/place' => 'quests/place',
                 'POST,OPTIONS quests/start' => 'quests/start',
 
-                'POST,OPTIONS places/list' => 'places/list',
+                'GET places/list' => 'places/list',
                 'GET places/search' => 'places/search',
                 'GET places/visit' => 'places/visit',
                 'GET places/<id:\d+>' => 'places/view',
