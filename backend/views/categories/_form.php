@@ -18,6 +18,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'type')->dropDownList(Category::getTypesList()) ?>
+    <?= $form->field($model, 'icon')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'image_field')->widget(FileInput::classname(), [
         'options' => ['accept' => 'image/*'],
         'pluginOptions' => [

@@ -25,9 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'rowOptions' => function(Category $model) {
+            $style = '';
             if (!$model->parent_id) {
-                return ['style' => 'background-color: #ccc'];
+                $style .= 'background-color: #ccc;';
             }
+            if ($model->in_trash) {
+                $style .= 'opacity: .7; text-decoration: line-through;';
+            }
+            return ['style' => $style];
         },
         'columns' => [
             [
@@ -79,8 +84,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'toggle' => function ($url, Category $model, $key) {
                         return $model->in_trash
-                            ? Html::a('<i class="bi bi-eye"></i>', $url)
-                            : Html::a('<i class="bi bi-eye"></i>', $url);
+                            ? Html::a('<img src="/upload/icons/eye.svg" alt="Bootstrap" width="16" height="16">', $url, ['title' => 'Отобразить'])
+                            : Html::a('<img src="/upload/icons/eye-slash.svg" alt="Bootstrap" width="16" height="16">', $url, ['title' => 'Скрыть']);
                     },
                 ],
 //                'urlCreator' => function ($action, Category $model, $key, $index, $column) {

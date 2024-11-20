@@ -14,6 +14,7 @@ use yii\web\UploadedFile;
  * @property int $category_id
  * @property string $title
  * @property string|null $image
+ * @property string|null $icon
  * @property int $type
  * @property int|null $parent_id
  * @property int $position
@@ -73,7 +74,7 @@ class Category extends \yii\db\ActiveRecord
             [['title', 'type'], 'required'],
             [['parent_id', 'type', 'position'], 'integer'],
             [['in_trash', 'show_on_homepage', 'is_popular'], 'boolean'],
-            [['title', 'image'], 'string', 'max' => 255],
+            [['title', 'image', 'icon'], 'string', 'max' => 255],
             [['tags_field'], 'safe'],
             [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*10],
         ];
@@ -97,6 +98,7 @@ class Category extends \yii\db\ActiveRecord
             'title' => 'Название',
             'image' => 'Изображение',
             'image_field' => 'Изображение',
+            'icon' => 'Иконка',
             'type' => 'Тип',
             'parent_id' => 'Родитель',
             'tags_field' => 'Теги',

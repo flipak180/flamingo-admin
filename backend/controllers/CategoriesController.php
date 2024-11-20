@@ -146,6 +146,23 @@ class CategoriesController extends Controller
         return $this->redirect(Yii::$app->request->referrer);
     }
 
+
+    /**
+     * Deletes an existing Category model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionToggle($id)
+    {
+        $model = $this->findModel($id);
+        $model->in_trash = !$model->in_trash;
+        $model->save(false);
+
+        return $this->redirect(['index']);
+    }
+
     /**
      * Finds the Category model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

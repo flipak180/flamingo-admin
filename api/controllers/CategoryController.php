@@ -20,10 +20,18 @@ class CategoryController extends BaseApiController
         $result = [];
 
         /** @var Category[] $categories */
-        $categories = Category::find()->where(['parent_id' => $parent_id])->orderBy('position ASC')->all();
+        $categories = Category::find()
+            ->where(['parent_id' => $parent_id])
+            ->andWhere('categories.in_trash IS NOT TRUE')
+            ->orderBy('position ASC')
+            ->all();
         foreach ($categories as $category) {
             /** @var Category[] $subcategories */
-            $subcategories = Category::find()->where(['parent_id' => $category->category_id])->orderBy('position ASC')->all();
+            $subcategories = Category::find()
+                ->where(['parent_id' => $category->category_id])
+                ->andWhere('categories.in_trash IS NOT TRUE')
+                ->orderBy('position ASC')
+                ->all();
             $result[$category->position] = [
                 'id' => $category->category_id,
                 'title' => $category->title,

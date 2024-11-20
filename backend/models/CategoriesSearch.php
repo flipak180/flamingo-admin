@@ -18,7 +18,7 @@ class CategoriesSearch extends Category
     {
         return [
             [['category_id', 'parent_id', 'type', 'position', 'in_trash', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'image'], 'safe'],
+            [['title', 'image', 'icon'], 'safe'],
         ];
     }
 
@@ -72,6 +72,7 @@ class CategoriesSearch extends Category
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'icon', $this->icon])
             ->andFilterWhere(['like', 'image', $this->image]);
 
         return $dataProvider;
