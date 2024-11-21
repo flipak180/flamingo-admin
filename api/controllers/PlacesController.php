@@ -72,6 +72,17 @@ class PlacesController extends BaseApiController
 
     /**
      * @return bool
+     */
+    public function actionRate()
+    {
+        $rate = Yii::$app->request->post('rate');
+        $place_id = Yii::$app->request->post('place_id');
+
+        return PlaceRate::create($place_id, $rate);
+    }
+
+    /**
+     * @return bool
      * @throws BadRequestHttpException
      * @throws NotFoundHttpException
      * @throws \yii\base\InvalidConfigException
@@ -101,23 +112,5 @@ class PlacesController extends BaseApiController
         }
 
         return $visit->save();
-    }
-
-    /**
-     * @return void
-     */
-    public function actionRate()
-    {
-        $rate = Yii::$app->request->post('rate');
-        $place_id = Yii::$app->request->post('place_id');
-
-        $currentRate = PlaceRate::findOne(['place_id' => $place_id, 'user_id' => Yii::$app->user->id]);
-        if (!$currentRate) {
-            $currentRate = new PlaceRate();
-            $currentRate->user_id = Yii::$app->user->id;
-            $currentRate->place_id = $place_id;
-        }
-        $currentRate->rate = $rate;
-        $currentRate->save();
     }
 }

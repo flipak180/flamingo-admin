@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\models\Places\Place;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -86,5 +87,26 @@ class PlaceRate extends \yii\db\ActiveRecord
     public function getPlace()
     {
         return $this->hasOne(Place::className(), ['place_id' => 'place_id']);
+    }
+
+    /**
+     * @param $place_id
+     * @param $rate
+     * @return bool
+     */
+    public static function create($place_id, $rate)
+    {
+        if (!Yii::$app->user->id) {
+            return false;
+        }
+
+        $currentRate = PlaceRate::findOne(['place_id' => $place_id, 'user_id' => Yii::$app->user->id]);
+        if (!$currentRate) {
+            $currentRate = new PlaceRate();
+            $currentRate->user_id = Yii::$app->user->id;
+            $currentRate->place_id = $place_id;
+        }
+        $currentRate->rate = $rate;
+        return $currentRate->save();
     }
 }
