@@ -304,13 +304,13 @@ class Place extends \yii\db\ActiveRecord
             ->where(['place_id' => $this->place_id])
             ->count();
 
-        $total_likes = PlaceRate::find()
-            ->where(['place_id' => $this->place_id, 'rate' => 1])
-            ->count();
+        $avg_rate = PlaceRate::find()
+            ->where(['place_id' => $this->place_id])
+            ->average('rate');
 
         return [
             'total_rates' => $total_rates,
-            'likes_percent' => $total_likes ? round($total_likes / $total_rates * 100) : 0,
+            'avg_rate' => $avg_rate ? round($avg_rate) : 0,
         ];
     }
 }
