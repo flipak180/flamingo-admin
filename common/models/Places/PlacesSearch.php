@@ -15,6 +15,7 @@ class PlacesSearch extends Place
      */
     public static function getByCategory($category_id = null, $tag_id = null)
     {
+        $tagIds = [];
         $category = Category::findOne($category_id);
         if ($category && !$tag_id) {
             foreach ($category->categoryTags as $categoryTag) {
