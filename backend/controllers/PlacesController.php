@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\PlacesSearch;
-use common\models\Place;
+use common\models\Places\Place;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

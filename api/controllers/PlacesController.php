@@ -2,15 +2,13 @@
 
 namespace app\controllers;
 
-use common\models\Category;
-use common\models\Place;
 use common\models\PlaceRate;
+use common\models\Places\Place;
+use common\models\Places\PlaceApiItem;
+use common\models\Places\PlacesSearch;
 use common\models\User;
-use common\models\UserPlace;
 use common\models\Visit;
-use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
-use yii\db\Expression;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
@@ -33,154 +31,43 @@ class PlacesController extends BaseApiController
 
     /**
      * @param $category_id
-     * @return array|\yii\db\ActiveRecord[]
+     * @param $tag_id
+     * @return array
      */
     public function actionList($category_id = null, $tag_id = null)
     {
         $result = [];
-        $tagIds = [];
-
-        $category = Category::findOne($category_id);
-        if ($category && !$tag_id) {
-            foreach ($category->categoryTags as $categoryTag) {
-                $tagIds[] = $categoryTag->tag_id;
-            }
-        } else {
-            $tagIds = [$tag_id];
-        }
-
-        //$orderDir = ($category->type == Category::TYPE_CATALOG) ? 'DESC' : 'ASC';
-
-        /** @var Place[] $places */
-        $places = Place::find()->joinWith(['placeTags', 'placeCategories'])
-            ->andWhere('places.in_trash IS NOT TRUE')
-            ->andWhere([
-                $tag_id ? 'and' : 'or',
-                ['place_categories.category_id' => $category_id],
-                ['in', 'place_tags.tag_id', $tagIds]
-            ])
-            ->orderBy(new Expression('coalesce(places.sort_title, places.title) ASC'))
-            ->limit(20)
-            ->all();
-
+        $places = PlacesSearch::getByCategory($category_id, $tag_id);
         foreach ($places as $place) {
-            $images = [];
-            $smallImages = [];
-            foreach ($place->images as $image) {
-                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-                $smallImages[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 150, 150, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-            }
-
-            $tags = [];
-            foreach ($place->tags as $tag) {
-                $tags[] = $tag->title;
-            }
-
-            $result[] = [
-                'id' => $place->place_id,
-                'title' => $place->title,
-                'sort_title' => $place->sort_title,
-                'image' => count($images) ? $images[0] : '',
-                'images' => $images,
-                'small_images' => $smallImages,
-                'small_image' => count($smallImages) ? $smallImages[0] : '',
-                'tags' => $tags,
-                'coords' => $place->coords,
-                'status' => 1,
-            ];
+            $result[] = PlaceApiItem::from($place)->attributes;
         }
-
         return $result;
     }
 
     /**
      * @param $term
      * @return array
-     * @throws \himiklab\thumbnail\FileNotFoundException
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\httpclient\Exception
      */
     public function actionSearch($term = '')
     {
         $result = [];
-
-        /** @var Place[] $places */
-        $places = Place::find()
-            ->where(['ilike', 'title', $term])
-            ->orWhere(['ilike', 'full_title', $term])
-            ->all();
-
+        $places = PlacesSearch::getByTerm($term);
         foreach ($places as $place) {
-            $images = [];
-            $smallImages = [];
-            foreach ($place->images as $image) {
-                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-                $smallImages[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 150, 150, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-            }
-
-            $tags = [];
-            foreach ($place->tags as $tag) {
-                $tags[] = $tag->title;
-            }
-
-            $result[] = [
-                'id' => $place->place_id,
-                'title' => $place->title,
-                'sort_title' => $place->sort_title,
-                'image' => count($images) ? $images[0] : '',
-                'images' => $images,
-                'small_images' => $smallImages,
-                'small_image' => count($smallImages) ? $smallImages[0] : '',
-                'tags' => $tags,
-                'coords' => $place->coords,
-                'status' => 1,
-            ];
+            $result[] = PlaceApiItem::from($place)->attributes;
         }
-
         return $result;
     }
 
     /**
-     * @param $id
      * @return array
-     * @throws \himiklab\thumbnail\FileNotFoundException
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\httpclient\Exception
      */
     public function actionDetails()
     {
         $id = Yii::$app->request->post('id');
 
-        /** @var User $user */
-        $user = Yii::$app->user->identity;
-
         /** @var Place $place */
         $place = Place::findOne($id);
-
-        $images = [];
-        foreach ($place->images as $image) {
-            $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 716, 600, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-        }
-
-        $tags = [];
-        foreach ($place->tags as $tag) {
-            $tags[] = $tag->title;
-        }
-
-        $userPlace = $user ? UserPlace::findOne(['place_id' => $place->place_id, 'user_id' => $user->user_id]) : null;
-
-        return [
-            'id' => $place->place_id,
-            'title' => $place->title,
-            'sort_title' => $place->sort_title,
-            'image' => count($images) ? $images[0] : '',
-            'images' => $images,
-            'description' => $place->description,
-            'tags' => $tags,
-            'coords' => $place->coords,
-            'status' => $userPlace ? $userPlace->status : 0,
-            'stats' => $place->getStats(),
-        ];
+        return PlaceApiItem::from($place)->attributes;
     }
 
     /**
@@ -214,37 +101,6 @@ class PlacesController extends BaseApiController
         }
 
         return $visit->save();
-    }
-
-    public function actionTest()
-    {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-        $params = Yii::$app->request->getBodyParams();
-        $messages = $params['data']['messages'];
-
-        $data = [
-            "modelUri" => "gpt://b1ge8qr3t2a98df29m34/yandexgpt-lite",
-            "completionOptions" => [
-                "stream" => false,
-                "temperature" => 0.1,
-                "maxTokens" => "1000"
-            ],
-            "messages" => $messages
-        ];
-        $ch = curl_init('https://llm.api.cloud.yandex.net/foundationModels/v1/completion');
-        $payload = json_encode($data);
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
-        curl_setopt( $ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Authorization: Api-Key AQVN26Wh1Z9DIBEtfRxiHDq7cWhf0bw7EydI0blq',
-            'x-folder-id: b1ge8qr3t2a98df29m34'
-        ]);
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        return json_decode($result);
     }
 
     /**

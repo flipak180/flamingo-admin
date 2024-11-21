@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-use common\models\Place;
+use common\models\Places\Place;
 use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */

@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use common\models\Category;
-use common\models\Place;
+use common\models\Places\Place;
 use common\models\User;
 use common\models\UserQuest;
 use common\models\Visit;

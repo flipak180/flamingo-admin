@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
         </div>
     <?php endif ?>
     <?= $form->field($model, 'places_field')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(\common\models\Place::find()->all(), 'place_id', 'title'),
+        'data' => ArrayHelper::map(\common\models\Places\Place::find()->all(), 'place_id', 'title'),
         'options' => ['placeholder' => 'Выберите места', 'multiple' => true],
         'showToggleAll' => false,
         'pluginOptions' => [

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\Place $model */
+/** @var \common\models\Places\Place $model */
 
 $this->title = 'Добавление места';
 $this->params['breadcrumbs'][] = ['label' => 'Места', 'url' => ['index']];

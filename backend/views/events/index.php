@@ -1,7 +1,7 @@
 <?php
 
 use common\models\Event;
-use common\models\Place;
+use common\models\Places\Place;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;

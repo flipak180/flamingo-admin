@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Place;
+use common\models\Places\Place;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
 use kartik\widgets\FileInput;

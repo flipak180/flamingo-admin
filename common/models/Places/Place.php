@@ -1,8 +1,15 @@
 <?php
 
-namespace common\models;
+namespace common\models\Places;
 
 use common\behaviors\ImageBehavior;
+use common\models\Category;
+use common\models\ImageModel;
+use common\models\PlaceCategory;
+use common\models\PlaceRate;
+use common\models\PlaceTag;
+use common\models\Tag;
+use common\models\Visit;
 use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;

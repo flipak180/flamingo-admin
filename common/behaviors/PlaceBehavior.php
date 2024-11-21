@@ -2,7 +2,7 @@
 
 namespace common\behaviors;
 
-use common\models\Place;
+use common\models\Places\Place;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
 

@@ -4,6 +4,7 @@ namespace common\models;
 
 use common\behaviors\ImageBehavior;
 use common\behaviors\PlaceBehavior;
+use common\models\Places\Place;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

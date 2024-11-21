@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use Yii;
+use common\models\Places\Place;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

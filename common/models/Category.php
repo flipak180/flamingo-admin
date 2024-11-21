@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\Places\Place;
 use himiklab\sortablegrid\SortableGridBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;

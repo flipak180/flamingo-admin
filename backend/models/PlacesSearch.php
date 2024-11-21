@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-use common\models\Place;
+use common\models\Places\Place;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

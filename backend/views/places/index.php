@@ -1,7 +1,7 @@
 <?php
 
 use common\models\Category;
-use common\models\Place;
+use common\models\Places\Place;
 use common\models\Tag;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;

@@ -12,7 +12,7 @@ use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Place $model */
+/** @var \common\models\Places\Place $model */
 /** @var yii\widgets\ActiveForm $form */
 
 $this->registerJsFile(
