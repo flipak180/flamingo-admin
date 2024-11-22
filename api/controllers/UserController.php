@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use common\components\Helper;
+use common\models\Places\PlaceApiItem;
 use common\models\User;
 use common\models\UserPlace;
 use himiklab\thumbnail\EasyThumbnailImage;
@@ -105,92 +106,29 @@ class UserController extends BaseApiController
 
     /**
      * @return array
-     * @throws \himiklab\thumbnail\FileNotFoundException
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\httpclient\Exception
      */
     public function actionGetRatedPlaces()
     {
         /** @var User $user */
         $user = Yii::$app->user->identity;
-
         $result = [];
-
         foreach ($user->rates as $rate) {
-            $place = $rate->place;
-
-            $images = [];
-            $smallImages = [];
-            foreach ($place->images as $image) {
-                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-                $smallImages[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 150, 150, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-            }
-
-            $tags = [];
-            foreach ($place->tags as $tag) {
-                $tags[] = $tag->title;
-            }
-
-            $result[] = [
-                'id' => $place->place_id,
-                'title' => $place->title,
-                'sort_title' => $place->sort_title,
-                'image' => count($images) ? $images[0] : '',
-                'images' => $images,
-                'small_images' => $smallImages,
-                'small_image' => count($smallImages) ? $smallImages[0] : '',
-                'tags' => $tags,
-                'coords' => $place->coords,
-                'status' => 1,
-                'rate' => $rate->rate,
-            ];
+            $result[] = PlaceApiItem::from($rate->place)->attributes;
         }
-
         return $this->response($result);
     }
 
     /**
      * @return array
-     * @throws \himiklab\thumbnail\FileNotFoundException
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\httpclient\Exception
      */
     public function actionGetPlaces()
     {
         /** @var User $user */
         $user = Yii::$app->user->identity;
-
         $result = [];
-
         foreach ($user->places as $userPlace) {
-            $place = $userPlace->place;
-
-            $images = [];
-            $smallImages = [];
-            foreach ($place->images as $image) {
-                $images[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 344, 344, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-                $smallImages[] = EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$image->path, 150, 150, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100);
-            }
-
-            $tags = [];
-            foreach ($place->tags as $tag) {
-                $tags[] = $tag->title;
-            }
-
-            $result[] = [
-                'id' => $place->place_id,
-                'title' => $place->title,
-                'sort_title' => $place->sort_title,
-                'image' => count($images) ? $images[0] : '',
-                'images' => $images,
-                'small_images' => $smallImages,
-                'small_image' => count($smallImages) ? $smallImages[0] : '',
-                'tags' => $tags,
-                'coords' => $place->coords,
-                'status' => $userPlace->status,
-            ];
+            $result[] = PlaceApiItem::from($userPlace->place)->attributes;
         }
-
         return $this->response($result);
     }
 
