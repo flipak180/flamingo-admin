@@ -9,6 +9,7 @@ use common\models\PlaceCategory;
 use common\models\PlaceRate;
 use common\models\PlaceTag;
 use common\models\Tag;
+use common\models\UserPlace;
 use common\models\Visit;
 use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
@@ -308,9 +309,19 @@ class Place extends \yii\db\ActiveRecord
             ->where(['place_id' => $this->place_id])
             ->average('rate');
 
+        $total_wish = UserPlace::find()
+            ->where(['place_id' => $this->place_id, 'status' => UserPlace::STATUS_WISH])
+            ->count();
+
+        $total_was = UserPlace::find()
+            ->where(['place_id' => $this->place_id, 'status' => UserPlace::STATUS_WAS])
+            ->count();
+
         return [
             'total_rates' => $total_rates,
             'avg_rate' => $avg_rate ? round($avg_rate) : 0,
+            'total_wish' => $total_wish,
+            'total_was' => $total_was,
         ];
     }
 }

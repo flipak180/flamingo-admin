@@ -21,6 +21,9 @@ use yii\db\Expression;
  */
 class UserPlace extends \yii\db\ActiveRecord
 {
+    const STATUS_WISH = 1;
+    const STATUS_WAS = 2;
+
     /**
      * {@inheritdoc}
      */
