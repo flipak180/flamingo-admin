@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -178,5 +179,20 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         return true;
+    }
+
+    /**
+     * @param $w
+     * @param $h
+     * @return string
+     * @throws \himiklab\thumbnail\FileNotFoundException
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function getAvatarPreview($w = 200, $h = 200)
+    {
+        return $this->avatar
+            ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$this->avatar, $w, $h, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+            : '';
     }
 }
