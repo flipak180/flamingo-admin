@@ -23,8 +23,8 @@ class PlacesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['rate', 'details'],
-            'optional' => ['details'],
+            'only' => ['rate', 'list', 'search', 'details'],
+            'optional' => ['list', 'search', 'details'],
         ];
         return $behaviors;
     }
