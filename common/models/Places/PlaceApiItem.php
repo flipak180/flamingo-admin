@@ -21,7 +21,7 @@ class PlaceApiItem extends DataTransferObject
     public $big_image;
     public $tags;
     public $coords;
-    public $status;
+    public $user_status;
     public $stats;
 
     /**
@@ -60,7 +60,7 @@ class PlaceApiItem extends DataTransferObject
         $dto->big_images = $bigImages;
         $dto->tags = $tags;
         $dto->coords = $model->coords;
-        $dto->status = $userPlace ? $userPlace->status : 0;
+        $dto->user_status = $userPlace ? $userPlace->status : 0;
         $dto->stats = $model->getStats();
 
         return $dto;
