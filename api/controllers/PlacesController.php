@@ -30,12 +30,13 @@ class PlacesController extends BaseApiController
     }
 
     /**
-     * @param $category_id
-     * @param $tag_id
      * @return array
      */
-    public function actionList($category_id = null, $tag_id = null)
+    public function actionList()
     {
+        $category_id = Yii::$app->request->post('category_id');
+        $tag_id = Yii::$app->request->post('tag_id');
+
         $result = [];
         $places = PlacesSearch::getByCategory($category_id, $tag_id);
         foreach ($places as $place) {
@@ -45,11 +46,12 @@ class PlacesController extends BaseApiController
     }
 
     /**
-     * @param $term
      * @return array
      */
-    public function actionSearch($term = '')
+    public function actionSearch()
     {
+        $term = Yii::$app->request->post('term');
+
         $result = [];
         $places = PlacesSearch::getByTerm($term);
         foreach ($places as $place) {

@@ -55,10 +55,9 @@ return [
                 'GET quests/place' => 'quests/place',
                 'POST,OPTIONS quests/start' => 'quests/start',
 
-                'GET places/list' => 'places/list',
-                'GET places/search' => 'places/search',
+                'POST,OPTIONS places/list' => 'places/list',
+                'POST,OPTIONS places/search' => 'places/search',
                 'GET places/visit' => 'places/visit',
-                'GET places/<id:\d+>' => 'places/view',
                 'POST,OPTIONS places/details' => 'places/details',
                 'POST,OPTIONS places/rate' => 'places/rate',
                 'POST,OPTIONS places/test' => 'places/test',
