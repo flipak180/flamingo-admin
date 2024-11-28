@@ -4,9 +4,12 @@ namespace backend\controllers;
 
 use backend\models\PlacesSearch;
 use common\models\Places\Place;
+use Yii;
+use yii\db\Query;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * PlacesController implements the CRUD actions for Place model.
@@ -62,7 +65,7 @@ class PlacesController extends Controller
 
     /**
      * @param $tag_id
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate($tag_id = null, $category_id = null)
     {
@@ -91,7 +94,7 @@ class PlacesController extends Controller
      * Updates an existing Place model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -112,7 +115,7 @@ class PlacesController extends Controller
      * Deletes an existing Place model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -140,5 +143,29 @@ class PlacesController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    /**
+     * @param $q
+     * @param $id
+     * @return array[]
+     * @throws \yii\db\Exception
+     */
+    public function actionSearchByTerm($q = null, $id = null) {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query = new Query;
+            $query->select('id, title AS text')
+                ->from('places')
+                ->where(['like', 'title', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        } elseif ($id > 0) {
+            $out['results'] = ['id' => $id, 'text' => Place::findOne(['place_id' => $id])->title];
+        }
+        return $out;
     }
 }

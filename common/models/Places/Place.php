@@ -26,6 +26,8 @@ use yii\db\Expression;
  * @property string $location
  * @property string $coords
  * @property string $address
+ * @property int $visit_cooldown
+ * @property array $similar_places
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -46,6 +48,7 @@ class Place extends \yii\db\ActiveRecord
     public $tags_field;
     public $images_field;
     public $categories_field;
+    public $similar_places_field;
 
     /**
      * {@inheritdoc}
@@ -93,8 +96,10 @@ class Place extends \yii\db\ActiveRecord
             //[['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
+            [['visit_cooldown'], 'integer'],
             [['title', 'full_title', 'sort_title', 'address'], 'string', 'max' => 255],
-            [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field'], 'safe'],
+            [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field',
+                'similar_places', 'similar_places_field'], 'safe'],
         ];
     }
 
@@ -166,6 +171,9 @@ class Place extends \yii\db\ActiveRecord
             'images_field' => 'Изображения',
             'categories_field' => 'Категории',
             'tags_field' => 'Теги',
+            'visit_cooldown' => 'Кулдаун визита (в минутах)',
+            'similar_places' => 'Похожие места',
+            'similar_places_field' => 'Похожие места',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',

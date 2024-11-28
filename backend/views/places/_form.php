@@ -1,6 +1,7 @@
 <?php
 
 use common\models\Category;
+use common\models\Places\Place;
 use common\models\Tag;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
@@ -8,11 +9,13 @@ use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var \common\models\Places\Place $model */
+/** @var Place $model */
 /** @var yii\widgets\ActiveForm $form */
 
 $this->registerJsFile(
@@ -95,6 +98,27 @@ $this->registerJsFile(
         'useKrajeePresets' => true,
         // other widget settings
     ]) ?>
+
+    <?= $form->field($model, 'visit_cooldown')->textInput(['maxlength' => true]) ?>
+
+    <?php
+    $dataList = Place::find()->andWhere(['place_id' => $model->similar_places])->all();
+    $data = ArrayHelper::map($dataList, 'place_id', 'title');
+    ?>
+    <?= $form->field($model, 'similar_places_field')->widget(Select2::classname(), [
+        'data' => $data,
+        'options' => ['placeholder' => 'Выберите места', 'multiple' => true],
+        'showToggleAll' => false,
+        'pluginOptions' => [
+            'allowClear' => true,
+            'minimumInputLength' => 3,
+            'ajax' => [
+                'url' => Url::to(['search-by-term']),
+                'dataType' => 'json',
+                'data' => new JsExpression('function(params) { return {q:params.term}; }')
+            ],
+        ],
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
