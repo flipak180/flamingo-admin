@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\models\Places\Place;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -103,5 +104,17 @@ class Visit extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @param $place_id
+     * @return bool
+     */
+    public static function create($place_id)
+    {
+        $visit = new Visit();
+        $visit->place_id = $place_id;
+        $visit->user_id = Yii::$app->user->id;
+        return $visit->save();
     }
 }

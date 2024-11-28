@@ -6,12 +6,9 @@ use common\models\PlaceRate;
 use common\models\Places\Place;
 use common\models\Places\PlaceApiItem;
 use common\models\Places\PlacesSearch;
-use common\models\User;
 use common\models\Visit;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
-use yii\web\BadRequestHttpException;
-use yii\web\NotFoundHttpException;
 
 class PlacesController extends BaseApiController
 {
@@ -23,7 +20,7 @@ class PlacesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['rate', 'list', 'search', 'details'],
+            'only' => ['rate', 'list', 'search', 'details', 'visit'],
             'optional' => ['list', 'search', 'details'],
         ];
         return $behaviors;
@@ -85,34 +82,10 @@ class PlacesController extends BaseApiController
 
     /**
      * @return bool
-     * @throws BadRequestHttpException
-     * @throws NotFoundHttpException
-     * @throws \yii\base\InvalidConfigException
      */
     public function actionVisit()
     {
-        $params = Yii::$app->request->getBodyParams();
-        if (!isset($params['place_id']) || !isset($params['phone'])) {
-            throw new BadRequestHttpException('Некорректные данные');
-        }
-
-        $user = User::findOne(['phone' => $params['phone']]);
-        if (!$user) {
-            throw new NotFoundHttpException('Пользователь не найден');
-        }
-
-        $place = Place::findOne($params['place_id']);
-        if (!$place) {
-            throw new NotFoundHttpException('Место не найдено');
-        }
-
-        $visit = new Visit();
-        $visit->place_id = $place->place_id;
-        $visit->user_id = $user->user_id;
-        if (!$visit->validate()) {
-            throw new BadRequestHttpException('Вы уже отметились');
-        }
-
-        return $visit->save();
+        $place_id = Yii::$app->request->post('place_id');
+        return Visit::create($place_id);
     }
 }
