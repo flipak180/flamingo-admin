@@ -103,9 +103,9 @@ div.required label.control-label:after {
     color: #dc3545;
 }
 
-.select2-search--inline {
-    display: none;
-}
+/*.select2-search--inline {*/
+/*    display: none;*/
+/*}*/
 
 .place-map-wrap {
     position: relative;
