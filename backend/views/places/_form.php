@@ -107,7 +107,7 @@ $this->registerJsFile(
     ?>
     <?= $form->field($model, 'similar_places_field')->widget(Select2::classname(), [
         'data' => $data,
-        'options' => ['placeholder' => 'Выберите места', 'multiple' => true],
+        'options' => ['multiple' => true, 'placeholder' => 'Выберите места'],
         'showToggleAll' => false,
         'pluginOptions' => [
             'allowClear' => true,

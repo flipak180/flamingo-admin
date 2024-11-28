@@ -156,9 +156,9 @@ class PlacesController extends Controller
         $out = ['results' => ['id' => '', 'text' => '']];
         if (!is_null($q)) {
             $query = new Query;
-            $query->select('id, title AS text')
+            $query->select('place_id as id, title AS text')
                 ->from('places')
-                ->where(['like', 'title', $q])
+                ->where(['ilike', 'title', $q])
                 ->limit(20);
             $command = $query->createCommand();
             $data = $command->queryAll();
