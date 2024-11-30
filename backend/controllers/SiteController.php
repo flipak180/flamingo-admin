@@ -6,7 +6,6 @@ use common\models\ImageModel;
 use common\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
-use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -33,12 +32,6 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
