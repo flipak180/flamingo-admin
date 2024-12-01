@@ -50,4 +50,19 @@ class PlacesSearch extends Place
             ->orWhere(['ilike', 'full_title', $term])
             ->all();
     }
+
+    /**
+     * @param Place $place
+     * @return Place[]
+     */
+    public static function findDuplicates($place)
+    {
+        return Place::find()
+            ->where(['not in', 'place_id', $place->place_id])
+            ->andWhere(['OR',
+                ['ilike', 'title', $place->title],
+                ['ilike', 'full_title', $place->title]
+            ])
+            ->all();
+    }
 }

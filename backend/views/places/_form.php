@@ -2,6 +2,7 @@
 
 use common\models\Category;
 use common\models\Places\Place;
+use common\models\Places\PlacesSearch;
 use common\models\Tag;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
@@ -26,11 +27,20 @@ $this->registerJsFile(
     '/admin/js/map.js',
     ['position' => View::POS_HEAD]
 );
+
+$duplicates = PlacesSearch::findDuplicates($model);
 ?>
 
 <div class="place-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?php if (count($duplicates)): ?>
+        <div class="duplicates">
+            <?php foreach ($duplicates as $duplicate): ?>
+                <?= Html::a($duplicate->title, ['places/update', 'id' => $duplicate->place_id], ['target' => '_blank']) ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif ?>
     <?= $form->field($model, 'full_title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'sort_title')->textInput(['maxlength' => true]) ?>
     <!--

@@ -141,3 +141,25 @@ div.required label.control-label:after {
 .hidden {
     display: none;
 }
+
+.duplicates {
+    margin-bottom: 15px;
+}
+.duplicates a {
+    color: #252525;
+    position: relative;
+    padding-right: 10px;
+}
+.duplicates a:hover {
+    text-decoration: none;
+}
+.duplicates a:after {
+    content: '/';
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: block;
+}
+.duplicates a:last-child:after {
+    content: '';
+}
