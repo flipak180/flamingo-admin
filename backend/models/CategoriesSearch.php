@@ -77,4 +77,26 @@ class CategoriesSearch extends Category
 
         return $dataProvider;
     }
+
+    /**
+     * @return array[]
+     */
+    public static function getMenuItems()
+    {
+        $menuItems = [
+            ['label' => 'Все', 'url' => ['/places/index']]
+        ];
+
+        /** @var Category[] $categories */
+        $categories = Category::find()->orderBy('position')->all();
+        foreach ($categories as $category) {
+            $menuItems[] = [
+                'label' => $category->title,
+                'url' => $category->parent_id
+                    ? ['/places/index', 'PlacesSearch[categories_field]' => $category->category_id]
+                    : null
+            ];
+        }
+        return $menuItems;
+    }
 }

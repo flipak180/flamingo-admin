@@ -4,6 +4,7 @@
 /** @var string $content */
 
 use backend\assets\AppAsset;
+use backend\models\CategoriesSearch;
 use common\widgets\Alert;
 use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
@@ -37,17 +38,7 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Статьи', 'url' => ['/articles/index']],
         ['label' => 'События', 'url' => ['/events/index']],
-        ['label' => 'Места', 'items' => [
-            ['label' => 'Все', 'url' => ['/places/index']],
-            ['label' => 'Дворы', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 26]],
-            ['label' => 'Катки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 5]],
-            ['label' => 'Музеи', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 6]],
-            ['label' => 'Парки', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 1]],
-            ['label' => 'Пространства', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 7]],
-            ['label' => 'Театры', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 16]],
-            ['label' => 'ТЦ', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 8]],
-            ['label' => 'Достопримечательности', 'url' => ['/places/index', 'PlacesSearch[categories_field]' => 2]],
-        ]],
+        ['label' => 'Места', 'items' => CategoriesSearch::getMenuItems()],
         ['label' => 'Квесты', 'url' => ['/quests/index']],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],
         ['label' => 'Категории', 'url' => ['/categories/index']],
