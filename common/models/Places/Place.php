@@ -34,7 +34,6 @@ use yii\db\Expression;
  * @property int $created_at
  * @property int $updated_at
  *
- * @property Category $category
  * @property PlaceTag[] $placeTags
  * @property PlaceCategory[] $placeCategories
  * @property Tag[] $tags

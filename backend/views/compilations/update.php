@@ -34,17 +34,18 @@ $this->params['breadcrumbs'][] = 'Редактирование';
         ],
         'title',
         [
-            'attribute' => 'category_id',
+            'attribute' => 'categories_field',
             'format' => 'raw',
             'value' => function(Place $model) {
-                return $model->category ? Html::a($model->category->title, ['categories/view', 'id' => $model->category_id]) : '-';
+                return $model->getCategoriesLabels();
             },
         ],
         [
             'class' => ActionColumn::className(),
             'urlCreator' => function ($action, Place $model, $key, $index, $column) {
                 return Url::toRoute([$action, 'id' => $model->place_id]);
-            }
+            },
+            'template' => '{update}'
         ],
     ],
 ]); ?>
