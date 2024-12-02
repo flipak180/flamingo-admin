@@ -120,6 +120,7 @@ class Category extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
+        /** @todo Зачем? Оптимизировать! */
         foreach ($this->categoryTags as $categoryTag) {
             $this->tags_field[] = $categoryTag->tag_id;
         }

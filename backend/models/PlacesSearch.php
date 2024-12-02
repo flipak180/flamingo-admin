@@ -40,7 +40,7 @@ class PlacesSearch extends Place
      */
     public function search($params)
     {
-        $query = Place::find()->with(['tags']);
+        $query = Place::find()->with(['tags', 'placeCategories', 'categories']);
 
         // add conditions that should always apply here
 
