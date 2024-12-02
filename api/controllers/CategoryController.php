@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use common\models\Categories\Category;
+use common\models\Categories\CategoryApiItem;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\db\Expression;
@@ -56,24 +57,17 @@ class CategoryController extends BaseApiController
 
     /**
      * @param $id
-     * @return array
+     * @return array|null
      */
     public function actionDetails($id)
     {
-        $category = Category::findOne($id);
-        $tags = [];
-        foreach ($category->tags as $tag) {
-            $tags[] = [
-                'id' => $tag->tag_id,
-                'title' => $tag->title,
-            ];
+        /** @var Category $category */
+        $category = Category::find()->where(['category_id' => $id])->with('tags')->one();
+        if (!$category) {
+            return null;
         }
 
-        return [
-            'id' => $category->category_id,
-            'title' => $category->title,
-            'tags' => $tags,
-        ];
+        return CategoryApiItem::from($category)->attributes;
     }
 
     /**
