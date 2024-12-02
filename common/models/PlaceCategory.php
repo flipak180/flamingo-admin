@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\Categories\Category;
 use common\models\Places\Place;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;

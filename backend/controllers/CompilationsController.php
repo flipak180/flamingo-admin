@@ -2,12 +2,11 @@
 
 namespace backend\controllers;
 
-use common\models\Compilation;
 use backend\models\CompilationsSearch;
+use common\models\Compilations\Compilation;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * CompilationsController implements the CRUD actions for Compilation model.

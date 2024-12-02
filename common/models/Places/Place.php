@@ -3,7 +3,7 @@
 namespace common\models\Places;
 
 use common\behaviors\ImageBehavior;
-use common\models\Category;
+use common\models\Categories\Category;
 use common\models\ImageModel;
 use common\models\PlaceCategory;
 use common\models\PlaceRate;

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\Compilation $model */
+/** @var \common\models\Compilations\Compilation $model */
 
 $this->title = 'Добавление подборки';
 $this->params['breadcrumbs'][] = ['label' => 'Подборки', 'url' => ['index']];

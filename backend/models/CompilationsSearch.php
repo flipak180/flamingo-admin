@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-use common\models\Compilation;
+use common\models\Compilations\Compilation;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

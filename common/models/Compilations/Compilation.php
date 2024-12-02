@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models;
+namespace common\models\Compilations;
 
 use common\models\Places\Place;
 use yii\behaviors\TimestampBehavior;

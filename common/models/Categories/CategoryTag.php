@@ -1,8 +1,8 @@
 <?php
 
-namespace common\models;
+namespace common\models\Categories;
 
-use Yii;
+use common\models\Tag;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

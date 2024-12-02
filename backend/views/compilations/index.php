@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Compilation;
+use common\models\Compilations\Compilation;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;

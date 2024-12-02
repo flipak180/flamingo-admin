@@ -1,8 +1,10 @@
 <?php
 
-namespace common\models;
+namespace common\models\Categories;
 
+use common\models\PlaceCategory;
 use common\models\Places\Place;
+use common\models\Tag;
 use himiklab\sortablegrid\SortableGridBehavior;
 use Yii;
 use yii\behaviors\TimestampBehavior;

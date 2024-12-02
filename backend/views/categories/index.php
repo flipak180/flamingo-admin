@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Category;
+use common\models\Categories\Category;
 use common\models\Tag;
 use himiklab\sortablegrid\SortableGridView;
 use yii\grid\ActionColumn;

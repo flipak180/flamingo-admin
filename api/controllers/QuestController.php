@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use common\models\Category;
+use common\models\Categories\Category;
 use common\models\Places\Place;
 use common\models\User;
 use common\models\UserQuest;

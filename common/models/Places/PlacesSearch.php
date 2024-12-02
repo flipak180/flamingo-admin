@@ -2,7 +2,7 @@
 
 namespace common\models\Places;
 
-use common\models\Category;
+use common\models\Categories\Category;
 
 class PlacesSearch extends Place
 {

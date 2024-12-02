@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Category;
+use common\models\Categories\Category;
 use common\models\Tag;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\widgets\FileInput;
@@ -10,7 +10,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Category $model */
+/** @var \common\models\Categories\Category $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 

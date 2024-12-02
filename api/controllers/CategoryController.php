@@ -2,14 +2,14 @@
 
 namespace app\controllers;
 
-use common\models\Category;
+use common\models\Categories\Category;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\db\Expression;
 
 class CategoryController extends BaseApiController
 {
-    public $modelClass = 'common\models\Category';
+    public $modelClass = 'common\models\Categories\Category';
 
     /**
      * @param $parent_id

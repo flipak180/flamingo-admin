@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\CategoriesSearch;
-use common\models\Category;
+use common\models\Categories\Category;
 use himiklab\sortablegrid\SortableGridAction;
 use Yii;
 use yii\filters\AccessControl;

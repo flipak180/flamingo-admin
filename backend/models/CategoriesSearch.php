@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-use common\models\Category;
+use common\models\Categories\Category;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
