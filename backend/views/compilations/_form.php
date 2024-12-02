@@ -43,6 +43,8 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'is_actual')->checkbox() ?>
+    <?= $form->field($model, 'show_on_homepage')->checkbox() ?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>

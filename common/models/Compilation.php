@@ -14,6 +14,8 @@ use yii\db\Expression;
  * @property string|null $image
  * @property string|null $description
  * @property bool|null $in_trash
+ * @property int $show_on_homepage
+ * @property int $is_actual
  * @property string $created_at
  * @property string $updated_at
  *
@@ -54,7 +56,7 @@ class Compilation extends \yii\db\ActiveRecord
         return [
             [['title'], 'required'],
             [['description'], 'string'],
-            [['in_trash'], 'boolean'],
+            [['in_trash', 'show_on_homepage', 'is_actual'], 'boolean'],
             [['title', 'image'], 'string', 'max' => 255],
             [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*10],
             ['places_field', 'safe']
@@ -96,6 +98,8 @@ class Compilation extends \yii\db\ActiveRecord
             'description' => 'Описание',
             'places_field' => 'Места',
             'in_trash' => 'В корзине',
+            'is_actual' => 'Актуальная',
+            'show_on_homepage' => 'Отображать на главной',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',
         ];
