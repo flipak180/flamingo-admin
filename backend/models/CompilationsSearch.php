@@ -18,7 +18,7 @@ class CompilationsSearch extends Compilation
     {
         return [
             [['compilation_id'], 'integer'],
-            [['title', 'image', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'description', 'created_at', 'updated_at'], 'safe'],
             [['in_trash'], 'boolean'],
         ];
     }
@@ -67,7 +67,6 @@ class CompilationsSearch extends Compilation
         ]);
 
         $query->andFilterWhere(['ilike', 'title', $this->title])
-            ->andFilterWhere(['ilike', 'image', $this->image])
             ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;

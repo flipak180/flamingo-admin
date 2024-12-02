@@ -23,7 +23,7 @@ class ImageBehavior extends Behavior
     /**
      * @var ImageModel|null
      */
-    public $firstImage = null;
+    public $image = null;
 
     /**
      * @var
@@ -105,7 +105,7 @@ class ImageBehavior extends Behavior
         $className = end($classPathArr);
 
         $this->images = ImageModel::find()->where(['model' => $className, 'model_id' => $this->owner->primaryKey])->all();
-        $this->firstImage = count($this->images) ? $this->images[0] : null;
+        $this->image = count($this->images) ? $this->images[0]->path : '';
         return true;
     }
 

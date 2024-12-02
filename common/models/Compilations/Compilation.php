@@ -2,6 +2,7 @@
 
 namespace common\models\Compilations;
 
+use common\behaviors\ImageBehavior;
 use common\models\Places\Place;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -11,7 +12,6 @@ use yii\db\Expression;
  *
  * @property int $compilation_id
  * @property string $title
- * @property string|null $image
  * @property string|null $description
  * @property bool|null $in_trash
  * @property int $show_on_homepage
@@ -21,6 +21,7 @@ use yii\db\Expression;
  *
  * @property CompilationPlace[] $compilationPlaces
  * @property Place[] $places
+ * @property string $image
  */
 class Compilation extends \yii\db\ActiveRecord
 {
@@ -45,6 +46,10 @@ class Compilation extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'value' => new Expression('NOW()'),
             ],
+            [
+                'class' => ImageBehavior::class,
+                'attribute' => 'image_field',
+            ],
         ];
     }
 
@@ -57,7 +62,7 @@ class Compilation extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['description'], 'string'],
             [['in_trash', 'show_on_homepage', 'is_actual'], 'boolean'],
-            [['title', 'image'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
             [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*10],
             ['places_field', 'safe']
         ];
@@ -93,7 +98,6 @@ class Compilation extends \yii\db\ActiveRecord
         return [
             'compilation_id' => 'ID',
             'title' => 'Название',
-            'image' => 'Изображение',
             'image_field' => 'Изображение',
             'description' => 'Описание',
             'places_field' => 'Места',

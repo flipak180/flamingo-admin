@@ -15,7 +15,6 @@ class m230618_224635_compilations extends Migration
         $this->createTable('compilations', [
             'compilation_id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
-            'image' => $this->string(),
             'description' => $this->text(),
             'in_trash' => $this->boolean()->defaultValue(false),
             'created_at' => $this->timestamp()->notNull(),
