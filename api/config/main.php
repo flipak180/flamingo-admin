@@ -62,6 +62,8 @@ return [
                 'POST,OPTIONS places/rate' => 'places/rate',
                 'POST,OPTIONS places/test' => 'places/test',
 
+                'GET compilations/get-actual-compilation' => 'compilations/get-actual-compilation',
+
                 'GET search' => 'flamingo/search',
 
                 'POST,OPTIONS tickets/create' => 'tickets/create',
