@@ -3,6 +3,7 @@
 use common\models\Category;
 use common\models\Places\Place;
 use common\models\Tag;
+use himiklab\sortablegrid\SortableGridView;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -15,6 +16,8 @@ use yii\helpers\Url;
 
 $this->title = 'Места';
 $this->params['breadcrumbs'][] = $this->title;
+
+$gridClass = $searchModel->categories_field ? SortableGridView::class : GridView::class;
 ?>
 
 <div class="place-index">
@@ -23,10 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Добавить место', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?= GridView::widget([
+    <?= $gridClass::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        //'tableOptions' => ['class' => 'table table-striped table-bordered table-sm'],
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-sm'],
         'columns' => [
             [
                 'attribute' => 'place_id',

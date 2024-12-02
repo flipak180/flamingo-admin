@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\PlacesSearch;
 use common\models\Places\Place;
+use himiklab\sortablegrid\SortableGridAction;
 use Yii;
 use yii\db\Query;
 use yii\filters\AccessControl;
@@ -30,6 +31,19 @@ class PlacesController extends Controller
                         'roles' => ['@'],
                     ],
                 ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array[]
+     */
+    public function actions()
+    {
+        return [
+            'sort' => [
+                'class' => SortableGridAction::className(),
+                'modelName' => Place::className(),
             ],
         ];
     }

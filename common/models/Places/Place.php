@@ -11,6 +11,7 @@ use common\models\PlaceTag;
 use common\models\Tag;
 use common\models\UserPlace;
 use common\models\Visit;
+use himiklab\sortablegrid\SortableGridBehavior;
 use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -28,6 +29,7 @@ use yii\db\Expression;
  * @property string $address
  * @property int $visit_cooldown
  * @property array $similar_places
+ * @property int $position
  * @property int|null $in_trash
  * @property int $created_at
  * @property int $updated_at
@@ -82,6 +84,10 @@ class Place extends \yii\db\ActiveRecord
                 'class' => ImageBehavior::class,
                 'attribute' => 'images_field',
             ],
+            'sort' => [
+                'class' => SortableGridBehavior::className(),
+                'sortableAttribute' => 'position'
+            ],
         ];
     }
 
@@ -96,7 +102,7 @@ class Place extends \yii\db\ActiveRecord
             //[['location_field'], 'required', 'on' => 'form'],
             [['description'], 'string'],
             [['in_trash'], 'boolean'],
-            [['visit_cooldown'], 'integer'],
+            [['visit_cooldown', 'position'], 'integer'],
             [['title', 'full_title', 'sort_title', 'address'], 'string', 'max' => 255],
             [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field',
                 'similar_places', 'similar_places_field'], 'safe'],
@@ -171,6 +177,7 @@ class Place extends \yii\db\ActiveRecord
             'images_field' => 'Изображения',
             'categories_field' => 'Категории',
             'tags_field' => 'Теги',
+            'position' => 'Позиция',
             'visit_cooldown' => 'Кулдаун визита (в минутах)',
             'similar_places' => 'Похожие места',
             'similar_places_field' => 'Похожие места',

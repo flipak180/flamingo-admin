@@ -34,7 +34,7 @@ class PlacesSearch extends Place
                 ['place_categories.category_id' => $category_id],
                 ['in', 'place_tags.tag_id', $tagIds]
             ])
-            ->orderBy(new Expression('coalesce(places.sort_title, places.title) ASC'))
+            ->orderBy(new Expression('position ASC, coalesce(places.sort_title, places.title) ASC'))
             ->limit(20)
             ->all();
     }
@@ -48,6 +48,7 @@ class PlacesSearch extends Place
         return Place::find()
             ->where(['ilike', 'title', $term])
             ->orWhere(['ilike', 'full_title', $term])
+            ->orderBy(new Expression('position ASC, coalesce(places.sort_title, places.title) ASC'))
             ->all();
     }
 

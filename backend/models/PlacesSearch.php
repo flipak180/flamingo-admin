@@ -46,7 +46,7 @@ class PlacesSearch extends Place
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => ['defaultOrder' => ['place_id' => SORT_DESC]],
+            'sort' => ['defaultOrder' => ['position' => SORT_ASC]],
             'pagination' => [
                 'pageSize' => 100,
             ],
