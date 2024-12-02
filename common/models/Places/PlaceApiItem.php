@@ -23,6 +23,7 @@ class PlaceApiItem extends DataTransferObject
     public $coords;
     public $user_status;
     public $stats;
+    public $position;
 
     /**
      * @param Place $model
@@ -62,6 +63,7 @@ class PlaceApiItem extends DataTransferObject
         $dto->coords = $model->coords;
         $dto->user_status = $userPlace ? $userPlace->status : 0;
         $dto->stats = $model->getStats();
+        $dto->position = $model->position;
 
         return $dto;
     }
