@@ -63,6 +63,7 @@ return [
                 'POST,OPTIONS places/test' => 'places/test',
 
                 'GET compilations/get-actual-compilation' => 'compilations/get-actual-compilation',
+                'GET compilations/details' => 'compilations/details',
 
                 'GET search' => 'flamingo/search',
 

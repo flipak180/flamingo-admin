@@ -27,4 +27,19 @@ class CompilationsController extends BaseApiController
 
         return CompilationApiItem::from($compilation)->attributes;
     }
+
+    /**
+     * @param $id
+     * @return array|null
+     */
+    public function actionDetails($id)
+    {
+        /** @var Compilation $compilation */
+        $compilation = Compilation::find()->where(['compilation_id' => $id])->with('places')->one();
+        if (!$compilation) {
+            return null;
+        }
+
+        return CompilationApiItem::from($compilation)->attributes;
+    }
 }
