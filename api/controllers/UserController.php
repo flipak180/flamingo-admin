@@ -38,15 +38,18 @@ class UserController extends BaseApiController
             return $this->error(400, 'Не указан номер телефона.');
         }
 
+        //Yii::$app->sms->sendSMS($phone, '');
+
         $phone = User::encryptPhone($phone);
         $user = User::findOne(['phone' => $phone]);
         if (!$user) {
-            $user = new User();
-            $user->name = User::DEFAULT_NAME;
-            $user->phone = $phone;
-            if (!$user->save()) {
-                return $this->error(500, 'Произошла ошибка.');
-            }
+            return $this->error(400, 'Номер телефона не зарегистрирован.');
+//            $user = new User();
+//            $user->name = User::DEFAULT_NAME;
+//            $user->phone = $phone;
+//            if (!$user->save()) {
+//                return $this->error(500, 'Произошла ошибка.');
+//            }
         }
 
         return $this->response([

@@ -2,166 +2,22 @@
 namespace common\components;
 
 
-use Yii;
 use yii\base\Component;
 
 class SmsComponent extends Component {
 
-    const SMS_TYPE = 'sms';
-    const VIBER_TYPE = 'viber';
-    const RESEND_TYPE = 'viber,sms';
+    const LOGIN = 'flipak180@mail.ru';
+    const API_KEY = 'VFwhBU1mPzjx5sFy6RmlNNvwyzZtvbvp';
 
-    private $login = 'baltzdrav';
-    private $apiKey = 'cDOjEEbrRmZNBLGgwCVDxOgV';
-    private $apiUrl = 'https://cp.redsms.ru/api';
+    public function sendSMS($phone, $text) {
+        $phone = Helper::clearPhone($phone);
 
-    // public function __construct($login, $apiKey, $apiUrl = null)
-    // {
-    //     $this->login = $login;
-    //     $this->apiKey = $apiKey;
-    //     $this->apiUrl = $apiUrl ?? $this->apiUrl;
-    // }
-
-    public function clientInfo()
-    {
-        $methodUrl = 'client/info';
-        return $this->sendGet($methodUrl);
+        $ch = curl_init('https://'.self::LOGIN.':'.self::API_KEY.'@gate.smsaero.ru/v2/sms/send?number='.$phone.'&text='.$text.'&sign=SMS Aero');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        $response = curl_exec($ch);
+        curl_close($ch);
     }
 
-    public function deleteFile(int $idFile)
-    {
-        $methodUrl = 'storage/'.$idFile;
-        return $this->sendDelete($methodUrl);
-    }
-
-    public function fileInfo()
-    {
-        $methodUrl = 'storage';
-        return $this->sendGet($methodUrl);
-    }
-
-    public function uploadFile($fileNAME)
-    {
-        $methodUrl = 'storage';
-        return $this->postFile($methodUrl, $fileNAME);
-    }
-
-    public function sendSMS($to, $text, $from, $route = self::SMS_TYPE)
-    {
-        $methodUrl = 'message';
-        $to = is_array($to) ? $to : [$to];
-        $data = [
-            'to' => implode(',', $to),
-            'text' => $text,
-            'from' => $from,
-            'route' => $route,
-        ];
-        return $this->sendPost($methodUrl, $data);
-    }
-
-    public function sendViber($to, $text, $from, $btnText, $btnUrl, $imageUrl)
-    {
-        $methodUrl = 'message';
-        $to = is_array($to) ? $to : [$to];
-        $data = [
-            'to' => implode(',', $to),
-            'text' => $text,
-            'from' => $from,
-            'route' => self::VIBER_TYPE,
-            'viber.btnText' => $btnText,
-            'viber.btnUrl' => $btnUrl,
-            'viber.imageUrl' => $imageUrl,
-        ];
-        return $this->sendPost($methodUrl, $data);
-    }
-
-    public function sendMessage($data)
-    {
-        $methodUrl = 'message';
-        return $this->sendPost($methodUrl, $data);
-    }
-
-    public function messageInfo($uuid)
-    {
-        $methodUrl = 'message/'.$uuid;
-        return $this->sendGet($methodUrl);
-    }
-
-    protected function sendGet($url, $data = [])
-    {
-        $curlResource = curl_init();
-        $vars = http_build_query($data, '', '&');
-        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl."/".$url."?$vars");
-        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders($data));
-        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, 1);
-        return $this->getCurlResult($curlResource);
-    }
-
-    protected function sendPost($url, $data = [])
-    {
-        $curlResource = curl_init();
-        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl."/".$url);
-        curl_setopt($curlResource, CURLOPT_POST, 1);
-        curl_setopt($curlResource, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders($data));
-        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, 1);
-        return $this->getCurlResult($curlResource);
-    }
-
-    protected function sendDelete($url)
-    {
-        $curlResource = curl_init();
-        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl."/".$url);
-        curl_setopt($curlResource, CURLOPT_CUSTOMREQUEST, "DELETE");
-        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders());
-        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
-        return $this->getCurlResult($curlResource);
-    }
-
-    protected function postFile($url, $name)
-    {
-        $curlResource = curl_init();
-        curl_setopt($curlResource, CURLOPT_URL, $this->apiUrl."/".$url);
-        curl_setopt($curlResource, CURLOPT_POST, true);
-        curl_setopt($curlResource, CURLOPT_POSTFIELDS, ['file' => new \CURLFile($name)]);
-        curl_setopt($curlResource, CURLOPT_HTTPHEADER, $this->getHeaders());
-        curl_setopt($curlResource, CURLOPT_RETURNTRANSFER, true);
-        return $this->getCurlResult($curlResource);
-    }
-
-    protected function getCurlResult($curlResource)
-    {
-        $response = curl_exec($curlResource);
-        $info = curl_getinfo($curlResource);
-        curl_close($curlResource);
-        $responseArray = json_decode($response, true);
-        if (json_last_error() != JSON_ERROR_NONE) {
-            throw new \Exception('Error response format', $info['http_code']);
-        }
-        if ($info['http_code'] != 200) {
-            Yii::info(print_r($info, 1));
-            Yii::info(print_r($responseArray, 1));
-            throw new \Exception($responseArray['error_message'], $info['http_code']);
-        }
-        return $responseArray;
-    }
-
-    protected function getHeaders($data = [])
-    {
-        ksort($data);
-        reset($data);
-        $ts = microtime().rand(0, 10000);
-        return [
-            'login: '.$this->login,
-            'ts: '.$ts,
-            'sig: '.md5(implode('', $data).$ts.$this->apiKey),
-        ];
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////
-
-    public function send($text, $phone) {
-        $sender = 'REDSMS.RU';
-        return $this->sendSMS($phone, $text, $sender);
-    }
 }
