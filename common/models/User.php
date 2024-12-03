@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\Helper;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -49,6 +50,18 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
                 'value' => new Expression('NOW()'),
             ],
         ];
+    }
+
+    /**
+     * @param $insert
+     * @return bool
+     */
+    public function beforeSave($insert)
+    {
+        if ($insert) {
+            $this->phone = User::encryptPhone(Helper::clearPhone($this->phone));
+        }
+        return parent::beforeSave($insert);
     }
 
     /**
