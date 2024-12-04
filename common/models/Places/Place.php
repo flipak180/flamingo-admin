@@ -3,6 +3,7 @@
 namespace common\models\Places;
 
 use common\behaviors\ImageBehavior;
+use common\components\Helper;
 use common\models\Categories\Category;
 use common\models\ImageModel;
 use common\models\PlaceCategory;
@@ -119,6 +120,7 @@ class Place extends \yii\db\ActiveRecord
         if ($this->coords_field) {
             $this->coords = array_map('trim', explode(',', $this->coords_field));
         }
+        $this->similar_places_field = Helper::createSimpleDbArray($this->similar_places_field);
         return parent::beforeValidate();
     }
 
@@ -143,6 +145,8 @@ class Place extends \yii\db\ActiveRecord
         if ($this->coords) {
             $this->coords_field = implode(', ', $this->coords);
         }
+
+        $this->similar_places_field = Helper::parseDbArray($this->similar_places_field);
     }
 
     /**
