@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use common\components\Helper;
+use common\models\PlaceRate;
 use common\models\Places\PlaceApiItem;
 use common\models\User;
 use common\models\UserPlace;
@@ -145,6 +146,23 @@ class UserController extends BaseApiController
             $errors = $userPlace->getFirstErrors();
             return $this->error(400, reset($errors));
         }
+
+        return $this->response(true);
+    }
+
+    /**
+     * @return array
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    public function actionDeleteAccount()
+    {
+        /** @var User $user */
+        $user = Yii::$app->user->identity;
+
+        UserPlace::deleteAll(['user_id' => $user->user_id]);
+        PlaceRate::deleteAll(['user_id' => $user->user_id]);
+        $user->delete();
 
         return $this->response(true);
     }
