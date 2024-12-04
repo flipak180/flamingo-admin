@@ -28,16 +28,16 @@ $this->registerJsFile(
     ['position' => View::POS_HEAD]
 );
 
-$similar = PlacesSearch::findSimilar($model);
+$duplicates = PlacesSearch::findDuplicates($model);
 ?>
 
 <div class="place-form">
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?php if (count($similar)): ?>
-        <div class="similar">
-            <?php foreach ($similar as $similarPlace): ?>
-                <?= Html::a($similarPlace->title, ['places/update', 'id' => $similarPlace->place_id], ['target' => '_blank']) ?>
+    <?php if (count($duplicates)): ?>
+        <div class="duplicates">
+            <?php foreach ($duplicates as $duplicate): ?>
+                <?= Html::a($duplicate->title, ['places/update', 'id' => $duplicate->place_id], ['target' => '_blank']) ?>
             <?php endforeach; ?>
         </div>
     <?php endif ?>
