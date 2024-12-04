@@ -142,24 +142,24 @@ div.required label.control-label:after {
     display: none;
 }
 
-.duplicates {
+.similar {
     margin-bottom: 15px;
 }
-.duplicates a {
+.similar a {
     color: #252525;
     position: relative;
     padding-right: 10px;
 }
-.duplicates a:hover {
+.similar a:hover {
     text-decoration: none;
 }
-.duplicates a:after {
+.similar a:after {
     content: '/';
     position: absolute;
     right: 0;
     top: 0;
     display: block;
 }
-.duplicates a:last-child:after {
+.similar a:last-child:after {
     content: '';
 }

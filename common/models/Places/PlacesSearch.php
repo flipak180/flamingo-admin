@@ -57,8 +57,12 @@ class PlacesSearch extends Place
      * @param Place $place
      * @return Place[]
      */
-    public static function findDuplicates($place)
+    public static function findSimilar($place)
     {
+        if ($place->isNewRecord) {
+            return [];
+        }
+
         return Place::find()
             ->where(['not in', 'place_id', $place->place_id])
             ->andWhere(['OR',
