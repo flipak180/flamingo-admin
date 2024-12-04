@@ -100,6 +100,7 @@ return [
                         'POST,OPTIONS get-rated-places' => 'get-rated-places',
                         'POST,OPTIONS get-places' => 'get-places',
                         'POST,OPTIONS place' => 'place',
+                        'POST,OPTIONS delete-account' => 'delete-account',
                     ],
                 ],
 

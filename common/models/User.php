@@ -65,6 +65,16 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
+     * @return void
+     */
+    public function afterDelete()
+    {
+        UserPlace::deleteAll(['user_id' => $this->user_id]);
+        PlaceRate::deleteAll(['user_id' => $this->user_id]);
+        parent::afterDelete();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function rules()
