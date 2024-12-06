@@ -84,7 +84,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
             [['in_trash'], 'boolean'],
             [['phone', 'name', 'avatar'], 'string', 'max' => 255],
             [['phone'], 'unique'],
-            [['avatar_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*2],
+            [['avatar_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'webp'], 'maxSize' => 1024*1024*2],
         ];
     }
 

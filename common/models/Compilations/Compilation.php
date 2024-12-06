@@ -63,7 +63,7 @@ class Compilation extends \yii\db\ActiveRecord
             [['description'], 'string'],
             [['in_trash', 'show_on_homepage', 'is_actual'], 'boolean'],
             [['title'], 'string', 'max' => 255],
-            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg'], 'maxSize' => 1024*1024*10],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'webp'], 'maxSize' => 1024*1024*10],
             ['places_field', 'safe']
         ];
     }

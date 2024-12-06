@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= SortableGridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-sm'],
         'rowOptions' => function(Category $model) {
             $style = '';
             if (!$model->parent_id) {
