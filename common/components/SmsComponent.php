@@ -6,18 +6,44 @@ use yii\base\Component;
 
 class SmsComponent extends Component {
 
-    const LOGIN = 'flipak180@mail.ru';
-    const API_KEY = 'VFwhBU1mPzjx5sFy6RmlNNvwyzZtvbvp';
+    const LOGIN = 'baltzdrav';
+    const API_KEY = 'cDOjEEbrRmZNBLGgwCVDxOgV';
+    const SENDER_NAME = 'Flamingo';
 
-    public function sendSMS($phone, $text) {
+    public function send($phone, $text) {
         $phone = Helper::clearPhone($phone);
 
-        $ch = curl_init('https://'.self::LOGIN.':'.self::API_KEY.'@gate.smsaero.ru/v2/sms/send?number='.$phone.'&text='.$text.'&sign=SMS Aero');
+        $ts = 'ts-value-' . time();
+        $secret = md5($ts . self::API_KEY);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, 'https://cp.redsms.ru/api/message');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'login: ' . self::LOGIN,
+            'ts: ' . $ts,
+            'secret: ' . $secret,
+            'Content-type: application/json'
+        ]);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+            'route' => 'pushok',
+            //'route' => 'sms',
+            //'from' => self::SENDER_NAME,
+            'to' => $phone,
+            'text' => 'phone'
+            //'text' => $text
+        ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_HEADER, false);
+
         $response = curl_exec($ch);
+        $info = curl_getinfo($ch);
+
         curl_close($ch);
+
+        $response_data = json_decode($response, true);
+
+        return $response_data['success'];
     }
 
 }

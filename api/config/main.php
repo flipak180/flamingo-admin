@@ -47,6 +47,8 @@ return [
                 'GET events/list' => 'events/list',
                 'GET events/details' => 'events/details',
 
+                'POST,OPTIONS send-sms' => 'system/send-sms',
+
                 'GET articles/list' => 'articles/list',
                 'GET articles/details' => 'articles/details',
 
