@@ -59,6 +59,10 @@ class PlacesSearch extends Place
      */
     public static function findDuplicates($place)
     {
+        if ($place->isNewRecord) {
+            return [];
+        }
+
         return Place::find()
             ->where(['not in', 'place_id', $place->place_id])
             ->andWhere(['OR',
