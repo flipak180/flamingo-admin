@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-use common\models\Story;
+use common\models\Stories\Story;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

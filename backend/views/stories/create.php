@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\Story $model */
+/** @var \common\models\Stories\Story $model */
 
 $this->title = 'Добавление истории';
 $this->params['breadcrumbs'][] = ['label' => 'Истории', 'url' => ['index']];

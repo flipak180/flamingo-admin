@@ -1,13 +1,13 @@
 <?php
 
-use common\models\Story;
+use common\models\Stories\Story;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\widgets\FileInput;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var common\models\Story $model */
+/** @var \common\models\Stories\Story $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
@@ -25,10 +25,10 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?php if ($model->image): ?>
         <div class="image-preview">
-            <a href="<?= $model->image ?>" target="_blank">
-                <?= EasyThumbnailImage::thumbnailImg(Yii::getAlias('@frontend_web').$model->image, 100, 100) ?>
+            <a href="<?= $model->image->path ?>" target="_blank">
+                <?= EasyThumbnailImage::thumbnailImg(Yii::getAlias('@frontend_web').$model->image->path, 100, 100) ?>
             </a>
-            <p><?= Html::a('Удалить', ['delete-image', 'id' => $model->id], ['class' => 'btn btn-xs btn-danger']) ?></p>
+            <p><?= Html::a('Удалить', ['site/delete-image', 'id' => $model->image->image_id], ['class' => 'btn btn-xs btn-danger']) ?></p>
         </div>
     <?php endif ?>
     <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>

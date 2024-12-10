@@ -26,10 +26,10 @@ use yii\widgets\ActiveForm;
     ]); ?>
     <?php if ($model->image): ?>
         <div class="image-preview">
-            <a href="<?= $model->image ?>" target="_blank">
-                <?= EasyThumbnailImage::thumbnailImg(Yii::getAlias('@frontend_web').$model->image, 100, 100) ?>
+            <a href="<?= $model->image->path ?>" target="_blank">
+                <?= EasyThumbnailImage::thumbnailImg(Yii::getAlias('@frontend_web').$model->image->path, 100, 100) ?>
             </a>
-            <p><?= Html::a('Удалить', ['delete-image', 'id' => $model->compilation_id], ['class' => 'btn btn-xs btn-danger']) ?></p>
+            <p><?= Html::a('Удалить', ['site/delete-image', 'id' => $model->compilation_id], ['class' => 'btn btn-xs btn-danger']) ?></p>
         </div>
     <?php endif ?>
     <?= $form->field($model, 'places_field')->widget(Select2::classname(), [

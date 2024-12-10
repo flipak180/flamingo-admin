@@ -1,8 +1,9 @@
 <?php
 
-namespace common\models;
+namespace common\models\Stories;
 
 use common\behaviors\ImageBehavior;
+use common\models\ImageModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -17,7 +18,7 @@ use yii\db\Expression;
  * @property string $updated_at
  *
  * @property StoryView[] $views
- * @property string $image
+ * @property ImageModel $image
  */
 class Story extends \yii\db\ActiveRecord
 {

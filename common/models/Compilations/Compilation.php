@@ -3,6 +3,7 @@
 namespace common\models\Compilations;
 
 use common\behaviors\ImageBehavior;
+use common\models\ImageModel;
 use common\models\Places\Place;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -21,7 +22,7 @@ use yii\db\Expression;
  *
  * @property CompilationPlace[] $compilationPlaces
  * @property Place[] $places
- * @property string $image
+ * @property ImageModel $image
  */
 class Compilation extends \yii\db\ActiveRecord
 {

@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Story;
+use common\models\Stories\Story;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;

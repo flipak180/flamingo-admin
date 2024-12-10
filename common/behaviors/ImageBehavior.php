@@ -105,7 +105,7 @@ class ImageBehavior extends Behavior
         $className = end($classPathArr);
 
         $this->images = ImageModel::find()->where(['model' => $className, 'model_id' => $this->owner->primaryKey])->all();
-        $this->image = count($this->images) ? $this->images[0]->path : '';
+        $this->image = count($this->images) ? $this->images[0] : '';
         return true;
     }
 

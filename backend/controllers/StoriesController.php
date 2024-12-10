@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\StoriesSearch;
-use common\models\Story;
+use common\models\Stories\Story;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

@@ -25,7 +25,7 @@ class CompilationApiItem extends DataTransferObject
         $dto = new self();
 
         $image = $model->image
-            ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$model->image, 720, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+            ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$model->image->path, 720, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
             : null;
 
         $dto->id = $model->compilation_id;

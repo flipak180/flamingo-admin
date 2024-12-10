@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a($model->title, ['compilations/update', 'compilation_id' => $model->compilation_id]);
                 },
             ],
-            'image',
+            //'image',
             //'description:ntext',
             //'in_trash:boolean',
             [
