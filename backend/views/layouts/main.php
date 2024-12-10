@@ -45,6 +45,7 @@ AppAsset::register($this);
         ['label' => 'Теги', 'url' => ['/tags/index']],
         ['label' => 'Пользователи', 'url' => ['/users/index']],
         ['label' => 'Тикеты', 'url' => ['/tickets/index']],
+        ['label' => 'Истории', 'url' => ['/stories/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
