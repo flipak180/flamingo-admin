@@ -17,6 +17,7 @@ class StoriesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
+            'optional' => ['list'],
         ];
         return $behaviors;
     }
@@ -32,7 +33,7 @@ class StoriesController extends BaseApiController
         foreach ($stories as $story) {
             $result[] = StoryApiItem::from($story)->attributes;
         }
-        return $result;
+        return $this->response($result);
     }
 
 }
