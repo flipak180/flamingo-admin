@@ -3,7 +3,6 @@
 namespace common\models\Stories;
 
 use common\base\DataTransferObject;
-use common\models\User;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
@@ -23,9 +22,6 @@ class StoryApiItem extends DataTransferObject
         $image = $model->image
             ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$model->image->path, 480, 1000, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
             : null;
-
-        /** @var User $user */
-        $user = Yii::$app->user->identity;
 
         $dto = new self();
         $dto->id = $model->id;

@@ -6,22 +6,21 @@ use common\models\Stories\StoriesSearch;
 use common\models\Stories\Story;
 use common\models\Stories\StoryApiItem;
 use Yii;
-use yii\filters\auth\HttpBearerAuth;
 
 class StoriesController extends BaseApiController
 {
     /**
      * @return array
      */
-    public function behaviors()
-    {
-        $behaviors = parent::behaviors();
-        $behaviors['authenticator'] = [
-            'class' => HttpBearerAuth::class,
-            'optional' => ['list'],
-        ];
-        return $behaviors;
-    }
+//    public function behaviors()
+//    {
+//        $behaviors = parent::behaviors();
+//        $behaviors['authenticator'] = [
+//            'class' => HttpBearerAuth::class,
+//            'optional' => ['list'],
+//        ];
+//        return $behaviors;
+//    }
 
     /**
      * @return array
