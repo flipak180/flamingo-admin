@@ -5,6 +5,7 @@ namespace app\controllers;
 use common\models\Stories\StoriesSearch;
 use common\models\Stories\Story;
 use common\models\Stories\StoryApiItem;
+use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
 class StoriesController extends BaseApiController
@@ -27,9 +28,11 @@ class StoriesController extends BaseApiController
      */
     public function actionList()
     {
+        $from_timestamp = Yii::$app->request->post('from_timestamp');
+
         $result = [];
         /** @var Story[] $stories */
-        $stories = StoriesSearch::getApiList();
+        $stories = StoriesSearch::getApiList($from_timestamp);
         foreach ($stories as $story) {
             $result[] = StoryApiItem::from($story)->attributes;
         }

@@ -8,12 +8,15 @@ class StoriesSearch extends Story
 {
 
     /**
-     * @param $category_id
-     * @param $tag_id
+     * @param $from_timestamp
      * @return Place[]
      */
-    public static function getApiList($category_id = null, $tag_id = null)
+    public static function getApiList($from_timestamp = null)
     {
-        return Story::find()->all();
+        $datetime = date('Y-m-d H:i:s', $from_timestamp);
+
+        return Story::find()
+            ->where(['>', 'created_at', $datetime])
+            ->all();
     }
 }
