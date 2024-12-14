@@ -49,7 +49,7 @@ return [
 
                 'POST,OPTIONS send-sms' => 'system/send-sms',
 
-                'POST,OPTIONS stories/list' => 'stories/list',
+                'GET stories/list' => 'stories/list',
 
                 'GET articles/list' => 'articles/list',
                 'GET articles/details' => 'articles/details',

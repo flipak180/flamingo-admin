@@ -9,25 +9,13 @@ use Yii;
 
 class StoriesController extends BaseApiController
 {
-    /**
-     * @return array
-     */
-//    public function behaviors()
-//    {
-//        $behaviors = parent::behaviors();
-//        $behaviors['authenticator'] = [
-//            'class' => HttpBearerAuth::class,
-//            'optional' => ['list'],
-//        ];
-//        return $behaviors;
-//    }
 
     /**
      * @return array
      */
     public function actionList()
     {
-        $from_timestamp = Yii::$app->request->post('from_timestamp');
+        $from_timestamp = Yii::$app->request->get('from_timestamp');
 
         $result = [];
         /** @var Story[] $stories */
