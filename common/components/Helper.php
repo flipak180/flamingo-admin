@@ -116,4 +116,16 @@ class Helper
         return json_encode($data);
     }
 
+    /**
+     * @param $timestamp
+     * @return false|string
+     */
+    public static function formatDate($timestamp, $utc = false)
+    {
+        if ($utc) {
+            $timestamp = $timestamp + (60 * 60 * 3);
+        }
+        return date('Y-m-d H:i:s', $timestamp);
+    }
+
 }
