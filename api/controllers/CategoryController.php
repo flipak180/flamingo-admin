@@ -81,6 +81,7 @@ class CategoryController extends BaseApiController
         /** @var Category $category */
         $category = Category::find()
             ->where(['show_on_homepage' => true])
+            ->andWhere('in_trash IS NOT TRUE')
             ->orderBy(new Expression('random()'))
             ->one();
 
@@ -119,6 +120,7 @@ class CategoryController extends BaseApiController
         /** @var Category[] $categories */
         $categories = Category::find()
             ->where(['is_popular' => true])
+            ->andWhere('in_trash IS NOT TRUE')
             ->orderBy('title')
             ->all();
 
