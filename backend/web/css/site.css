@@ -163,3 +163,10 @@ div.required label.control-label:after {
 .duplicates a:last-child:after {
     content: '';
 }
+
+.navbar-nav .dropdown-menu {
+    column-count: 3;
+}
+.dropdown-header {
+    background-color: #f3f3f3;
+}
