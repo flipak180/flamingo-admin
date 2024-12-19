@@ -51,6 +51,9 @@ return [
 
                 'GET stories/list' => 'stories/list',
 
+                'POST,OPTIONS push-tokens/register' => 'push-tokens/register',
+                'POST,OPTIONS push-tokens/detach' => 'push-tokens/detach',
+
                 'GET articles/list' => 'articles/list',
                 'GET articles/details' => 'articles/details',
 

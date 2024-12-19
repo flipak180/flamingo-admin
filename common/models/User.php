@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\Helper;
+use common\models\PushTokens\PushToken;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -71,6 +72,7 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     {
         UserPlace::deleteAll(['user_id' => $this->user_id]);
         PlaceRate::deleteAll(['user_id' => $this->user_id]);
+        PushToken::deleteAll(['user_id' => $this->user_id]);
         parent::afterDelete();
     }
 
