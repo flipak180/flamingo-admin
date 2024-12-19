@@ -26,6 +26,7 @@ abstract class BaseApplication extends yii\base\Application
  *
  * @property \common\components\SmsComponent $sms The user component. This property is read-only. Extended component.
  * @property \common\components\ClockComponent $clock The user component. This property is read-only. Extended component.
+ * @property \common\components\PushNotificationComponent $push The user component. This property is read-only. Extended component.
  */
 class WebApplication extends yii\web\Application
 {

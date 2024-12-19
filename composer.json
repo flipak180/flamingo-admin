@@ -24,7 +24,8 @@
         "ext-json": "*",
         "himiklab/yii2-easy-thumbnail-image-helper": "*",
         "kartik-v/yii2-editors": "dev-master",
-        "himiklab/yii2-sortable-grid-view-widget" : "*"
+        "himiklab/yii2-sortable-grid-view-widget" : "*",
+        "kreait/firebase-php": "^7.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

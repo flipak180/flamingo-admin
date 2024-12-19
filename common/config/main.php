@@ -55,5 +55,8 @@ return [
         'clock' => [
             'class' => 'common\components\ClockComponent',
         ],
+        'push' => [
+            'class' => 'common\components\PushNotificationComponent',
+        ],
     ],
 ];

@@ -4,6 +4,7 @@ namespace common\models\Stories;
 
 use common\behaviors\ImageBehavior;
 use common\models\ImageModel;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -50,6 +51,19 @@ class Story extends \yii\db\ActiveRecord
                 'attribute' => 'image_field',
             ],
         ];
+    }
+
+    /**
+     * @param $insert
+     * @param $changedAttributes
+     * @return void
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            Yii::$app->push->sendAll('Опачки!', 'Новая история - бегом смотреть 🦩');
+        }
+        parent::afterSave($insert, $changedAttributes);
     }
 
     /**
