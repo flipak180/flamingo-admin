@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\PushTokens\PushTokensSearch;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -70,8 +71,12 @@ class PushNotification extends \yii\db\ActiveRecord
      * @throws \Kreait\Firebase\Exception\FirebaseException
      * @throws \Kreait\Firebase\Exception\MessagingException
      */
-    public function send()
+    public function send($testMode = false)
     {
-        Yii::$app->push->sendAll($this->title, $this->body);
+        if ($testMode) {
+            Yii::$app->push->sendAll($this->title, $this->body, PushTokensSearch::getTestTokens());
+        } else {
+            Yii::$app->push->sendAll($this->title, $this->body);
+        }
     }
 }

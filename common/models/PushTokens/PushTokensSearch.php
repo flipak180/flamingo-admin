@@ -16,4 +16,15 @@ class PushTokensSearch extends PushToken
             ->select('token')
             ->column();
     }
+
+    /**
+     * @return array
+     */
+    public static function getTestTokens()
+    {
+        return PushToken::find()
+            ->select('token')
+            ->where(['user_id' => 1])
+            ->column();
+    }
 }

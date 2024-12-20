@@ -49,13 +49,16 @@ class PushNotificationComponent extends Component {
     /**
      * @param $title
      * @param $body
+     * @param $deviceTokens
      * @return void
      * @throws FirebaseException
      * @throws MessagingException
      */
-    public function sendAll($title, $body)
+    public function sendAll($title, $body, $deviceTokens = null)
     {
-        $deviceTokens = PushTokensSearch::getAllDeviceTokens();
+        if (!is_array($deviceTokens)) {
+            $deviceTokens = PushTokensSearch::getAllDeviceTokens();
+        }
         $message = CloudMessage::new()
             ->withNotification(Notification::create($title, $body));
 

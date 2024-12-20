@@ -131,6 +131,19 @@ class PushNotificationsController extends Controller
     }
 
     /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     * @throws \Kreait\Firebase\Exception\FirebaseException
+     * @throws \Kreait\Firebase\Exception\MessagingException
+     */
+    public function actionTest($id)
+    {
+        $this->findModel($id)->send(true);
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
      * Finds the PushNotification model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
