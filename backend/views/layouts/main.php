@@ -37,7 +37,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Статьи', 'url' => ['/articles/index']],
-        ['label' => 'События', 'url' => ['/events/index']],
+        //['label' => 'События', 'url' => ['/events/index']],
         ['label' => 'Места', 'items' => CategoriesSearch::getMenuItems()],
         ['label' => 'Квесты', 'url' => ['/quests/index']],
         ['label' => 'Подборки', 'url' => ['/compilations/index']],
@@ -46,6 +46,7 @@ AppAsset::register($this);
         ['label' => 'Пользователи', 'url' => ['/users/index']],
         ['label' => 'Тикеты', 'url' => ['/tickets/index']],
         ['label' => 'Истории', 'url' => ['/stories/index']],
+        ['label' => 'Пуши', 'url' => ['/push-notifications/index']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
