@@ -51,6 +51,8 @@ return [
 
                 'GET stories/list' => 'stories/list',
 
+                'POST,OPTIONS achievements/list-by-categories' => 'achievements/list-by-categories',
+
                 'POST,OPTIONS push-tokens/register' => 'push-tokens/register',
                 'POST,OPTIONS push-tokens/detach' => 'push-tokens/detach',
 
