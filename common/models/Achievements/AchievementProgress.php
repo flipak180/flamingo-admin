@@ -2,6 +2,7 @@
 
 namespace common\models\Achievements;
 
+use common\models\User;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -15,6 +16,9 @@ use yii\db\Expression;
  * @property string|null $unlocked_at
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property User $user
+ * @property Achievement $achievement
  */
 class AchievementProgress extends \yii\db\ActiveRecord
 {
@@ -59,12 +63,28 @@ class AchievementProgress extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'achievement_id' => 'Achievement ID',
-            'points' => 'Points',
-            'unlocked_at' => 'Unlocked At',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_id' => 'Пользователь',
+            'achievement_id' => 'Достижения',
+            'points' => 'Очки',
+            'unlocked_at' => 'Дата получения',
+            'created_at' => 'Дата добавления',
+            'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAchievement()
+    {
+        return $this->hasOne(Achievement::className(), ['id' => 'achievement_id']);
     }
 }

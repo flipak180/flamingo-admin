@@ -12,6 +12,8 @@ use yii\db\Expression;
  * @property string $title
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property Achievement[] $achievements
  */
 class AchievementCategory extends \yii\db\ActiveRecord
 {
@@ -54,9 +56,17 @@ class AchievementCategory extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'title' => 'Название',
+            'created_at' => 'Дата добавления',
+            'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAchievements()
+    {
+        return $this->hasMany(Achievement::className(), ['category_id' => 'id']);
     }
 }

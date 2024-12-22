@@ -10,25 +10,20 @@ use yii\helpers\Url;
 /** @var backend\models\AchievementCategoriesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Achievement Categories';
+$this->title = 'Категории достижений';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="achievement-category-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a('Create Achievement Category', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить категорию достижений', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'title',
             'created_at',
@@ -41,6 +36,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-
 </div>

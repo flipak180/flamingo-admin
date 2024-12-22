@@ -18,6 +18,8 @@ use yii\db\Expression;
  * @property int|null $status
  * @property string $created_at
  * @property string $updated_at
+ *
+ * @property AchievementCategory $achievementCategory
  */
 class Achievement extends \yii\db\ActiveRecord
 {
@@ -62,15 +64,23 @@ class Achievement extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'title' => 'Title',
-            'description' => 'Description',
-            'category_id' => 'Category ID',
-            'level' => 'Level',
-            'points' => 'Points',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'name' => 'Название',
+            'title' => 'Титул',
+            'description' => 'Описание',
+            'category_id' => 'Категория',
+            'level' => 'Уровень',
+            'points' => 'Очки',
+            'status' => 'Статус',
+            'created_at' => 'Дата добавления',
+            'updated_at' => 'Дата обновления',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAchievementCategory()
+    {
+        return $this->hasOne(AchievementCategory::className(), ['id' => 'category_id']);
     }
 }
