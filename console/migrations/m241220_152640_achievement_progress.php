@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m241220_152640_achievements_progress
+ * Class m241220_152640_achievement_progress
  */
-class m241220_152640_achievements_progress extends Migration
+class m241220_152640_achievement_progress extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('achievements_progress', [
+        $this->createTable('achievement_progress', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'achievement_id' => $this->integer()->notNull(),
@@ -28,6 +28,6 @@ class m241220_152640_achievements_progress extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('achievements_progress');
+        $this->dropTable('achievement_progress');
     }
 }
