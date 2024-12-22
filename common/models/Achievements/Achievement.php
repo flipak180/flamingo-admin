@@ -2,6 +2,8 @@
 
 namespace common\models\Achievements;
 
+use common\behaviors\ImageBehavior;
+use common\models\ImageModel;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 
@@ -19,9 +21,12 @@ use yii\db\Expression;
  * @property string $updated_at
  *
  * @property AchievementCategory $category
+ * @property ImageModel $image
  */
 class Achievement extends \yii\db\ActiveRecord
 {
+    public $image_field;
+
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 2;
 
@@ -43,6 +48,10 @@ class Achievement extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::class,
                 'value' => new Expression('NOW()'),
             ],
+            [
+                'class' => ImageBehavior::class,
+                'attribute' => 'image_field',
+            ],
         ];
     }
 
@@ -56,6 +65,7 @@ class Achievement extends \yii\db\ActiveRecord
             [['category_id', 'level', 'points', 'status'], 'default', 'value' => null],
             [['category_id', 'level', 'points', 'status'], 'integer'],
             [['title', 'description'], 'string', 'max' => 255],
+            [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'webp'], 'maxSize' => 1024*1024*10],
         ];
     }
 
@@ -67,6 +77,7 @@ class Achievement extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Название',
+            'image_field' => 'Изображение',
             'description' => 'Описание',
             'category_id' => 'Категория',
             'level' => 'Уровень',

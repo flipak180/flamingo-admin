@@ -2,6 +2,8 @@
 
 use common\models\Achievements\Achievement;
 use common\models\Achievements\AchievementCategory;
+use himiklab\thumbnail\EasyThumbnailImage;
+use kartik\widgets\FileInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -19,6 +21,23 @@ use yii\widgets\ActiveForm;
         ArrayHelper::map(AchievementCategory::find()->orderBy('title ASC')->all(), 'id', 'title'),
         ['prompt' => '[Не выбрана]']
     ) ?>
+    <?= $form->field($model, 'image_field')->widget(FileInput::classname(), [
+        'options' => ['accept' => 'image/*'],
+        'pluginOptions' => [
+            'browseLabel' => 'Выбрать',
+            'showPreview' => false,
+            'showUpload' => false,
+            'showRemove' => false,
+        ]
+    ]); ?>
+    <?php if ($model->image): ?>
+        <div class="image-preview">
+            <a href="<?= $model->image->path ?>" target="_blank">
+                <?= EasyThumbnailImage::thumbnailImg(Yii::getAlias('@frontend_web').$model->image->path, 100, 100) ?>
+            </a>
+            <p><?= Html::a('Удалить', ['site/delete-image', 'id' => $model->image->image_id], ['class' => 'btn btn-xs btn-danger']) ?></p>
+        </div>
+    <?php endif ?>
     <?= $form->field($model, 'level')->textInput() ?>
     <?= $form->field($model, 'points')->textInput() ?>
     <?= $form->field($model, 'status')->dropDownList(Achievement::getStatusesList()) ?>
