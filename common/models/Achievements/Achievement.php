@@ -18,7 +18,7 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property AchievementCategory $achievementCategory
+ * @property AchievementCategory $category
  */
 class Achievement extends \yii\db\ActiveRecord
 {
@@ -80,7 +80,7 @@ class Achievement extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAchievementCategory()
+    public function getCategory()
     {
         return $this->hasOne(AchievementCategory::className(), ['id' => 'category_id']);
     }

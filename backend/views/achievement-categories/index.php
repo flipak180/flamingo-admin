@@ -24,10 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            'id',
-            'title',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'id',
+                'headerOptions' => ['style' => 'width: 75px;'],
+            ],
+            [
+                'attribute' => 'title',
+                'format' => 'raw',
+                'value' => function(AchievementCategory $model) {
+                    return Html::a($model->title, ['achievement-categories/update', 'id' => $model->id]);
+                },
+            ],
+            [
+                'attribute' => 'created_at',
+                'format' => 'datetime',
+                'filter' => false,
+                'headerOptions' => ['style' => 'width: 220px;'],
+            ],
+            //'updated_at',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, AchievementCategory $model, $key, $index, $column) {
