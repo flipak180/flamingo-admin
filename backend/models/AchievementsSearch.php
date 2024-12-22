@@ -18,7 +18,7 @@ class AchievementsSearch extends Achievement
     {
         return [
             [['id', 'category_id', 'level', 'points', 'status'], 'integer'],
-            [['name', 'title', 'description', 'created_at', 'updated_at'], 'safe'],
+            [['title', 'description', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -68,8 +68,7 @@ class AchievementsSearch extends Achievement
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'title', $this->title])
+        $query->andFilterWhere(['ilike', 'title', $this->title])
             ->andFilterWhere(['ilike', 'description', $this->description]);
 
         return $dataProvider;

@@ -14,8 +14,7 @@ class m241220_152501_achievements extends Migration
     {
         $this->createTable('achievements', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull(),
-            'title' => $this->string(),
+            'title' => $this->string()->notNull(),
             'description' => $this->string(),
             'category_id' => $this->integer(),
             'level' => $this->smallInteger(),

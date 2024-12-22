@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var \common\models\Achievements\Achievement $model */
 
-$this->title = 'Редактирование достижения: ' . $model->name;
+$this->title = 'Редактирование достижения: ' . $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Достижения', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 

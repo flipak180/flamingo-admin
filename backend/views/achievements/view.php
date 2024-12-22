@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var \common\models\Achievements\Achievement $model */
 
-$this->title = $model->name;
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Достижения', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
             'title',
             'description',
             'category_id',

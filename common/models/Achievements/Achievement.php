@@ -9,8 +9,7 @@ use yii\db\Expression;
  * This is the model class for table "achievements".
  *
  * @property int $id
- * @property string $name
- * @property string|null $title
+ * @property string $title
  * @property string|null $description
  * @property int|null $category_id
  * @property int|null $level
@@ -23,6 +22,9 @@ use yii\db\Expression;
  */
 class Achievement extends \yii\db\ActiveRecord
 {
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 2;
+
     /**
      * {@inheritdoc}
      */
@@ -50,10 +52,10 @@ class Achievement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['title'], 'required'],
             [['category_id', 'level', 'points', 'status'], 'default', 'value' => null],
             [['category_id', 'level', 'points', 'status'], 'integer'],
-            [['name', 'title', 'description'], 'string', 'max' => 255],
+            [['title', 'description'], 'string', 'max' => 255],
         ];
     }
 
@@ -64,8 +66,7 @@ class Achievement extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
-            'title' => 'Титул',
+            'title' => 'Название',
             'description' => 'Описание',
             'category_id' => 'Категория',
             'level' => 'Уровень',
@@ -82,5 +83,24 @@ class Achievement extends \yii\db\ActiveRecord
     public function getAchievementCategory()
     {
         return $this->hasOne(AchievementCategory::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getStatusesList()
+    {
+        return [
+            self::STATUS_ACTIVE => 'Активна',
+            self::STATUS_INACTIVE => 'Неактивна',
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusName()
+    {
+        return self::getStatusesList()[$this->status];
     }
 }
