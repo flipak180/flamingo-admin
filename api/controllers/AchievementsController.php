@@ -28,7 +28,8 @@ class AchievementsController extends BaseApiController
      */
     public function actionListByCategories()
     {
-        return AchievementsSearch::getListByCategories();
+        $data = AchievementsSearch::getListByCategories();
+        return $this->response($data);
     }
 
 }
