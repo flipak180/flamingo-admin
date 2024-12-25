@@ -90,9 +90,9 @@ class AchievementProgress extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $achievement_id
+     * @param $achievementId
      * @param $points
-     * @return Achievement|false
+     * @return array|false
      * @throws \yii\db\Exception
      */
     public static function addProgress($achievementId, $points = 1)
@@ -120,7 +120,7 @@ class AchievementProgress extends \yii\db\ActiveRecord
         }
         $achievementProgress->save();
 
-        return $achievement;
+        return AchievementApiItem::create()->from($achievement)->attributes;
     }
 
     /**
