@@ -120,7 +120,10 @@ class AchievementProgress extends \yii\db\ActiveRecord
         }
         $achievementProgress->save();
 
-        return AchievementApiItem::create()->from($achievement)->attributes;
+        $achievementsProgressMap = AchievementProgress::getMapByUserId(Yii::$app->user->id);
+        return AchievementApiItem::create(
+            ['achievementsProgressMap' => $achievementsProgressMap]
+        )->from($achievement)->attributes;
     }
 
     /**
