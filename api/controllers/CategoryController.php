@@ -67,7 +67,7 @@ class CategoryController extends BaseApiController
             return null;
         }
 
-        return CategoryApiItem::from($category)->attributes;
+        return CategoryApiItem::create()->from($category)->attributes;
     }
 
     /**

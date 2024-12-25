@@ -21,7 +21,7 @@ class StoriesController extends BaseApiController
         /** @var Story[] $stories */
         $stories = StoriesSearch::getApiList($from_timestamp);
         foreach ($stories as $story) {
-            $result[] = StoryApiItem::from($story)->attributes;
+            $result[] = StoryApiItem::create()->from($story)->attributes;
         }
         return $this->response($result);
     }

@@ -104,7 +104,7 @@ class UserController extends BaseApiController
         $user = Yii::$app->user->identity;
         $result = [];
         foreach ($user->rates as $rate) {
-            $result[] = PlaceApiItem::from($rate->place)->attributes;
+            $result[] = PlaceApiItem::create()->from($rate->place)->attributes;
         }
         return $this->response($result);
     }
@@ -118,7 +118,7 @@ class UserController extends BaseApiController
         $user = Yii::$app->user->identity;
         $result = [];
         foreach ($user->places as $userPlace) {
-            $result[] = PlaceApiItem::from($userPlace->place)->attributes;
+            $result[] = PlaceApiItem::create()->from($userPlace->place)->attributes;
         }
         return $this->response($result);
     }

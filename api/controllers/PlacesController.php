@@ -37,7 +37,7 @@ class PlacesController extends BaseApiController
         $result = [];
         $places = PlacesSearch::getByCategory($category_id, $tag_id);
         foreach ($places as $place) {
-            $result[] = PlaceApiItem::from($place)->attributes;
+            $result[] = PlaceApiItem::create()->from($place)->attributes;
         }
         return $result;
     }
@@ -52,7 +52,7 @@ class PlacesController extends BaseApiController
         $result = [];
         $places = PlacesSearch::getByTerm($term);
         foreach ($places as $place) {
-            $result[] = PlaceApiItem::from($place)->attributes;
+            $result[] = PlaceApiItem::create()->from($place)->attributes;
         }
         return $result;
     }
@@ -66,7 +66,7 @@ class PlacesController extends BaseApiController
 
         /** @var Place $place */
         $place = Place::findOne($id);
-        return PlaceApiItem::from($place)->attributes;
+        return PlaceApiItem::create()->from($place)->attributes;
     }
 
     /**

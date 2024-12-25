@@ -16,7 +16,7 @@ class StoryApiItem extends DataTransferObject
      * @param Story $model
      * @return StoryApiItem
      */
-    public static function from($model): StoryApiItem
+    public function from($model): StoryApiItem
     {
 
         $image = $model->image

@@ -25,7 +25,7 @@ class CompilationsController extends BaseApiController
             return null;
         }
 
-        return CompilationApiItem::from($compilation)->attributes;
+        return CompilationApiItem::create()->from($compilation)->attributes;
     }
 
     /**
@@ -40,6 +40,6 @@ class CompilationsController extends BaseApiController
             return null;
         }
 
-        return CompilationApiItem::from($compilation)->attributes;
+        return CompilationApiItem::create()->from($compilation)->attributes;
     }
 }

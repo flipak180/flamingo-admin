@@ -19,7 +19,7 @@ class CategoryApiItem extends DataTransferObject
      * @param Category $model
      * @return CategoryApiItem
      */
-    public static function from($model): CategoryApiItem
+    public function from($model): CategoryApiItem
     {
         $dto = new self();
 

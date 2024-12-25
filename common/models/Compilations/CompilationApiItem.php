@@ -20,7 +20,7 @@ class CompilationApiItem extends DataTransferObject
      * @param Compilation $model
      * @return CompilationApiItem
      */
-    public static function from($model): CompilationApiItem
+    public function from($model): CompilationApiItem
     {
         $dto = new self();
 
@@ -45,7 +45,7 @@ class CompilationApiItem extends DataTransferObject
     {
         $result = [];
         foreach ($model->places as $place) {
-            $result[] = PlaceApiItem::from($place)->attributes;
+            $result[] = PlaceApiItem::create()->from($place)->attributes;
         }
         return $result;
     }

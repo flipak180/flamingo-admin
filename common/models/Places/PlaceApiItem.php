@@ -29,7 +29,7 @@ class PlaceApiItem extends DataTransferObject
      * @param Place $model
      * @return PlaceApiItem
      */
-    public static function from($model): PlaceApiItem
+    public function from($model): PlaceApiItem
     {
         $images = [];
         $bigImages = [];
