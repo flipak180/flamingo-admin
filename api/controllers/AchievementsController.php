@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use common\models\Achievements\AchievementCategory;
 use common\models\Achievements\AchievementProgress;
 use common\models\Achievements\AchievementsSearch;
 use Yii;
@@ -19,8 +20,8 @@ class AchievementsController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'only' => ['list-by-categories', 'add-progress'],
-            'optional' => ['list-by-categories'],
+            'only' => ['list-by-categories', 'list', 'categories', 'add-progress'],
+            'optional' => ['list-by-categories', 'list', 'categories'],
         ];
         return $behaviors;
     }
@@ -31,6 +32,24 @@ class AchievementsController extends BaseApiController
     public function actionListByCategories()
     {
         $data = AchievementsSearch::getListByCategories();
+        return $this->response($data);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionList()
+    {
+        $data = AchievementsSearch::getList();
+        return $this->response($data);
+    }
+
+    /**
+     * @return array
+     */
+    public function actionCategories()
+    {
+        $data = AchievementCategory::getList();
         return $this->response($data);
     }
 

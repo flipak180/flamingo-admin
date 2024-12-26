@@ -9,6 +9,26 @@ use Yii;
  */
 class AchievementsSearch extends Achievement
 {
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        $result = [];
+        $achievementsProgressMap = AchievementProgress::getMapByUserId(Yii::$app->user->id);
+        /** @var Achievement $models */
+        $models = Achievement::find()->where(['status' => Achievement::STATUS_ACTIVE])->all();
+        foreach ($models as $model) {
+            $result[] = AchievementApiItem::create(
+                ['achievementsProgressMap' => $achievementsProgressMap]
+            )->from($model)->attributes;
+        }
+        return $result;
+    }
+
+    /**
+     * @return array
+     */
     public static function getListByCategories()
     {
         $result = [];

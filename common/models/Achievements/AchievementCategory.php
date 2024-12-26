@@ -69,4 +69,21 @@ class AchievementCategory extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Achievement::className(), ['category_id' => 'id']);
     }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        $result = [];
+        /** @var AchievementCategory[] $models */
+        $models = AchievementCategory::find()->all();
+        foreach ($models as $model) {
+            $result[] = [
+                'id' => $model->id,
+                'title' => $model->title,
+            ];
+        }
+        return $result;
+    }
 }
