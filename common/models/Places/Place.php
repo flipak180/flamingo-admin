@@ -3,7 +3,6 @@
 namespace common\models\Places;
 
 use common\behaviors\ImageBehavior;
-use common\components\Helper;
 use common\models\Categories\Category;
 use common\models\ImageModel;
 use common\models\PlaceCategory;
@@ -50,7 +49,6 @@ class Place extends \yii\db\ActiveRecord
     public $tags_field;
     public $images_field;
     public $categories_field;
-    public $similar_places_field;
 
     /**
      * {@inheritdoc}
@@ -105,7 +103,7 @@ class Place extends \yii\db\ActiveRecord
             [['visit_cooldown', 'position'], 'integer'],
             [['title', 'full_title', 'sort_title', 'address'], 'string', 'max' => 255],
             [['tags_field', 'location_field', 'coords_field', 'images_field', 'categories_field',
-                'similar_places', 'similar_places_field'], 'safe'],
+                'similar_places'], 'safe'],
         ];
     }
 
@@ -120,7 +118,6 @@ class Place extends \yii\db\ActiveRecord
         if ($this->coords_field) {
             $this->coords = array_map('trim', explode(',', $this->coords_field));
         }
-        $this->similar_places_field = Helper::createSimpleDbArray($this->similar_places_field);
         return parent::beforeValidate();
     }
 
@@ -145,8 +142,6 @@ class Place extends \yii\db\ActiveRecord
         if ($this->coords) {
             $this->coords_field = implode(', ', $this->coords);
         }
-
-        $this->similar_places_field = Helper::parseDbArray($this->similar_places_field);
     }
 
     /**
@@ -183,7 +178,6 @@ class Place extends \yii\db\ActiveRecord
             'position' => 'Позиция',
             'visit_cooldown' => 'Кулдаун визита (в минутах)',
             'similar_places' => 'Похожие места',
-            'similar_places_field' => 'Похожие места',
             'in_trash' => 'В корзине',
             'created_at' => 'Дата добавления',
             'updated_at' => 'Дата обновления',

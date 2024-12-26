@@ -56,67 +56,6 @@ class Helper
     }
 
     /**
-     * @param $string
-     * @param $separator
-     * @return array|false|string[]
-     */
-    public static function parseDbArray($string, $separator = ',')
-    {
-        if (is_array($string)) {
-            return $string;
-        }
-        if (!$string) {
-            return [];
-        }
-        $returnData = explode($separator, trim($string, '{}'));
-        array_walk_recursive($returnData, function (&$value) {
-            $value = is_string($value) ? trim($value, '"') : $value;
-        });
-        return $returnData;
-    }
-
-    /**
-     * @param $data
-     * @param null $defaultValue
-     * @return mixed
-     */
-    public static function parseDbJSON($data, $defaultValue = null)
-    {
-        return $data ? json_decode($data, true) : $defaultValue;
-    }
-
-    /**
-     * create 1lvl dimension postgres array
-     * @param $array
-     * @return string
-     */
-    public static function createSimpleDbArray($array)
-    {
-        if (!is_array($array)) {
-            return null;
-        }
-        // prepare array
-        array_walk_recursive($array, function (&$value) {
-            if (!empty($value)) {
-                $value = trim(Helper::clearString($value));
-                $value = is_string($value) ? '"' . $value . '"' : $value;
-            }
-        });
-        $array = array_filter($array, 'strlen');
-        $returnData = implode(',', $array);
-        return "{" . $returnData . "}";
-    }
-
-    /**
-     * @param $data
-     * @return mixed
-     */
-    public static function createDbJSON($data)
-    {
-        return json_encode($data);
-    }
-
-    /**
      * @param $timestamp
      * @return false|string
      */

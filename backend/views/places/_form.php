@@ -115,7 +115,7 @@ $duplicates = PlacesSearch::findDuplicates($model);
     $dataList = Place::find()->andWhere(['place_id' => $model->similar_places])->all();
     $data = ArrayHelper::map($dataList, 'place_id', 'title');
     ?>
-    <?= $form->field($model, 'similar_places_field')->widget(Select2::classname(), [
+    <?= $form->field($model, 'similar_places')->widget(Select2::classname(), [
         'data' => $data,
         'options' => ['multiple' => true, 'placeholder' => 'Выберите места'],
         'showToggleAll' => false,
