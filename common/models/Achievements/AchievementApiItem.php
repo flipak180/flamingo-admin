@@ -15,9 +15,10 @@ class AchievementApiItem extends DataTransferObject
     public $description;
     public $points;
     public $progress;
+    public $category_id;
 
     /**
-     * @param $model
+     * @param Achievement $model
      * @return $this
      * @throws \Exception
      */
@@ -28,6 +29,7 @@ class AchievementApiItem extends DataTransferObject
         $this->description = $model->description;
         $this->points = $model->points;
         $this->progress = $this->getProgress();
+        $this->category_id = $model->category_id;
         return $this;
     }
 
