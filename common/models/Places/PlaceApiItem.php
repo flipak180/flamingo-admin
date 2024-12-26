@@ -24,6 +24,7 @@ class PlaceApiItem extends DataTransferObject
     public $user_status;
     public $stats;
     public $position;
+    public $similar;
 
     /**
      * @param Place $model
@@ -66,6 +67,17 @@ class PlaceApiItem extends DataTransferObject
         $dto->position = $model->position;
 
         return $dto;
+    }
+
+    /**
+     * @return $this
+     */
+    public function withSimilar()
+    {
+        //$similar = Place::find()->where([]);
+
+        $this->similar = 123;
+        return $this;
     }
 
 }

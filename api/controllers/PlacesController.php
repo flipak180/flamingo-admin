@@ -66,7 +66,7 @@ class PlacesController extends BaseApiController
 
         /** @var Place $place */
         $place = Place::findOne($id);
-        return PlaceApiItem::create()->from($place)->attributes;
+        return PlaceApiItem::create()->from($place)->withSimilar()->attributes;
     }
 
     /**
