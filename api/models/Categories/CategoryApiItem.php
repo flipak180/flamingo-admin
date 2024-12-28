@@ -2,18 +2,20 @@
 
 namespace api\models\Categories;
 
+use ApiItem;
 use common\models\Categories\Category;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
-class CategoryApiItem
+class CategoryApiItem implements ApiItem
 {
 
     /**
      * @param Category $model
-     * @return CategoryApiItem
+     * @param array $extra
+     * @return array
      */
-    public static function from(Category $model): array
+    public static function from($model, array $extra = []): array
     {
         $dto = new self();
 

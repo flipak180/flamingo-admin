@@ -2,18 +2,20 @@
 
 namespace api\models\Stories;
 
+use ApiItem;
 use common\models\Stories\Story;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
-class StoryApiItem
+class StoryApiItem implements ApiItem
 {
 
     /**
      * @param Story $model
+     * @param array $extra
      * @return array
      */
-    public static function from(Story $model): array
+    public static function from($model, array $extra = []): array
     {
 
         $image = $model->image

@@ -2,18 +2,20 @@
 
 namespace api\models\Compilations;
 
+use ApiItem;
 use common\models\Compilations\Compilation;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
-class CompilationApiItem
+class CompilationApiItem implements ApiItem
 {
 
     /**
      * @param Compilation $model
+     * @param array $extra
      * @return array
      */
-    public static function from(Compilation $model): array
+    public static function from($model, array $extra = []): array
     {
         $dto = new self();
 

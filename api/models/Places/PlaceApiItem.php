@@ -2,19 +2,21 @@
 
 namespace api\models\Places;
 
+use ApiItem;
 use common\models\Places\Place;
 use common\models\User;
 use common\models\UserPlace;
 use himiklab\thumbnail\EasyThumbnailImage;
 
-class PlaceApiItem
+class PlaceApiItem implements ApiItem
 {
 
     /**
      * @param Place $model
+     * @param array $extra
      * @return array
      */
-    public static function from(Place $model): array
+    public static function from($model, array $extra = []): array
     {
         $images = [];
         $bigImages = [];

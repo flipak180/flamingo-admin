@@ -2,13 +2,14 @@
 
 namespace api\models\Achievements;
 
+use ApiItem;
 use common\models\Achievements\Achievement;
 use yii\helpers\ArrayHelper;
 
 /**
  *
  */
-class AchievementApiItem
+class AchievementApiItem implements ApiItem
 {
 
     /**
@@ -16,7 +17,7 @@ class AchievementApiItem
      * @param $extra
      * @return array
      */
-    public static function from(Achievement $model, $extra = []): array
+    public static function from($model, $extra = []): array
     {
         $achievementsProgressMap = ArrayHelper::getValue($extra, 'achievementsProgressMap', []);
         $progress = ArrayHelper::getValue($achievementsProgressMap, $model->id, [
