@@ -2,11 +2,11 @@
 
 namespace app\controllers;
 
+use api\models\Places\PlaceApiItem;
 use common\models\PlaceRate;
 use common\models\Places\Place;
 use common\models\Places\PlacesSearch;
 use common\models\Visit;
-use PlaceApiItem;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -62,8 +62,7 @@ class PlacesController extends BaseApiController
      */
     public function actionDetails()
     {
-        //$id = Yii::$app->request->post('id');
-        $id = Yii::$app->request->get('id');
+        $id = Yii::$app->request->post('id');
 
         /** @var Place $place */
         $place = Place::findOne($id);

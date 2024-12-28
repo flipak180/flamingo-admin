@@ -2,10 +2,10 @@
 
 namespace app\controllers;
 
+use api\models\Places\PlaceApiItem;
 use common\components\Helper;
 use common\models\User;
 use common\models\UserPlace;
-use PlaceApiItem;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\UploadedFile;

@@ -3,6 +3,7 @@
 namespace api\models\Compilations;
 
 use api\models\ApiItem;
+use api\models\Places\PlaceApiItem;
 use common\models\Compilations\Compilation;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
@@ -17,11 +18,14 @@ class CompilationApiItem implements ApiItem
      */
     public static function from($model, array $extra = []): array
     {
-        $dto = new self();
-
         $image = $model->image
             ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$model->image->path, 720, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
             : null;
+
+        $places = [];
+        foreach ($model->places as $place) {
+            $places[] = PlaceApiItem::from($place);
+        }
 
         return [
             'id' => $model->compilation_id,
@@ -29,20 +33,7 @@ class CompilationApiItem implements ApiItem
             'description' => $model->description,
             'image' => $image,
             'total_places' => count($model->places),
-            'places' => $dto->getPlaces($model),
+            'places' => $places,
         ];
-    }
-
-    /**
-     * @param Compilation $model
-     * @return array
-     */
-    private function getPlaces($model)
-    {
-        $result = [];
-        foreach ($model->places as $place) {
-            $result[] = PlaceApiItem::create()->from($place)->attributes;
-        }
-        return $result;
     }
 }

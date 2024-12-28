@@ -7,6 +7,7 @@ use common\models\Places\Place;
 use common\models\User;
 use common\models\UserPlace;
 use himiklab\thumbnail\EasyThumbnailImage;
+use Yii;
 
 class PlaceApiItem implements ApiItem
 {

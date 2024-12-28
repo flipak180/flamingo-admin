@@ -2,7 +2,7 @@
 
 namespace common\models\Achievements;
 
-use Achievements\AchievementApiItem;
+use api\models\Achievements\AchievementApiItem;
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -122,9 +122,9 @@ class AchievementProgress extends \yii\db\ActiveRecord
         $achievementProgress->save();
 
         $achievementsProgressMap = AchievementProgress::getMapByUserId(Yii::$app->user->id);
-        return AchievementApiItem::create(
-            ['achievementsProgressMap' => $achievementsProgressMap]
-        )->from($achievement)->attributes;
+        return AchievementApiItem::from($achievement, [
+            'achievementsProgressMap' => $achievementsProgressMap
+        ]);
     }
 
     /**
