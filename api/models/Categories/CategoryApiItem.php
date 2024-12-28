@@ -2,7 +2,7 @@
 
 namespace api\models\Categories;
 
-use ApiItem;
+use api\models\ApiItem;
 use common\models\Categories\Category;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;

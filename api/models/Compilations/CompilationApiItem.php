@@ -2,7 +2,7 @@
 
 namespace api\models\Compilations;
 
-use ApiItem;
+use api\models\ApiItem;
 use common\models\Compilations\Compilation;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;

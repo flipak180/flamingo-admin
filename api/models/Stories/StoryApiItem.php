@@ -2,7 +2,7 @@
 
 namespace api\models\Stories;
 
-use ApiItem;
+use api\models\ApiItem;
 use common\models\Stories\Story;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;

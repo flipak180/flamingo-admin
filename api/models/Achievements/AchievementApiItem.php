@@ -2,7 +2,7 @@
 
 namespace api\models\Achievements;
 
-use ApiItem;
+use api\models\ApiItem;
 use common\models\Achievements\Achievement;
 use yii\helpers\ArrayHelper;
 

@@ -2,7 +2,7 @@
 
 namespace api\models\Places;
 
-use ApiItem;
+use api\models\ApiItem;
 use common\models\Places\Place;
 use common\models\User;
 use common\models\UserPlace;
