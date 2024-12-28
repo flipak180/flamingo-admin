@@ -71,6 +71,7 @@ return [
                 'POST,OPTIONS places/search' => 'places/search',
                 'POST,OPTIONS places/visit' => 'places/visit',
                 'POST,OPTIONS places/details' => 'places/details',
+                'GET places/details' => 'places/details',
                 'POST,OPTIONS places/rate' => 'places/rate',
                 'POST,OPTIONS places/test' => 'places/test',
 

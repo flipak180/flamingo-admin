@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
+use api\models\Categories\CategoryApiItem;
 use common\models\Categories\Category;
-use common\models\Categories\CategoryApiItem;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 use yii\db\Expression;
@@ -67,7 +67,7 @@ class CategoryController extends BaseApiController
             return null;
         }
 
-        return CategoryApiItem::create()->from($category)->attributes;
+        return CategoryApiItem::from($category);
     }
 
     /**

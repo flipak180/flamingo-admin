@@ -3,9 +3,9 @@
 namespace app\controllers;
 
 use common\components\Helper;
-use common\models\Places\PlaceApiItem;
 use common\models\User;
 use common\models\UserPlace;
+use PlaceApiItem;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\UploadedFile;
@@ -104,7 +104,7 @@ class UserController extends BaseApiController
         $user = Yii::$app->user->identity;
         $result = [];
         foreach ($user->rates as $rate) {
-            $result[] = PlaceApiItem::create()->from($rate->place)->attributes;
+            $result[] = PlaceApiItem::from($rate->place);
         }
         return $this->response($result);
     }
@@ -118,7 +118,7 @@ class UserController extends BaseApiController
         $user = Yii::$app->user->identity;
         $result = [];
         foreach ($user->places as $userPlace) {
-            $result[] = PlaceApiItem::create()->from($userPlace->place)->attributes;
+            $result[] = PlaceApiItem::from($userPlace->place);
         }
         return $this->response($result);
     }

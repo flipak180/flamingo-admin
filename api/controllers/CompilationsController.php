@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
+use api\models\Compilations\CompilationApiItem;
 use common\models\Compilations\Compilation;
-use common\models\Compilations\CompilationApiItem;
 use yii\db\Expression;
 
 class CompilationsController extends BaseApiController
@@ -25,7 +25,7 @@ class CompilationsController extends BaseApiController
             return null;
         }
 
-        return CompilationApiItem::create()->from($compilation)->attributes;
+        return CompilationApiItem::from($compilation);
     }
 
     /**
@@ -40,6 +40,6 @@ class CompilationsController extends BaseApiController
             return null;
         }
 
-        return CompilationApiItem::create()->from($compilation)->attributes;
+        return CompilationApiItem::from($compilation);
     }
 }

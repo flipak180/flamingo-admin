@@ -4,9 +4,9 @@ namespace app\controllers;
 
 use common\models\PlaceRate;
 use common\models\Places\Place;
-use common\models\Places\PlaceApiItem;
 use common\models\Places\PlacesSearch;
 use common\models\Visit;
+use PlaceApiItem;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -37,7 +37,7 @@ class PlacesController extends BaseApiController
         $result = [];
         $places = PlacesSearch::getByCategory($category_id, $tag_id);
         foreach ($places as $place) {
-            $result[] = PlaceApiItem::create()->from($place)->attributes;
+            $result[] = PlaceApiItem::from($place);
         }
         return $result;
     }
@@ -52,7 +52,7 @@ class PlacesController extends BaseApiController
         $result = [];
         $places = PlacesSearch::getByTerm($term);
         foreach ($places as $place) {
-            $result[] = PlaceApiItem::create()->from($place)->attributes;
+            $result[] = PlaceApiItem::from($place);
         }
         return $result;
     }
@@ -62,11 +62,12 @@ class PlacesController extends BaseApiController
      */
     public function actionDetails()
     {
-        $id = Yii::$app->request->post('id');
+        //$id = Yii::$app->request->post('id');
+        $id = Yii::$app->request->get('id');
 
         /** @var Place $place */
         $place = Place::findOne($id);
-        return PlaceApiItem::create()->from($place)->withSimilar()->attributes;
+        return PlaceApiItem::from($place);
     }
 
     /**

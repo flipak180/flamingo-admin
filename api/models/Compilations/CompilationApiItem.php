@@ -1,26 +1,19 @@
 <?php
 
-namespace common\models\Compilations;
+namespace api\models\Compilations;
 
-use common\base\DataTransferObject;
-use common\models\Places\PlaceApiItem;
+use common\models\Compilations\Compilation;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
-class CompilationApiItem extends DataTransferObject
+class CompilationApiItem
 {
-    public $id;
-    public $title;
-    public $description;
-    public $image;
-    public $total_places;
-    public $places;
 
     /**
      * @param Compilation $model
-     * @return CompilationApiItem
+     * @return array
      */
-    public function from($model): CompilationApiItem
+    public static function from(Compilation $model): array
     {
         $dto = new self();
 
@@ -28,13 +21,14 @@ class CompilationApiItem extends DataTransferObject
             ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$model->image->path, 720, 400, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
             : null;
 
-        $dto->id = $model->compilation_id;
-        $dto->title = $model->title;
-        $dto->description = $model->description;
-        $dto->image = $image;
-        $dto->total_places = count($model->places);
-        $dto->places = $dto->getPlaces($model);
-        return $dto;
+        return [
+            'id' => $model->compilation_id,
+            'title' => $model->title,
+            'description' => $model->description,
+            'image' => $image,
+            'total_places' => count($model->places),
+            'places' => $dto->getPlaces($model),
+        ];
     }
 
     /**

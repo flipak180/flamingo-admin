@@ -2,6 +2,7 @@
 
 namespace common\models\Achievements;
 
+use Achievements\AchievementApiItem;
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;

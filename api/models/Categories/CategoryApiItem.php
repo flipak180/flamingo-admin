@@ -1,25 +1,19 @@
 <?php
 
-namespace common\models\Categories;
+namespace api\models\Categories;
 
-use common\base\DataTransferObject;
+use common\models\Categories\Category;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
-class CategoryApiItem extends DataTransferObject
+class CategoryApiItem
 {
-    public $id;
-    public $title;
-    public $tags;
-    public $image;
-    public $smallImage;
-    public $places;
 
     /**
      * @param Category $model
      * @return CategoryApiItem
      */
-    public function from($model): CategoryApiItem
+    public static function from(Category $model): array
     {
         $dto = new self();
 
@@ -27,13 +21,14 @@ class CategoryApiItem extends DataTransferObject
             ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$model->image, 100, 82, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
             : null;
 
-        $dto->id = $model->category_id;
-        $dto->title = $model->title;
-        $dto->tags = $dto->getTags($model);
-        $dto->image = $model->image;
-        $dto->smallImage = $smallImage;
-        $dto->places = $dto->getPlaces($model);
-        return $dto;
+        return [
+            'id' => $model->category_id,
+            'title' => $model->title,
+            'tags' => $dto->getTags($model),
+            'image' => $model->image,
+            'smallImage' => $smallImage,
+            'places' => $dto->getPlaces($model),
+        ];
     }
 
     /**

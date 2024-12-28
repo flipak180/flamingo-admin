@@ -2,9 +2,9 @@
 
 namespace app\controllers;
 
+use api\models\Stories\StoryApiItem;
 use common\models\Stories\StoriesSearch;
 use common\models\Stories\Story;
-use common\models\Stories\StoryApiItem;
 use Yii;
 
 class StoriesController extends BaseApiController
@@ -21,7 +21,7 @@ class StoriesController extends BaseApiController
         /** @var Story[] $stories */
         $stories = StoriesSearch::getApiList($from_timestamp);
         foreach ($stories as $story) {
-            $result[] = StoryApiItem::create()->from($story)->attributes;
+            $result[] = StoryApiItem::from($story);
         }
         return $this->response($result);
     }

@@ -2,6 +2,7 @@
 
 namespace common\models\Achievements;
 
+use api\models\Achievements\AchievementApiItem;
 use Yii;
 
 /**
@@ -19,9 +20,9 @@ class AchievementsSearch extends Achievement
         /** @var Achievement $models */
         $models = Achievement::find()->where(['status' => Achievement::STATUS_ACTIVE])->all();
         foreach ($models as $model) {
-            $result[] = AchievementApiItem::create(
-                ['achievementsProgressMap' => $achievementsProgressMap]
-            )->from($model)->attributes;
+            $result[] = AchievementApiItem::from($model, [
+                'achievementsProgressMap' => $achievementsProgressMap
+            ]);
         }
         return $result;
     }
@@ -38,9 +39,9 @@ class AchievementsSearch extends Achievement
         foreach ($achievementCategories as $achievementCategory) {
             $achievements = [];
             foreach ($achievementCategory->achievements as $achievement) {
-                $achievements[] = AchievementApiItem::create(
-                    ['achievementsProgressMap' => $achievementsProgressMap]
-                )->from($achievement)->attributes;
+                $achievements[] = AchievementApiItem::from($achievement, [
+                    'achievementsProgressMap' => $achievementsProgressMap
+                ]);
             }
             $result[] = [
                 'id' => $achievementCategory->id,
