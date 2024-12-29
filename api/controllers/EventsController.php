@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace api\controllers;
 
 use common\models\Event;
 

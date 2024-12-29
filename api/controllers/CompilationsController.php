@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace api\controllers;
 
 use api\models\Compilations\CompilationApiItem;
 use common\models\Compilations\Compilation;

@@ -14,8 +14,8 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=7.4.0",
-        "yiisoft/yii2": "~2.0.45",
+        "php": ">=8.3",
+        "yiisoft/yii2": "2.*",
         "yiisoft/yii2-bootstrap5": "~2.0.2",
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "kartik-v/yii2-widgets": "*",
@@ -25,7 +25,8 @@
         "himiklab/yii2-easy-thumbnail-image-helper": "*",
         "kartik-v/yii2-editors": "dev-master",
         "himiklab/yii2-sortable-grid-view-widget" : "*",
-        "kreait/firebase-php": "^7.0"
+        "kreait/firebase-php": "^7.16.0",
+        "zircote/swagger-php": "^4.11"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -1,7 +1,8 @@
 <?php
 
-namespace app\controllers;
+namespace api\controllers;
 
+use OpenApi\Generator;
 use Yii;
 
 class FlamingoController extends BaseApiController
@@ -37,6 +38,14 @@ class FlamingoController extends BaseApiController
         }
 
         return $result;
+    }
+
+    public function actionDocs()
+    {
+        $openapi = Generator::scan([Yii::getAlias('@api')]);
+
+        header('Content-Type: application/x-yaml');
+        echo $openapi->toYaml();
     }
 
 }

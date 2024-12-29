@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace api\controllers;
 
 use api\models\Stories\StoryApiItem;
 use common\models\Stories\StoriesSearch;

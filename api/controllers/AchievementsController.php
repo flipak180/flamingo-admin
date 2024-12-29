@@ -1,13 +1,15 @@
 <?php
 
-namespace app\controllers;
+namespace api\controllers;
 
 use common\models\Achievements\AchievementCategory;
 use common\models\Achievements\AchievementProgress;
 use common\models\Achievements\AchievementsSearch;
+use OpenApi\Attributes as OA;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
+#[OA\Info(title: "My First API", version: "0.1")]
 class AchievementsController extends BaseApiController
 {
     public $modelClass = 'common\models\Achievements\Achievements';
@@ -26,9 +28,8 @@ class AchievementsController extends BaseApiController
         return $behaviors;
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Get(path: '/api/data.json')]
+    #[OA\Response(response: '200', description: 'The data')]
     public function actionListByCategories()
     {
         $data = AchievementsSearch::getListByCategories();

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace api\controllers;
 
 use api\models\Categories\CategoryApiItem;
 use common\models\Categories\Category;
