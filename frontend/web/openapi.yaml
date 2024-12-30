@@ -45,6 +45,9 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema: {  }
   /api/categories/list:
     get:
       tags:

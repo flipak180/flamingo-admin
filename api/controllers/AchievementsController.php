@@ -59,7 +59,11 @@ class AchievementsController extends BaseApiController
             new OA\Parameter(name: 'points', description: 'Points of the achievement', in: 'query'),
         ],
     )]
-    #[OA\Response(response: '200', description: 'OK')]
+    #[OA\Response(
+        response: '200',
+        description: 'OK',
+        content: new OA\JsonContent()
+    )]
     public function actionAddProgress()
     {
         $achievement_id = Yii::$app->request->post('achievement_id');
