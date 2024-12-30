@@ -3,6 +3,7 @@
 namespace api\controllers;
 
 use common\models\PushTokens\PushTokenActions;
+use OpenApi\Attributes as OA;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -24,24 +25,34 @@ class PushTokensController extends BaseApiController
         return $behaviors;
     }
 
-    /**
-     * @return array
-     * @throws \yii\db\Exception
-     */
+    #[OA\Post(
+        path: '/api/push-tokens/register',
+        tags: ['push-tokens'],
+        parameters: [
+            new OA\Parameter(name: 'token', description: 'Token', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionRegister()
     {
         $token = Yii::$app->request->post('token');
+
         $res = PushTokenActions::register($token);
         return $this->response($res);
     }
 
-    /**
-     * @return array
-     * @throws \yii\db\Exception
-     */
+    #[OA\Post(
+        path: '/api/push-tokens/detach',
+        tags: ['push-tokens'],
+        parameters: [
+            new OA\Parameter(name: 'token', description: 'Token', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionDetach()
     {
         $token = Yii::$app->request->post('token');
+
         $res = PushTokenActions::detach($token);
         return $this->response($res);
     }

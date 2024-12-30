@@ -5,6 +5,7 @@ namespace api\controllers;
 use api\models\Categories\CategoryApiItem;
 use common\models\Categories\Category;
 use himiklab\thumbnail\EasyThumbnailImage;
+use OpenApi\Attributes as OA;
 use Yii;
 use yii\db\Expression;
 
@@ -12,10 +13,14 @@ class CategoryController extends BaseApiController
 {
     public $modelClass = 'common\models\Categories\Category';
 
-    /**
-     * @param $parent_id
-     * @return array|\yii\db\ActiveRecord[]
-     */
+    #[OA\Get(
+        path: '/api/categories/list',
+        tags: ['categories'],
+        parameters: [
+            new OA\Parameter(name: 'parent_id', description: 'Parent ID', in: 'path'),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionList($parent_id = null)
     {
         $result = [];
@@ -55,10 +60,14 @@ class CategoryController extends BaseApiController
         return $result;
     }
 
-    /**
-     * @param $id
-     * @return array|null
-     */
+    #[OA\Get(
+        path: '/api/categories/details',
+        tags: ['categories'],
+        parameters: [
+            new OA\Parameter(name: 'id', description: 'ID', in: 'path', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionDetails($id)
     {
         /** @var Category $category */
@@ -70,12 +79,8 @@ class CategoryController extends BaseApiController
         return CategoryApiItem::from($category);
     }
 
-    /**
-     * @return array|null
-     * @throws \himiklab\thumbnail\FileNotFoundException
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\httpclient\Exception
-     */
+    #[OA\Get(path: '/api/categories/get-homepage-category', tags: ['categories'])]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionGetHomepageCategory()
     {
         /** @var Category $category */
@@ -112,9 +117,8 @@ class CategoryController extends BaseApiController
         ];
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Get(path: '/api/categories/get-popular-categories', tags: ['categories'])]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionGetPopularCategories()
     {
         /** @var Category[] $categories */

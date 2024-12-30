@@ -7,6 +7,7 @@ use common\models\PlaceRate;
 use common\models\Places\Place;
 use common\models\Places\PlacesSearch;
 use common\models\Visit;
+use OpenApi\Attributes as OA;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 
@@ -26,9 +27,15 @@ class PlacesController extends BaseApiController
         return $behaviors;
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/places/list',
+        tags: ['places'],
+        parameters: [
+            new OA\Parameter(name: 'category_id', description: 'Category ID', in: 'query'),
+            new OA\Parameter(name: 'tag_id', description: 'Tag ID', in: 'query'),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionList()
     {
         $category_id = Yii::$app->request->post('category_id');
@@ -42,9 +49,14 @@ class PlacesController extends BaseApiController
         return $result;
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/places/search',
+        tags: ['places'],
+        parameters: [
+            new OA\Parameter(name: 'term', description: 'Search Term', in: 'query'),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionSearch()
     {
         $term = Yii::$app->request->post('term');
@@ -57,9 +69,14 @@ class PlacesController extends BaseApiController
         return $result;
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/places/details',
+        tags: ['places'],
+        parameters: [
+            new OA\Parameter(name: 'id', description: 'ID', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionDetails()
     {
         $id = Yii::$app->request->post('id');
@@ -69,9 +86,15 @@ class PlacesController extends BaseApiController
         return PlaceApiItem::from($place);
     }
 
-    /**
-     * @return bool
-     */
+    #[OA\Post(
+        path: '/api/places/rate',
+        tags: ['places'],
+        parameters: [
+            new OA\Parameter(name: 'rate', description: 'Rate', in: 'query', required: true),
+            new OA\Parameter(name: 'place_id', description: 'Place ID', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionRate()
     {
         $rate = Yii::$app->request->post('rate');
@@ -80,9 +103,14 @@ class PlacesController extends BaseApiController
         return PlaceRate::create($place_id, $rate);
     }
 
-    /**
-     * @return bool
-     */
+    #[OA\Post(
+        path: '/api/places/visit',
+        tags: ['places'],
+        parameters: [
+            new OA\Parameter(name: 'place_id', description: 'Place ID', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionVisit()
     {
         $place_id = Yii::$app->request->post('place_id');

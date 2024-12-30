@@ -39,27 +39,16 @@ return [
 
     'POST,OPTIONS tickets/create' => 'tickets/create',
 
-//                [
-//                    'class' => 'yii\rest\UrlRule',
-//                    'controller' => 'place',
-//                    'extraPatterns' => [
-//                        'POST,OPTIONS visit' => 'visit',
-//                        'GET list' => 'list',
-//                        'GET details' => 'details',
-//                    ],
-//                ],
     [
         'class' => 'yii\rest\UrlRule',
         'controller' => 'category',
         'extraPatterns' => [
-            'POST,OPTIONS visit' => 'visit',
             'GET list' => 'list',
             'GET details' => 'details',
             'GET get-homepage-category' => 'get-homepage-category',
             'GET get-popular-categories' => 'get-popular-categories',
         ],
     ],
-    ['class' => 'yii\rest\UrlRule', 'controller' => 'tag'],
     [
         'class' => 'yii\rest\UrlRule',
         'controller' => 'user',
@@ -73,16 +62,4 @@ return [
             'POST,OPTIONS delete-account' => 'delete-account',
         ],
     ],
-
-    //'POST,OPTIONS quests/start' => 'quest/start',
-    //'POST,OPTIONS quests/visit' => 'quest/visit',
-
-//                [
-//                    'class' => 'yii\rest\UrlRule',
-//                    'controller' => 'v1/place',
-//                    'tokens' => [
-//                        '{id}' => '<id:\\w+>'
-//                    ]
-//
-//                ]
 ];

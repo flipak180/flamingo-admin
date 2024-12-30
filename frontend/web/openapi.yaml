@@ -1,0 +1,365 @@
+openapi: 3.0.0
+info:
+  title: 'Flamingo API'
+  version: '1.0'
+paths:
+  /api/achievements/list-by-categories:
+    post:
+      tags:
+        - achievements
+      operationId: 59bb922c3aa193f858583a643404169c
+      responses:
+        '200':
+          description: OK
+  /api/achievements/list:
+    post:
+      tags:
+        - achievements
+      operationId: d721f54b2571980229a8d7c255bdc54b
+      responses:
+        '200':
+          description: OK
+  /api/achievements/categories:
+    post:
+      tags:
+        - achievements
+      operationId: dc496e84f1576da59411a17b32415422
+      responses:
+        '200':
+          description: OK
+  /api/achievements/add-progress:
+    post:
+      tags:
+        - achievements
+      operationId: 60a49d6e318686ba39366a83015c62ee
+      parameters:
+        -
+          name: achievement_id
+          in: query
+          description: 'ID of the achievement'
+          required: true
+        -
+          name: points
+          in: query
+          description: 'Points of the achievement'
+      responses:
+        '200':
+          description: OK
+  /api/categories/list:
+    get:
+      tags:
+        - categories
+      operationId: c312b3c7a715472aaa61e7851c942a85
+      parameters:
+        -
+          name: parent_id
+          in: path
+          description: 'Parent ID'
+      responses:
+        '200':
+          description: OK
+  /api/categories/details:
+    get:
+      tags:
+        - categories
+      operationId: 8cd31514b4e3bbcd2ce4df33364f227f
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/categories/get-homepage-category:
+    get:
+      tags:
+        - categories
+      operationId: 8fb1acf22a6dd51014bf3f8635ad4058
+      responses:
+        '200':
+          description: OK
+  /api/categories/get-popular-categories:
+    get:
+      tags:
+        - categories
+      operationId: a8626c4224360d274b54568cd065044e
+      responses:
+        '200':
+          description: OK
+  /api/compilations/get-actual-compilation:
+    get:
+      tags:
+        - compilations
+      operationId: 5c39a2ff644873c6cd9ddf72b251416e
+      responses:
+        '200':
+          description: OK
+  /api/compilations/details:
+    get:
+      tags:
+        - compilations
+      operationId: 14df8d5bc77f1fa004ab579a5e9cd6bb
+      parameters:
+        -
+          name: id
+          in: path
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/places/list:
+    post:
+      tags:
+        - places
+      operationId: f2d793b06aa686c1603805fab95c2cc7
+      parameters:
+        -
+          name: category_id
+          in: query
+          description: 'Category ID'
+        -
+          name: tag_id
+          in: query
+          description: 'Tag ID'
+      responses:
+        '200':
+          description: OK
+  /api/places/search:
+    post:
+      tags:
+        - places
+      operationId: 9e4c52c1587a7a28664b2de3c5e20bf0
+      parameters:
+        -
+          name: term
+          in: query
+          description: 'Search Term'
+      responses:
+        '200':
+          description: OK
+  /api/places/details:
+    post:
+      tags:
+        - places
+      operationId: efc59c377aaceea346906999cba34241
+      parameters:
+        -
+          name: id
+          in: query
+          description: ID
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/places/rate:
+    post:
+      tags:
+        - places
+      operationId: 8adca4c1773c9797f77ef50c5f63d4f5
+      parameters:
+        -
+          name: rate
+          in: query
+          description: Rate
+          required: true
+        -
+          name: place_id
+          in: query
+          description: 'Place ID'
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/places/visit:
+    post:
+      tags:
+        - places
+      operationId: d2a064544ec57e615c2797bd92de44d3
+      parameters:
+        -
+          name: place_id
+          in: query
+          description: 'Place ID'
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/push-tokens/register:
+    post:
+      tags:
+        - push-tokens
+      operationId: 2aeff71b2d274c654cb3d94eea60d6e2
+      parameters:
+        -
+          name: token
+          in: query
+          description: Token
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/push-tokens/detach:
+    post:
+      tags:
+        - push-tokens
+      operationId: 4c11b6b8d560ec751e817974167be8b4
+      parameters:
+        -
+          name: token
+          in: query
+          description: Token
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/stories/list:
+    get:
+      tags:
+        - stories
+      operationId: 1e0148bc021d691f90ca6fd31ad20684
+      parameters:
+        -
+          name: from_timestamp
+          in: path
+          description: 'From Timestamp'
+      responses:
+        '200':
+          description: OK
+  /api/tickets/create:
+    post:
+      tags:
+        - tickets
+      operationId: 66ce5bb950fc7d33be236cc4fdcd7a89
+      parameters:
+        -
+          name: user_id
+          in: query
+          description: 'User ID'
+          required: true
+        -
+          name: type
+          in: query
+          description: Type
+          required: true
+        -
+          name: message
+          in: query
+          description: Message
+          required: true
+        -
+          name: images_field
+          in: query
+          description: Images
+      responses:
+        '200':
+          description: OK
+  /api/users/auth:
+    post:
+      tags:
+        - users
+      operationId: be31eea04b7bf22a19f7e85b13efc087
+      parameters:
+        -
+          name: phone
+          in: query
+          description: Phone
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/users/get-profile:
+    post:
+      tags:
+        - users
+      operationId: 95cecfd5f697de06ea344e890d68a1a9
+      responses:
+        '200':
+          description: OK
+  /api/users/update-profile:
+    post:
+      tags:
+        - users
+      operationId: f1f58a0c397761d99800ef5e5b29ca92
+      parameters:
+        -
+          name: name
+          in: query
+          description: Name
+        -
+          name: avatar
+          in: query
+          description: Avatar
+      responses:
+        '200':
+          description: OK
+  /api/users/get-rated-places:
+    post:
+      tags:
+        - users
+      operationId: 720d0a91eb5ab6ad8668e58b9365abe3
+      responses:
+        '200':
+          description: OK
+  /api/users/get-places:
+    post:
+      tags:
+        - users
+      operationId: 8933e2a599d42f9d52bc360e7845cc44
+      responses:
+        '200':
+          description: OK
+  /api/users/place:
+    post:
+      tags:
+        - users
+      operationId: de405d54c3160742ae7f9485daaca05c
+      parameters:
+        -
+          name: place_id
+          in: query
+          description: 'Place ID'
+          required: true
+        -
+          name: status
+          in: query
+          description: Status
+          required: true
+      responses:
+        '200':
+          description: OK
+  /api/users/delete-account:
+    post:
+      tags:
+        - users
+      operationId: 66e9d78c6b6b74a6ec471414e83fa9f5
+      responses:
+        '200':
+          description: OK
+tags:
+  -
+    name: achievements
+    description: achievements
+  -
+    name: categories
+    description: categories
+  -
+    name: compilations
+    description: compilations
+  -
+    name: places
+    description: places
+  -
+    name: push-tokens
+    description: push-tokens
+  -
+    name: stories
+    description: stories
+  -
+    name: tickets
+    description: tickets
+  -
+    name: users
+    description: users

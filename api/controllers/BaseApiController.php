@@ -2,11 +2,13 @@
 
 namespace api\controllers;
 
+use OpenApi\Attributes as OA;
 use yii\filters\ContentNegotiator;
 use yii\filters\Cors;
 use yii\rest\Controller;
 use yii\web\Response;
 
+#[OA\Info(title: "Flamingo API", version: "1.0")]
 abstract class BaseApiController extends Controller
 {
 

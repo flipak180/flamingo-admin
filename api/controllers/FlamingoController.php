@@ -8,6 +8,10 @@ use Yii;
 class FlamingoController extends BaseApiController
 {
 
+    /**
+     * @return array
+     * @throws \yii\db\Exception
+     */
     public function actionSearch()
     {
         $result = [];
@@ -40,10 +44,12 @@ class FlamingoController extends BaseApiController
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function actionDocs()
     {
         $openapi = Generator::scan([Yii::getAlias('@api')]);
-
         header('Content-Type: application/x-yaml');
         echo $openapi->toYaml();
     }

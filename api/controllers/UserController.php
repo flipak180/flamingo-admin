@@ -6,6 +6,7 @@ use api\models\Places\PlaceApiItem;
 use common\components\Helper;
 use common\models\User;
 use common\models\UserPlace;
+use OpenApi\Attributes as OA;
 use Yii;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\UploadedFile;
@@ -27,9 +28,14 @@ class UserController extends BaseApiController
         return $behaviors;
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/users/auth',
+        tags: ['users'],
+        parameters: [
+            new OA\Parameter(name: 'phone', description: 'Phone', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionAuth()
     {
         $phone = Yii::$app->request->post('phone');
@@ -57,9 +63,11 @@ class UserController extends BaseApiController
         ]);
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/users/get-profile',
+        tags: ['users'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionGetProfile()
     {
         /** @var User $user */
@@ -71,9 +79,15 @@ class UserController extends BaseApiController
         ]);
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/users/update-profile',
+        tags: ['users'],
+        parameters: [
+            new OA\Parameter(name: 'name', description: 'Name', in: 'query'),
+            new OA\Parameter(name: 'avatar', description: 'Avatar', in: 'query'),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionUpdateProfile()
     {
         /** @var User $user */
@@ -95,9 +109,11 @@ class UserController extends BaseApiController
         ]);
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/users/get-rated-places',
+        tags: ['users'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionGetRatedPlaces()
     {
         /** @var User $user */
@@ -109,9 +125,11 @@ class UserController extends BaseApiController
         return $this->response($result);
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/users/get-places',
+        tags: ['users'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionGetPlaces()
     {
         /** @var User $user */
@@ -123,9 +141,15 @@ class UserController extends BaseApiController
         return $this->response($result);
     }
 
-    /**
-     * @return array
-     */
+    #[OA\Post(
+        path: '/api/users/place',
+        tags: ['users'],
+        parameters: [
+            new OA\Parameter(name: 'place_id', description: 'Place ID', in: 'query', required: true),
+            new OA\Parameter(name: 'status', description: 'Status', in: 'query', required: true),
+        ]
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionPlace()
     {
         /** @var User $user */
@@ -149,11 +173,11 @@ class UserController extends BaseApiController
         return $this->response(true);
     }
 
-    /**
-     * @return array
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
-     */
+    #[OA\Post(
+        path: '/api/users/delete-account',
+        tags: ['users'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
     public function actionDeleteAccount()
     {
         /** @var User $user */

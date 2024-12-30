@@ -12,9 +12,10 @@ $routes = require(__DIR__ . '/routes.php');
 return [
     'id' => 'app-api',
     'language' => 'ru',
-    'name' => 'FlaminGO',
+    'name' => 'Фламинго',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'controllerNamespace' => 'api\controllers',
     'modules' => [
 //        'v1' => [
 //            'basePath' => '@app/modules/v1',
