@@ -8,6 +8,7 @@ use himiklab\thumbnail\EasyThumbnailImage;
 use OpenApi\Attributes as OA;
 use Yii;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 class CategoryController extends BaseApiController
 {
@@ -38,26 +39,17 @@ class CategoryController extends BaseApiController
                 ->andWhere('categories.in_trash IS NOT TRUE')
                 ->orderBy('position ASC')
                 ->all();
-            $result[$category->position] = [
-                'id' => $category->category_id,
-                'title' => $category->title,
+            $result[$category->position] = ArrayHelper::merge(CategoryApiItem::from($category), [
                 'subcategories' => [],
-            ];
+            ]);
             foreach ($subcategories as $subcategory) {
-                $image = $subcategory->image
-                    ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$subcategory->image, 100, 82, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
-                    : null;
-                $result[$category->position]['subcategories'][] = [
-                    'id' => $subcategory->category_id,
-                    'title' => $subcategory->title,
-                    'image' => $image,
-                ];
+                $result[$category->position]['subcategories'][] = CategoryApiItem::from($subcategory);
             }
         }
 
         //ksort($result);
 
-        return $result;
+        return array_values($result);
     }
 
     #[OA\Get(
