@@ -83,6 +83,10 @@ class PlacesController extends BaseApiController
 
         /** @var Place $place */
         $place = Place::findOne($id);
+        if (!$place) {
+            return null;
+        }
+
         return PlaceApiItem::from($place);
     }
 
