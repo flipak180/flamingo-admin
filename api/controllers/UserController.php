@@ -31,19 +31,19 @@ class UserController extends BaseApiController
     #[OA\Post(
         path: '/api/users/auth',
         tags: ['users'],
-        parameters: [
-            new OA\Parameter(name: 'phone', description: 'Phone', in: 'query', required: true),
-        ]
+        requestBody: new OA\RequestBody(content: [
+
+        ])
     )]
     #[OA\Response(response: '200', description: 'OK')]
     public function actionAuth()
     {
         $phone = Yii::$app->request->post('phone');
-        $phone = Helper::clearPhone($phone);
         if (!$phone) {
             return $this->error(400, 'Не указан номер телефона.');
         }
 
+        $phone = Helper::clearPhone($phone);
         //Yii::$app->sms->sendSMS($phone, '');
 
         $phone = User::encryptPhone($phone);
@@ -157,6 +157,10 @@ class UserController extends BaseApiController
 
         $place_id = Yii::$app->request->post('place_id');
         $status = Yii::$app->request->post('status');
+
+        if (!$place_id || !$status) {
+            return $this->error(400);
+        }
 
         $userPlace = UserPlace::findOne(['place_id' => $place_id, 'user_id' => $user->user_id]);
         if (!$userPlace) {
