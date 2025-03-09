@@ -31,7 +31,7 @@ return [
     'POST,OPTIONS places/rate' => 'places/rate',
     'POST,OPTIONS places/test' => 'places/test',
 
-    'GET compilations/get-actual-compilation' => 'compilations/get-actual-compilation',
+    'GET compilations/get-actual-compilations' => 'compilations/get-actual-compilations',
     'GET compilations/details' => 'compilations/details',
 
     'GET search' => 'flamingo/search',

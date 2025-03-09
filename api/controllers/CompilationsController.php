@@ -11,21 +11,23 @@ class CompilationsController extends BaseApiController
 {
     public $modelClass = 'common\models\Compilations\Compilation';
 
-    #[OA\Get(path: '/api/compilations/get-actual-compilation', tags: ['compilations'])]
+    #[OA\Get(path: '/api/compilations/get-actual-compilations', tags: ['compilations'])]
     #[OA\Response(response: '200', description: 'OK')]
-    public function actionGetActualCompilation()
+    public function actionGetActualCompilations()
     {
-        /** @var Compilation $compilation */
-        $compilation = Compilation::find()
+        $result = [];
+
+        /** @var Compilation[] $compilations */
+        $compilations = Compilation::find()
             ->where(['is_actual' => true])
             ->orderBy(new Expression('random()'))
-            ->one();
+            ->all();
 
-        if (!$compilation) {
-            return null;
+        foreach ($compilations as $compilation) {
+            $result[] = CompilationApiItem::from($compilation);
         }
 
-        return CompilationApiItem::from($compilation);
+        return $result;
     }
 
     #[OA\Get(
