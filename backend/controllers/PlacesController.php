@@ -3,7 +3,9 @@
 namespace backend\controllers;
 
 use backend\models\PlacesSearch;
+use common\models\PlaceCategory;
 use common\models\Places\Place;
+use common\models\PlaceTag;
 use himiklab\sortablegrid\SortableGridAction;
 use Yii;
 use yii\db\Query;
@@ -139,6 +141,22 @@ class PlacesController extends Controller
         $model->save(false);
 
         // $this->findModel($id)->delete();
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * Deletes an existing Place model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param int $id ID
+     * @return Response
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionDeleteFull($id)
+    {
+        $this->findModel($id)->delete();
+        PlaceCategory::deleteAll(['place_id' => $id]);
+        PlaceTag::deleteAll(['place_id' => $id]);
 
         return $this->redirect(['index']);
     }
