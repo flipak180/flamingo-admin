@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Tag;
+use common\models\Tags\Tag;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;

@@ -8,7 +8,7 @@ use common\models\ImageModel;
 use common\models\PlaceCategory;
 use common\models\PlaceRate;
 use common\models\PlaceTag;
-use common\models\Tag;
+use common\models\Tags\Tag;
 use common\models\UserPlace;
 use common\models\Visit;
 use himiklab\sortablegrid\SortableGridBehavior;

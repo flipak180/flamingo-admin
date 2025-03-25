@@ -1,8 +1,9 @@
 <?php
 
-namespace common\models;
+namespace common\models\Tags;
 
 use common\models\Places\Place;
+use common\models\PlaceTag;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

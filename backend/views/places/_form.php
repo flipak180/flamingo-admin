@@ -3,7 +3,7 @@
 use common\models\Categories\Category;
 use common\models\Places\Place;
 use common\models\Places\PlacesSearch;
-use common\models\Tag;
+use common\models\Tags\Tag;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\editors\Summernote;
 use kartik\widgets\FileInput;

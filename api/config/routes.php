@@ -34,6 +34,8 @@ return [
     'GET compilations/get-actual-compilations' => 'compilations/get-actual-compilations',
     'GET compilations/details' => 'compilations/details',
 
+    'GET tags/list' => 'tags/list',
+
     'GET search' => 'flamingo/search',
     'GET docs' => 'flamingo/docs',
 

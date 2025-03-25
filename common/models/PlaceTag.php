@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\models\Places\Place;
+use common\models\Tags\Tag;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

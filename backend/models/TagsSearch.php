@@ -2,7 +2,7 @@
 
 namespace backend\models;
 
-use common\models\Tag;
+use common\models\Tags\Tag;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 

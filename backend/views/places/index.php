@@ -2,7 +2,7 @@
 
 use common\models\Categories\Category;
 use common\models\Places\Place;
-use common\models\Tag;
+use common\models\Tags\Tag;
 use himiklab\sortablegrid\SortableGridView;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;

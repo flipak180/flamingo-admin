@@ -2,7 +2,7 @@
 
 namespace common\models\Categories;
 
-use common\models\Tag;
+use common\models\Tags\Tag;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

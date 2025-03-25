@@ -1,7 +1,7 @@
 <?php
 
 use common\models\Categories\Category;
-use common\models\Tag;
+use common\models\Tags\Tag;
 use himiklab\thumbnail\EasyThumbnailImage;
 use kartik\widgets\FileInput;
 use kartik\widgets\Select2;
