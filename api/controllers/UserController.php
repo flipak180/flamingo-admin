@@ -6,7 +6,7 @@ use api\models\Places\PlaceApiItem;
 use common\components\Helper;
 use common\models\User;
 use common\models\UserPlace;
-use common\models\UserProgress;
+use common\models\UserProgress\UserProgress;
 use OpenApi\Attributes as OA;
 use Yii;
 use yii\db\Exception;
