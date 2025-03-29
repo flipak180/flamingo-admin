@@ -1,5 +1,7 @@
 <?php
 
+use common\models\User;
+
 /**
  * This class only exists here for IDE (PHPStorm/Netbeans/...) autocompletion.
  * This file is never included anywhere.
@@ -19,15 +21,15 @@ class Yii {
 }
 
 /**
- * @property yii\rbac\DbManager $authManager 
+ * @property yii\rbac\DbManager $authManager
  * @property \yii\web\User|__WebUser $user
- * 
+ *
  */
 class __Application {
 }
 
 /**
- * @property app\models\User $identity
+ * @property User $identity
  */
 class __WebUser {
 }

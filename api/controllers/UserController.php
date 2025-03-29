@@ -6,8 +6,10 @@ use api\models\Places\PlaceApiItem;
 use common\components\Helper;
 use common\models\User;
 use common\models\UserPlace;
+use common\models\UserProgress;
 use OpenApi\Attributes as OA;
 use Yii;
+use yii\db\Exception;
 use yii\filters\auth\HttpBearerAuth;
 use yii\web\UploadedFile;
 
@@ -175,6 +177,19 @@ class UserController extends BaseApiController
         }
 
         return $this->response(true);
+    }
+
+    /**
+     * @throws Exception
+     */
+    #[OA\Post(
+        path: '/api/users/get-progress',
+        tags: ['users'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
+    public function actionGetProgress()
+    {
+        return $this->response(UserProgress::byCategories());
     }
 
     #[OA\Post(

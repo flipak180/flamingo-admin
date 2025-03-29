@@ -5,6 +5,7 @@ namespace common\models;
 use common\models\Places\Place;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\Exception;
 use yii\db\Expression;
 
 /**
@@ -109,6 +110,7 @@ class Visit extends \yii\db\ActiveRecord
     /**
      * @param $place_id
      * @return bool
+     * @throws Exception
      */
     public static function create($place_id)
     {

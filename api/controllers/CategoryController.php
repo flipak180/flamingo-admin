@@ -123,10 +123,14 @@ class CategoryController extends BaseApiController
         $result = [];
 
         foreach ($categories as $category) {
+            $smallImage = $category->image
+                ? EasyThumbnailImage::thumbnailFileUrl(Yii::getAlias('@frontend_web').$category->image, 100, 82, EasyThumbnailImage::THUMBNAIL_OUTBOUND, 100)
+                : null;
             $result[] = [
                 'id' => $category->category_id,
                 'title' => $category->title,
                 'total_places' => $category->getCountPlaces(),
+                'smallImage' => $smallImage,
             ];
         }
 
