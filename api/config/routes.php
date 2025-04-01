@@ -4,6 +4,7 @@ return [
     'GET events/details' => 'events/details',
 
     'POST,OPTIONS send-sms' => 'system/send-sms',
+    'POST,OPTIONS send-code' => 'system/send-code',
 
     'GET stories/list' => 'stories/list',
 
