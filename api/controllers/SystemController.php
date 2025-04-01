@@ -32,4 +32,16 @@ class SystemController extends BaseApiController
         return Telegram::sendConfirmationCode($phone, $code);
     }
 
+    /**
+     * @return bool
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
+     */
+    public function actionNotify()
+    {
+        $text = Yii::$app->request->post('text');
+
+        return Telegram::sendNotification($text);
+    }
+
 }
