@@ -10,7 +10,9 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
     <?php $form = ActiveForm::begin(); ?>
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'type' => 'phone']) ?>
+    <?php if ($model->isNewRecord): ?>
+        <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'type' => 'phone']) ?>
+    <?php endif ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
