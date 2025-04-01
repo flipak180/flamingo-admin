@@ -52,7 +52,7 @@ class Telegram
             ->setFormat(Client::FORMAT_JSON)
             ->addHeaders(['Authorization' => 'Bearer ' . self::GATEWAY_TOKEN,])
             ->setUrl(self::BOT_URL . self::BOT_TOKEN . '/sendMessage')
-            ->setData(['chat_id' => self::MY_ID, 'text' => $text, 'parse_mode' => 'MarkdownV2'])
+            ->setData(['chat_id' => self::MY_ID, 'text' => $text, 'parse_mode' => 'HTML'])
             ->send();
 
         \Yii::info($response->data);
