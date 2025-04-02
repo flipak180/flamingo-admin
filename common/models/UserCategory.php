@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use api\models\Categories\CategoryApiItem;
 use common\models\Categories\Category;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -116,14 +117,19 @@ class UserCategory extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return Category[]
+     * @return array
      */
     public static function getAllCategories()
     {
-        return Category::find()
+        $categories = Category::find()
             ->where(['not', ['parent_id' => null]])
             ->andWhere('categories.in_trash IS NOT TRUE')
             ->orderBy('title ASC')
             ->all();
+
+        return array_map(
+            fn($category) => CategoryApiItem::from($category),
+            $categories
+        );
     }
 }
