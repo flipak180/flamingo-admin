@@ -132,4 +132,36 @@ class UserCategory extends \yii\db\ActiveRecord
             $categories
         );
     }
+
+    /**
+     * @param $ids
+     * @param $userId
+     * @return true
+     * @throws \Throwable
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
+     */
+    public static function saveCategoriesByUserId($ids, $userId)
+    {
+        $existingCategoryIds = [];
+        $existingCategories = UserCategory::findAll(['user_id' => $userId]);
+        foreach ($existingCategories as $category) {
+            if (!in_array($category->category_id, $ids)) {
+                $category->delete();
+            }
+
+            $existingCategoryIds[] = $category->category_id;
+        }
+
+        foreach ($ids as $categoryId) {
+            if (!in_array($categoryId, $existingCategoryIds)) {
+                $category = new UserCategory();
+                $category->category_id = $categoryId;
+                $category->user_id = $userId;
+                $category->save();
+            }
+        }
+
+        return true;
+    }
 }

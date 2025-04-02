@@ -45,6 +45,17 @@ class UserCategoriesController extends BaseApiController
         return UserCategory::getCategoryIdsByUserId(Yii::$app->user->id);
     }
 
+    #[OA\Post(
+        path: '/api/user-categories/save',
+        tags: ['user-categories'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
+    public function actionSave()
+    {
+        $ids = Yii::$app->request->post('ids');
+        return UserCategory::saveCategoriesByUserId(explode(',', $ids), Yii::$app->user->id);
+    }
+
     #[OA\Get(
         path: '/api/user-categories/get-all-categories',
         tags: ['user-categories'],
