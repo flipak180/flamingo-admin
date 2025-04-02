@@ -114,4 +114,16 @@ class UserCategory extends \yii\db\ActiveRecord
             UserCategory::findAll(['user_id' => $userId])
         );
     }
+
+    /**
+     * @return Category[]
+     */
+    public static function getAllCategories()
+    {
+        return Category::find()
+            ->where(['not', ['parent_id' => null]])
+            ->andWhere('categories.in_trash IS NOT TRUE')
+            ->orderBy('title ASC')
+            ->all();
+    }
 }

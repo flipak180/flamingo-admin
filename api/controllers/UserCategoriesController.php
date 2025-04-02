@@ -19,6 +19,7 @@ class UserCategoriesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
+            'except' => ['get-all-categories'],
         ];
         return $behaviors;
     }
@@ -35,12 +36,22 @@ class UserCategoriesController extends BaseApiController
     }
 
     #[OA\Post(
-        path: '/api/user-categories/toggle-category',
+        path: '/api/user-categories/get-categories',
         tags: ['user-categories'],
     )]
     #[OA\Response(response: '200', description: 'OK')]
     public function actionGetCategories()
     {
         return UserCategory::getCategoryIdsByUserId(Yii::$app->user->id);
+    }
+
+    #[OA\Get(
+        path: '/api/user-categories/get-all-categories',
+        tags: ['user-categories'],
+    )]
+    #[OA\Response(response: '200', description: 'OK')]
+    public function actionGetAllCategories()
+    {
+        return UserCategory::getAllCategories();
     }
 }

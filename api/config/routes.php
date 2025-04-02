@@ -70,4 +70,5 @@ return [
 
     'POST,OPTIONS user-categories/toggle-category' => 'user-categories/toggle-category',
     'POST,OPTIONS user-categories/get-categories' => 'user-categories/get-categories',
+    'GET user-categories/get-all-categories' => 'user-categories/get-all-categories',
 ];
