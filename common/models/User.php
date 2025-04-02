@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\components\Helper;
+use common\models\Categories\Category;
 use common\models\PushTokens\PushToken;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
@@ -149,6 +150,14 @@ class User extends \yii\db\ActiveRecord implements IdentityInterface
     public function getVisits()
     {
         return $this->hasMany(Visit::className(), ['user_id' => 'user_id'])->orderBy('visit_id DESC');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserCategories()
+    {
+        return $this->hasMany(UserCategory::className(), ['category_id' => 'category_id']);
     }
 
     /**

@@ -67,4 +67,7 @@ return [
             'POST,OPTIONS delete-account' => 'delete-account',
         ],
     ],
+
+    'POST,OPTIONS user-categories/toggle-category' => 'user-categories/toggle-category',
+    'POST,OPTIONS user-categories/get-categories' => 'user-categories/get-categories',
 ];
