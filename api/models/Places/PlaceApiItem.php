@@ -39,13 +39,12 @@ class PlaceApiItem implements ApiItem
         /** @var User $user */
         $user = Yii::$app->user->identity;
         $userPlace = $user ? UserPlace::findOne(['place_id' => $model->place_id, 'user_id' => $user->user_id]) : null;
-
-        $visits = Visit::find()
+        $visits = $user ? Visit::find()
             ->select(['created_at'])
             ->where(['place_id' => $model->place_id, 'user_id' => $user->user_id])
-            ->column();
+            ->column() : [];
 
-        $lastVisit = min($visits);
+        $lastVisit = count($visits) ? min($visits) : null;
 
         return [
             'id' => $model->place_id,
