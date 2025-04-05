@@ -6,6 +6,7 @@ use api\models\ApiItem;
 use common\models\Places\Place;
 use common\models\User;
 use common\models\UserPlace;
+use common\models\Visit;
 use himiklab\thumbnail\EasyThumbnailImage;
 use Yii;
 
@@ -39,6 +40,13 @@ class PlaceApiItem implements ApiItem
         $user = Yii::$app->user->identity;
         $userPlace = $user ? UserPlace::findOne(['place_id' => $model->place_id, 'user_id' => $user->user_id]) : null;
 
+        $visits = Visit::find()
+            ->select(['created_at'])
+            ->where(['place_id' => $model->place_id, 'user_id' => $user->user_id])
+            ->column();
+
+        $lastVisit = min($visits);
+
         return [
             'id' => $model->place_id,
             'title' => $model->title,
@@ -56,6 +64,8 @@ class PlaceApiItem implements ApiItem
             'user_status' => $userPlace ? $userPlace->status : 0,
             'stats' => $model->getStats(),
             'position' => $model->position,
+            'visits' => $visits,
+            'lastVisit' => $lastVisit,
         ];
     }
 
