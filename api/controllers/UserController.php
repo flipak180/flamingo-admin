@@ -32,10 +32,10 @@ class UserController extends BaseApiController
 
     #[OA\Post(
         path: '/api/users/auth',
-        tags: ['users'],
         requestBody: new OA\RequestBody(content: [
 
-        ])
+        ]),
+        tags: ['users']
     )]
     #[OA\Response(response: '200', description: 'OK')]
     public function actionAuth()
@@ -46,7 +46,7 @@ class UserController extends BaseApiController
         }
 
         $phone = Helper::clearPhone($phone);
-        //Yii::$app->sms->sendSMS($phone, '');
+        //Yii::$app->sms->sendSMS($phone);
 
         $phone = User::encryptPhone($phone);
         $user = User::findOne(['phone' => $phone]);

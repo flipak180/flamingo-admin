@@ -4,13 +4,15 @@ namespace common\components;
 
 use yii\base\Component;
 
-class SmsComponent extends Component {
+class SmsComponent extends Component
+{
 
     const LOGIN = 'baltzdrav';
     const API_KEY = 'cDOjEEbrRmZNBLGgwCVDxOgV';
     const SENDER_NAME = 'Flamingo';
 
-    public function send($phone, $text) {
+    public function send($phone, $text)
+    {
         $phone = Helper::clearPhone($phone);
 
         $ts = 'ts-value-' . time();
@@ -27,12 +29,13 @@ class SmsComponent extends Component {
             'Content-type: application/json'
         ]);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
-            'route' => 'pushok',
+            'route' => 'tgauth',
+            //'route' => 'pushok',
             //'route' => 'sms',
             //'from' => self::SENDER_NAME,
             'to' => $phone,
-            'text' => 'phone'
-            //'text' => $text
+            //'text' => 'phone'
+            'text' => $text
         ]));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
