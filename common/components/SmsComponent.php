@@ -45,6 +45,7 @@ class SmsComponent extends Component
         curl_close($ch);
 
         $response_data = json_decode($response, true);
+        \Yii::info($response_data);
 
         return $response_data['success'];
     }
