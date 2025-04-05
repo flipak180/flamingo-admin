@@ -46,7 +46,6 @@ class UserController extends BaseApiController
         }
 
         $phone = Helper::clearPhone($phone);
-        //Yii::$app->sms->sendSMS($phone);
 
         $phone = User::encryptPhone($phone);
         $user = User::findOne(['phone' => $phone]);
