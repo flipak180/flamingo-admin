@@ -50,13 +50,13 @@ class UserController extends BaseApiController
         $phone = User::encryptPhone($phone);
         $user = User::findOne(['phone' => $phone]);
         if (!$user) {
-            return $this->error(400, 'Номер телефона не зарегистрирован.');
-//            $user = new User();
-//            $user->name = User::DEFAULT_NAME;
-//            $user->phone = $phone;
-//            if (!$user->save()) {
-//                return $this->error(500, 'Произошла ошибка.');
-//            }
+            //return $this->error(400, 'Номер телефона не зарегистрирован.');
+            $user = new User();
+            $user->name = User::DEFAULT_NAME;
+            $user->phone = $phone;
+            if (!$user->save()) {
+                return $this->error(500, 'Произошла ошибка.');
+            }
         }
 
         return $this->response([
