@@ -35,7 +35,7 @@ class PlacesSearch extends Place
             ])
             ->orderBy('position ASC')
             //->orderBy(new Expression('position ASC, coalesce(places.sort_title, places.title) ASC'))
-            ->limit(20)
+            //->limit(50)
             ->all();
     }
 
