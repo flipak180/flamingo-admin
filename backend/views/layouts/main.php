@@ -36,13 +36,17 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Статьи', 'url' => ['/articles/index']],
-        //['label' => 'События', 'url' => ['/events/index']],
         ['label' => 'Места', 'items' => CategoriesSearch::getMenuItems()],
-        ['label' => 'Квесты', 'url' => ['/quests/index']],
-        ['label' => 'Подборки', 'url' => ['/compilations/index']],
-        ['label' => 'Категории', 'url' => ['/categories/index']],
-        ['label' => 'Теги', 'url' => ['/tags/index']],
+        ['label' => 'Контент', 'items' => [
+            ['label' => 'Статьи', 'url' => ['/articles/index']],
+            //['label' => 'События', 'url' => ['/events/index']],
+            ['label' => 'Квесты', 'url' => ['/quests/index']],
+            ['label' => 'Подборки', 'url' => ['/compilations/index']],
+        ]],
+        ['label' => 'Справочники', 'items' => [
+            ['label' => 'Категории', 'url' => ['/categories/index']],
+            ['label' => 'Теги', 'url' => ['/tags/index']],
+        ]],
         ['label' => 'Пользователи', 'url' => ['/users/index']],
         ['label' => 'Тикеты', 'url' => ['/tickets/index']],
         ['label' => 'Истории', 'url' => ['/stories/index']],
@@ -50,6 +54,9 @@ AppAsset::register($this);
         ['label' => 'Достижения', 'items' => [
             ['label' => 'Список', 'url' => ['/achievements/index']],
             ['label' => 'Категории', 'url' => ['/achievement-categories/index']],
+        ]],
+        ['label' => 'Интерактив', 'items' => [
+            ['label' => 'Глазами Петра', 'url' => ['/peters-eyes/index']],
         ]],
     ];
     if (Yii::$app->user->isGuest) {
