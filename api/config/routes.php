@@ -73,4 +73,7 @@ return [
     'POST,OPTIONS user-categories/get-categories' => 'user-categories/get-categories',
     'POST,OPTIONS user-categories/save' => 'user-categories/save',
     'GET user-categories/get-all-categories' => 'user-categories/get-all-categories',
+
+    'GET peters-eyes/get-active' => 'peters-eyes/get-active',
+    'POST,OPTIONS peters-eyes/participate' => 'peters-eyes/participate',
 ];

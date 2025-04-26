@@ -139,4 +139,12 @@ class PetersEye extends \yii\db\ActiveRecord
     {
         return self::getStatusesList()[$this->status];
     }
+
+    /**
+     * @return array|\yii\db\ActiveRecord|null
+     */
+    public static function getActive()
+    {
+        return PetersEye::find()->where(['status' => PetersEye::STATUS_ACTIVE])->one();
+    }
 }
