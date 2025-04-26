@@ -38,6 +38,7 @@ class PetersEyesController extends BaseApiController
         return [
             'id' => $model->id,
             'prize' => $model->prize,
+            'image' => Yii::$app->user->id ? $model->image->path : null,
         ];
     }
 

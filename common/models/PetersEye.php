@@ -20,6 +20,7 @@ use yii\db\Expression;
  * @property string $updated_at
  *
  * @property User $winner
+ * @property ImageModel $image
  */
 class PetersEye extends \yii\db\ActiveRecord
 {
