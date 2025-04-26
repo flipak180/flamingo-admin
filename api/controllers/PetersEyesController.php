@@ -2,6 +2,7 @@
 
 namespace api\controllers;
 
+use common\components\Helper;
 use common\models\PetersEye;
 use common\models\PetersEyeUser;
 use Yii;
@@ -19,7 +20,6 @@ class PetersEyesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'except' => ['get-active'],
         ];
         return $behaviors;
     }
@@ -66,6 +66,26 @@ class PetersEyesController extends BaseApiController
         $user->peters_eye_id = $model->id;
         $user->user_id = Yii::$app->user->id;
         return $user->save();
+    }
+
+    public function actionSubmit()
+    {
+        $coordinates = Yii::$app->request->post('coordinates');
+
+        /** @var PetersEye $model */
+        $model = PetersEye::getActive();
+        if (!$model) {
+            return false;
+        }
+
+        $distance = Helper::getDistance($coordinates, $model->coords);
+        if ($distance > 500) {
+            return false;
+        }
+
+        $model->winner_id = Yii::$app->user->id;
+        $model->win_at = date('Y-m-d H:i:s');
+        return $model->save();
     }
 
 }

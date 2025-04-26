@@ -2,6 +2,8 @@
 
 namespace common\components;
 
+use Yii;
+
 class Helper
 {
 
@@ -67,4 +69,25 @@ class Helper
         return date('Y-m-d H:i:s', $timestamp);
     }
 
+    /**
+     * @param $coords1
+     * @param $coords2
+     * @return float
+     * @throws \yii\db\Exception
+     */
+    public static function getDistance($coords1, $coords2)
+    {
+        Yii::info(gettype($coords1));
+        Yii::info(gettype($coords2));
+        $coords1 = new Coordinates($coords1);
+        $coords2 = new Coordinates($coords2);
+        return (float) Yii::$app->db->createCommand("
+            SELECT ST_DistanceSphere(ST_MakePoint(:lng1, :lat1),ST_MakePoint(:lng2, :lat2));
+        ")
+            ->bindValue(':lng1', (float) $coords1->longitude)
+            ->bindValue(':lat1', (float) $coords1->latitude)
+            ->bindValue(':lng2', (float) $coords2->longitude)
+            ->bindValue(':lat2', (float) $coords2->latitude)
+            ->queryScalar();
+    }
 }

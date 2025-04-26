@@ -76,4 +76,5 @@ return [
 
     'POST,OPTIONS peters-eyes/get-active' => 'peters-eyes/get-active',
     'POST,OPTIONS peters-eyes/participate' => 'peters-eyes/participate',
+    'POST,OPTIONS peters-eyes/submit' => 'peters-eyes/submit',
 ];
