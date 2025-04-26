@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var common\models\PetersEye $model */
+/** @var \common\models\PetersEyes\PetersEye $model */
 
 $this->title = 'Добавление игры';
 $this->params['breadcrumbs'][] = ['label' => 'Глазами Петра', 'url' => ['index']];

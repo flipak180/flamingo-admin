@@ -2,15 +2,16 @@
 
 namespace api\controllers;
 
-use common\components\Helper;
-use common\models\PetersEye;
-use common\models\PetersEyeUser;
+use api\models\PetersEyes\PetersEyeApiItem;
+use common\models\PetersEyes\PetersEye;
+use common\models\PetersEyes\PetersEyeService;
 use Yii;
+use yii\db\Exception;
 use yii\filters\auth\HttpBearerAuth;
 
 class PetersEyesController extends BaseApiController
 {
-    public $modelClass = 'common\models\PetersEye';
+    public $modelClass = 'common\models\PetersEyes\PetersEye';
 
     /**
      * @return array
@@ -26,6 +27,9 @@ class PetersEyesController extends BaseApiController
 
     /**
      * @return array|null
+     * @throws \himiklab\thumbnail\FileNotFoundException
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\httpclient\Exception
      */
     public function actionGetActive()
     {
@@ -35,58 +39,26 @@ class PetersEyesController extends BaseApiController
             return null;
         }
 
-        return [
-            'id' => $model->id,
-            'prize' => $model->prize,
-            'image' => Yii::$app->user->id ? $model->image->path : null,
-        ];
+        return PetersEyeApiItem::from($model);
     }
 
     /**
      * @return bool
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
     public function actionParticipate()
     {
-        /** @var PetersEye $model */
-        $model = PetersEye::getActive();
-        if (!$model) {
-            return false;
-        }
-
-        $existingModel = PetersEyeUser::find()->where([
-            'peters_eye_id' => $model->id,
-            'user_id' => Yii::$app->user->id,
-        ])->one();
-        if ($existingModel) {
-            return false;
-        }
-
-        $user = new PetersEyeUser();
-        $user->peters_eye_id = $model->id;
-        $user->user_id = Yii::$app->user->id;
-        return $user->save();
+        return PetersEyeService::participate();
     }
 
+    /**
+     * @return bool
+     * @throws Exception
+     */
     public function actionSubmit()
     {
         $coordinates = Yii::$app->request->post('coordinates');
-
-        /** @var PetersEye $model */
-        $model = PetersEye::getActive();
-        if (!$model) {
-            return false;
-        }
-
-        $distance = Helper::getDistance($coordinates, $model->coords);
-        Yii::info($distance);
-        if ($distance > 50) {
-            return false;
-        }
-
-        $model->winner_id = Yii::$app->user->id;
-        $model->win_at = date('Y-m-d H:i:s');
-        return $model->save();
+        return PetersEyeService::submit($coordinates);
     }
 
 }

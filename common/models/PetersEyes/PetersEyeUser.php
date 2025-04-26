@@ -1,8 +1,8 @@
 <?php
 
-namespace common\models;
+namespace common\models\PetersEyes;
 
-use Yii;
+use common\models\User;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 

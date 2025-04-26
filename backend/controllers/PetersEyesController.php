@@ -2,12 +2,11 @@
 
 namespace backend\controllers;
 
-use common\models\PetersEye;
 use backend\models\PetersEyesSearch;
+use common\models\PetersEyes\PetersEye;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * PetersEyesController implements the CRUD actions for PetersEye model.

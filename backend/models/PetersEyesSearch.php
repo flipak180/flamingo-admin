@@ -2,9 +2,9 @@
 
 namespace backend\models;
 
+use common\models\PetersEyes\PetersEye;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\PetersEye;
 
 /**
  * PetersEyesSearch represents the model behind the search form of `common\models\PetersEye`.

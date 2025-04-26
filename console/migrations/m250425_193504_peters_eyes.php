@@ -15,6 +15,7 @@ class m250425_193504_peters_eyes extends Migration
         $this->createTable('peters_eyes', [
             'id' => $this->primaryKey(),
             'coords' => 'geography',
+            'radius' => $this->integer(),
             'prize' => $this->integer(),
             'winner_id' => $this->integer(),
             'win_at' => $this->timestamp(),

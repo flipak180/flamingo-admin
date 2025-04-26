@@ -1,8 +1,10 @@
 <?php
 
-namespace common\models;
+namespace common\models\PetersEyes;
 
 use common\behaviors\ImageBehavior;
+use common\models\ImageModel;
+use common\models\User;
 use nanson\postgis\behaviors\GeometryBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
@@ -12,6 +14,7 @@ use yii\db\Expression;
  *
  * @property int $id
  * @property string|null $coords
+ * @property int|null $radius
  * @property int|null $prize
  * @property int|null $winner_id
  * @property string|null $win_at
@@ -26,6 +29,7 @@ class PetersEye extends \yii\db\ActiveRecord
 {
     const STATUS_ACTIVE = 1;
     const STATUS_INACTIVE = 2;
+    const DEFAULT_RADIUS = 30;
 
     public $image_field;
     public $coords_field;
@@ -66,8 +70,8 @@ class PetersEye extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['prize', 'winner_id', 'status'], 'default', 'value' => null],
-            [['prize', 'winner_id', 'status'], 'integer'],
+            [['prize', 'radius', 'winner_id', 'status'], 'default', 'value' => null],
+            [['prize', 'radius', 'winner_id', 'status'], 'integer'],
             [['image_field'], 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'webp'], 'maxSize' => 1024*1024*10],
             [['win_at', 'coords_field'], 'safe'],
         ];
@@ -80,6 +84,9 @@ class PetersEye extends \yii\db\ActiveRecord
     {
         if ($this->coords_field) {
             $this->coords = array_map('trim', explode(',', $this->coords_field));
+        }
+        if (!$this->radius) {
+            $this->radius = self::DEFAULT_RADIUS;
         }
         return parent::beforeValidate();
     }
@@ -104,6 +111,7 @@ class PetersEye extends \yii\db\ActiveRecord
             'id' => 'ID',
             'coords' => 'Координаты',
             'coords_field' => 'Координаты',
+            'radius' => 'Радиус',
             'prize' => 'Приз',
             'image_field' => 'Изображение',
             'winner_id' => 'Победитель',
