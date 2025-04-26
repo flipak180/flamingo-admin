@@ -79,7 +79,8 @@ class PetersEyesController extends BaseApiController
         }
 
         $distance = Helper::getDistance($coordinates, $model->coords);
-        if ($distance > 500) {
+        Yii::info($distance);
+        if ($distance > 50) {
             return false;
         }
 
