@@ -27,9 +27,6 @@ class PetersEyesController extends BaseApiController
 
     /**
      * @return array|null
-     * @throws \himiklab\thumbnail\FileNotFoundException
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\httpclient\Exception
      */
     public function actionGetActive()
     {
