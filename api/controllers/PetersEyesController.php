@@ -31,7 +31,7 @@ class PetersEyesController extends BaseApiController
     public function actionGetActive()
     {
         /** @var PetersEye $model */
-        $model = PetersEye::getActive();
+        $model = PetersEye::getCurrent();
         if (!$model) {
             return null;
         }
@@ -40,22 +40,36 @@ class PetersEyesController extends BaseApiController
     }
 
     /**
-     * @return bool
+     * @return array|null
      * @throws Exception
      */
     public function actionParticipate()
     {
-        return PetersEyeService::participate();
+        /** @var PetersEye $model */
+        $model = PetersEye::getCurrent();
+        if (!$model) {
+            return null;
+        }
+
+        (new PetersEyeService($model))->participate();
+        return PetersEyeApiItem::from($model);
     }
 
     /**
-     * @return bool
+     * @return array|null
      * @throws Exception
      */
     public function actionSubmit()
     {
+        /** @var PetersEye $model */
+        $model = PetersEye::getCurrent();
+        if (!$model) {
+            return null;
+        }
+
         $coordinates = Yii::$app->request->post('coordinates');
-        return PetersEyeService::submit($coordinates);
+        (new PetersEyeService($model))->submit($coordinates);
+        return PetersEyeApiItem::from($model);
     }
 
 }

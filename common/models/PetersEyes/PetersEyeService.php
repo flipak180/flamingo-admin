@@ -7,6 +7,12 @@ use Yii;
 
 class PetersEyeService
 {
+    private PetersEye $model;
+
+    public function __construct($model)
+    {
+        $this->model = $model;
+    }
 
     const STATUS_NOT_PARTICIPATE = 1;
     const STATUS_PARTICIPATE = 2;
@@ -17,16 +23,10 @@ class PetersEyeService
      * @return string|null
      * @throws \yii\db\Exception
      */
-    public static function participate()
+    public function participate()
     {
-        /** @var PetersEye $model */
-        $model = PetersEye::getActive();
-        if (!$model) {
-            return null;
-        }
-
         $existingModel = PetersEyeUser::find()->where([
-            'peters_eye_id' => $model->id,
+            'peters_eye_id' => $this->model->id,
             'user_id' => Yii::$app->user->id,
         ])->one();
         if ($existingModel) {
@@ -34,9 +34,9 @@ class PetersEyeService
         }
 
         $user = new PetersEyeUser();
-        $user->peters_eye_id = $model->id;
+        $user->peters_eye_id = $this->model->id;
         $user->user_id = Yii::$app->user->id;
-        return $user->save() ? $model->image->path : null;
+        return $user->save() ? $this->model->image->path : null;
     }
 
     /**
@@ -44,52 +44,30 @@ class PetersEyeService
      * @return bool
      * @throws \yii\db\Exception
      */
-    public static function submit($coordinates)
+    public function submit($coordinates)
     {
-        /** @var PetersEye $model */
-        $model = PetersEye::getActive();
-        if (!$model) {
+        $distance = Helper::getDistance($coordinates, $this->model->coords);
+        if ($distance > $this->model->radius) {
             return false;
         }
 
-        $distance = Helper::getDistance($coordinates, $model->coords);
-        Yii::info($distance);
-        if ($distance > $model->radius) {
-            return false;
-        }
-
-        $model->winner_id = Yii::$app->user->id;
-        $model->win_at = date('Y-m-d H:i:s');
-        return $model->save();
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function getStatusesList()
-    {
-        return [
-            self::STATUS_NOT_PARTICIPATE => 'Вы не участвуете',
-            self::STATUS_PARTICIPATE => 'Вы участвуете',
-            self::STATUS_WINNER => 'Вы победитель',
-            self::STATUS_NOT_WINNER => 'Повезет в другой раз',
-        ];
+        $this->model->winner_id = Yii::$app->user->id;
+        $this->model->win_at = date('Y-m-d H:i:s');
+        return $this->model->save();
     }
 
     /**
      * @return int|void
      */
-    public static function getUserStatus()
+    public function getUserStatus()
     {
-        /** @var PetersEye $model */
-        $model = PetersEye::getActive();
-        if (!$model) {
+        if (!$this->model) {
             return self::STATUS_NOT_PARTICIPATE;
         }
 
         $isParticipate = PetersEyeUser::find()
             ->where([
-                'peters_eye_id' => $model->id,
+                'peters_eye_id' => $this->model->id,
                 'user_id' => Yii::$app->user->id
             ])
             ->exists();
@@ -97,10 +75,10 @@ class PetersEyeService
             return self::STATUS_NOT_PARTICIPATE;
         }
 
-        if ($model->winner_id && $model->winner_id == Yii::$app->user->id) {
+        if ($this->model->winner_id && $this->model->winner_id == Yii::$app->user->id) {
             return self::STATUS_WINNER;
         }
-        if ($model->winner_id && $model->winner_id != Yii::$app->user->id) {
+        if ($this->model->winner_id && $this->model->winner_id != Yii::$app->user->id) {
             return self::STATUS_NOT_WINNER;
         }
     }
