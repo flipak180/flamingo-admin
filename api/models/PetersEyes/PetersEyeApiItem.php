@@ -4,7 +4,7 @@ namespace api\models\PetersEyes;
 
 use api\models\ApiItem;
 use common\models\PetersEyes\PetersEye;
-use Yii;
+use common\models\PetersEyes\PetersEyeService;
 
 class PetersEyeApiItem implements ApiItem
 {
@@ -19,7 +19,8 @@ class PetersEyeApiItem implements ApiItem
         return [
             'id' => $model->id,
             'prize' => $model->prize,
-            'image' => Yii::$app->user->id ? $model->image->path : null,
+            'status' => PetersEyeService::getUserStatus(),
+            'image' => $model->image->path,
         ];
     }
 }
