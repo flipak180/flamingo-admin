@@ -2,7 +2,10 @@
 
 namespace api\models;
 
-use api\models\PetersEyes\PetersEyeApiItem;
+use chillerlan\QRCode\Data\QRMatrix;
+use chillerlan\QRCode\Output\QRMarkupSVG;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 use common\components\Helper;
 use common\models\PetersEyes\PetersEye;
 use common\models\PetersEyes\PetersEyeUser;
@@ -25,13 +28,13 @@ class PetersEyeApiService
     }
 
     /**
-     * @return string|null
+     * @return array|null
      * @throws \yii\db\Exception
      */
     public function participate()
     {
         if ($this->user) {
-            return null;
+            return $this->getResponse();
         }
 
         $user = new PetersEyeUser();
@@ -39,12 +42,12 @@ class PetersEyeApiService
         $user->user_id = Yii::$app->user->id;
         $user->save();
 
-        return PetersEyeApiItem::from($this->model);
+        return $this->getResponse();
     }
 
     /**
      * @param $coordinates
-     * @return bool
+     * @return array
      * @throws \yii\db\Exception
      */
     public function submit($coordinates)
@@ -61,7 +64,7 @@ class PetersEyeApiService
         $this->user->is_winner = true;
         $this->user->save();
 
-        return true;
+        return $this->getResponse();
     }
 
     /**
@@ -84,7 +87,7 @@ class PetersEyeApiService
     }
 
     /**
-     * @return void
+     * @return array
      * @throws \Throwable
      * @throws \yii\db\Exception
      * @throws \yii\db\StaleObjectException
@@ -98,6 +101,8 @@ class PetersEyeApiService
         $this->model->winner_id = null;
         $this->model->win_at = null;
         $this->model->save();
+
+        return $this->getResponse();
     }
 
     /**
@@ -121,6 +126,9 @@ class PetersEyeApiService
         return $model;
     }
 
+    /**
+     * @return array
+     */
     private function getResponse()
     {
         return [
@@ -128,7 +136,7 @@ class PetersEyeApiService
             'prize' => $this->model->prize,
             'status' => $this->getUserStatus(),
             'image' => $this->model->image->path,
-            'qr_code' => $this->model->image->path,
+            'qr_code' => $this->user?->qr_code ? (new QRCode)->render($this->user->qr_code) : null,
             'total_users' => PetersEyeUser::find()->where(['peters_eye_id' => $this->model->id])->count(),
         ];
     }

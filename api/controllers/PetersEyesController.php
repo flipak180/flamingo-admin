@@ -53,8 +53,10 @@ class PetersEyesController extends BaseApiController
     }
 
     /**
-     * @return array|null
+     * @return null
      * @throws Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionReset()
     {
