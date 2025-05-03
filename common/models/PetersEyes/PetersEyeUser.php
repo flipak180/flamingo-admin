@@ -13,6 +13,7 @@ use yii\db\Expression;
  * @property int|null $user_id
  * @property int|null $peters_eye_id
  * @property bool|null $is_winner
+ * @property string $qr_code
  * @property string $created_at
  * @property string $updated_at
  *
@@ -51,6 +52,7 @@ class PetersEyeUser extends \yii\db\ActiveRecord
             [['user_id', 'peters_eye_id'], 'default', 'value' => null],
             [['user_id', 'peters_eye_id'], 'integer'],
             [['is_winner'], 'boolean'],
+            [['qr_code'], 'string', 'max' => 255],
         ];
     }
 
@@ -64,6 +66,7 @@ class PetersEyeUser extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'peters_eye_id' => 'Peters Eye ID',
             'is_winner' => 'Is Winner',
+            'qr_code' => 'QR-code',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

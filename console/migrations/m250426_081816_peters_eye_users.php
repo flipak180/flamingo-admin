@@ -17,6 +17,7 @@ class m250426_081816_peters_eye_users extends Migration
             'user_id' => $this->integer(),
             'peters_eye_id' => $this->integer(),
             'is_winner' => $this->boolean(),
+            'qr_code' => $this->string(),
             'created_at' => $this->timestamp()->notNull(),
             'updated_at' => $this->timestamp()->notNull(),
         ]);
