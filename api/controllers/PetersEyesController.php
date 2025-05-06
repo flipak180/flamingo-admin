@@ -3,8 +3,6 @@
 namespace api\controllers;
 
 use api\models\PetersEyeApiService;
-use api\models\PetersEyes\PetersEyeApiItem;
-use common\models\PetersEyes\PetersEye;
 use Yii;
 use yii\db\Exception;
 use yii\filters\auth\HttpBearerAuth;
@@ -21,6 +19,7 @@ class PetersEyesController extends BaseApiController
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
+            'optional' => ['get-active'],
         ];
         return $behaviors;
     }

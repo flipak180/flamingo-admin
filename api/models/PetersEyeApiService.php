@@ -2,10 +2,7 @@
 
 namespace api\models;
 
-use chillerlan\QRCode\Data\QRMatrix;
-use chillerlan\QRCode\Output\QRMarkupSVG;
 use chillerlan\QRCode\QRCode;
-use chillerlan\QRCode\QROptions;
 use common\components\Helper;
 use common\models\PetersEyes\PetersEye;
 use common\models\PetersEyes\PetersEyeUser;
@@ -40,7 +37,9 @@ class PetersEyeApiService
         $user = new PetersEyeUser();
         $user->peters_eye_id = $this->model->id;
         $user->user_id = Yii::$app->user->id;
-        $user->save();
+        if ($user->save()) {
+            $this->user = $user;
+        }
 
         return $this->getResponse();
     }
@@ -53,9 +52,9 @@ class PetersEyeApiService
     public function submit($coordinates)
     {
         $distance = Helper::getDistance($coordinates, $this->model->coords);
-//        if ($distance > $this->model->radius || $this->model->winner_id) {
-//            return false;
-//        }
+        if ($distance > $this->model->radius || $this->model->winner_id) {
+            return $this->getResponse();
+        }
 
         $this->model->winner_id = Yii::$app->user->id;
         $this->model->win_at = date('Y-m-d H:i:s');
