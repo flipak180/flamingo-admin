@@ -44,4 +44,12 @@ class SystemController extends BaseApiController
         return Telegram::sendNotification($text);
     }
 
+    /**
+     * @return string
+     */
+    public function actionPing()
+    {
+        return 'pong';
+    }
+
 }

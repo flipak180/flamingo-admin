@@ -7,6 +7,7 @@ return [
     'POST,OPTIONS send-code' => 'system/send-code',
     'POST,OPTIONS sms-status' => 'system/sms-status',
     'POST,OPTIONS notify' => 'system/notify',
+    'POST,OPTIONS ping' => 'system/ping',
 
     'GET stories/list' => 'stories/list',
 

@@ -33,8 +33,8 @@ class SmsComponent extends Component
             ->setData([
                 //'route' => 'tgauth',
                 //'route' => 'pushok',
-                'route' => 'fcall,voice,tgauth,vk,sms',
-                //'route' => 'sms',
+                //'route' => 'fcall,voice,tgauth,vk,sms',
+                'route' => 'sms',
                 //'from' => self::SENDER_NAME,
                 'to' => $phone,
                 //'text' => 'phone'
