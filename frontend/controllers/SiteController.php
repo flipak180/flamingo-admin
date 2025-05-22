@@ -265,4 +265,12 @@ class SiteController extends Controller
     {
         return $this->renderPartial('privacy');
     }
+
+    /**
+     * @return string
+     */
+    public function actionPrivacy2()
+    {
+        return $this->renderPartial('privacy2');
+    }
 }
