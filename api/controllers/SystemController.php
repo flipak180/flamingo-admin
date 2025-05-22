@@ -49,8 +49,6 @@ class SystemController extends BaseApiController
      */
     public function actionPing()
     {
-        $data = Yii::$app->request->post('data');
-        Yii::info(json_encode($data));
         return 'pong';
     }
 
