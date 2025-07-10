@@ -5,7 +5,7 @@
 $this->title = 'My Yii Application';
 ?>
 
-<script src="https://mkl-lab.store:3010/widgets" rel="preload"></script>
+<script src="https://flamingo.spb.ru/proxy/proxy.php?path=/widgets" rel="preload" as="script"></script>
 <div id="rnova-a_form"></div>
 
 <!--<div class="site-index">-->
