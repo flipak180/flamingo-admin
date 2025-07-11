@@ -290,5 +290,5 @@ function mimeByExt($ext) {
         'zip' => 'application/zip',
     ];
 
-    return $mime_map[$ext] ?? 'text/plain';
+    return $mime_map[$ext] ?? 'text/javascript';
 }
