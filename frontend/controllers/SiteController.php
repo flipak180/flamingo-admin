@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use common\components\Telegram;
 use common\models\LoginForm;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -264,5 +265,13 @@ class SiteController extends Controller
     public function actionPrivacy()
     {
         return $this->renderPartial('privacy');
+    }
+
+    /**
+     * @return string
+     */
+    public function actionKatok()
+    {
+        return Telegram::katok();
     }
 }
